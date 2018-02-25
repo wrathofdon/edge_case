@@ -1,3 +1,7 @@
+* {
+  font-family: sans-serif;
+}
+
 body {
   background-color: gray;
 }
@@ -29,7 +33,14 @@ img {
 }
 
 .button {
+  color: darkred;
+  background-color: lightgray;
   display: block;
+  font-weight: bold;
+  border: 5px solid black;
+  padding: 10px;
+  margin: 10px;
+  text-align: center;
 }
 
 .button-hidden {
