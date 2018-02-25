@@ -1,0 +1,634 @@
+﻿immigrationroad.com/green-card/immigration-flowchart-roadmap-to-green-card.pdf
+
+http://www.legaltechdesign.com/visualawlibrary/wp-content/uploads/2014/12/Evidence-FLowchart-can-you-bring-in-past-statements-YOU-WANT-TO-BRING-IN-PAST-STATEMENTS.png
+
+===START
+
+
+===Inconsistent
+
+===Inconsistent.Impeach
+
+===Inconsistent.Impeach.GoodFaith
+
+===Inconsistent.NoImpeach
+
+===Inconsistent.NoImpeach.Subtance
+
+===Inconsistent.NoImpeach.Substance.Oath
+
+===Inconsistent.NoImpeach.Substance.Oath.Deposition
+
+===Consistent
+
+===Consistent.Past
+
+===Consistent.Past.RebutRecent
+
+===Consistent.Past.RebutRecent.Tome
+
+===Consistent.Past.RebutRecent.CX
+
+===Consistent.NotPast
+
+===Consistent.NotPast.ID
+
+===Consistent.NotPast.ID.Person
+
+===Consistent.NotPast.NoID
+
+===Consistent.NotPast.NoID.Past
+
+===Consistent.NotPast.NoID.NotPast
+
+===Consistent.NotPast.NoID.NotPast.RefreshWitness
+
+===Consistent.NotPast.NoID.NotPast.RefreshWitness.OnStand
+
+===Consistent.NotPast.NoID.NotPast.NotRefreshWitness.PastRecorded
+
+===Consistent.NotPast.NoID.NotPast.NotRefreshWitness.PastRecorded.Fresh
+
+===GoAhead
+
+===DontDoIt
+
+
+
+
+   ===START
+
+You want to bring in past statements
+But can you?
+Let's see...
+Is it a past inconsistent statement?
+
++ Yes
++ No
+
+
+   ===Inconsistent
+
+Are you bringing in to impeach?
+
++ Yes
++ No
+
+
+   ===Inconsistent.Impeach
+
+Has the  person you want to impeach testified?
+
++ Yes
++ No
+
+   ===Inconsistent.Impeach.Testified
+
+Do you have a good faith belief that this person made this statement?
+
++ Yes
++ No
+
+
+   ===Inconsistent.NoImpeach
+
+Are you bringing it in to prove something of substance?
+
++ Yes
++ No
+
+
+   ===Inconsistent.NoImpeach.Subtance
+
+Was the statement given under oath?
+
++ Yes
++ No
+
+
+   ===Inconsistent.NoImpeach.Substance.Oath
+
+Was the statement at a preceding or deposition?
+
++ Yes
++ No
+
+
+   ===Inconsistent.NoImpeach.Substance.CX?
+
+Did the Declarant testify & was subject to cross-examination?
+
++ Yes
++ No
+
+   ===Consistent
+
+Is it a past consistent statement?
+
++ Yes
++ No
+
+
+   ===Consistent.Past
+
+Is it being offered to rebut a charge of recent fabrication or improper motive?
+
++ Yes
++ No
+
+   ===Consistent.Past.RebutRecent
+
+Does it meet the tome rule?
+
++ Yes
++ No
+
+
+   ===Consistent.NotPast
+
+Is it a statement of identification?
+
++ Yes
++ No
+
+   ===Consistent.NotPast.ID
+
+Does it identify a person?
+
++ Yes
++ No
+
+
+   ===Consistent.NotPast.ID.Person
+
+Was it made after the the declarant perceived the statement?
+
++ Yes
++ No
+
+
+   ===Consistent.NotPast.NoID
+
+Is it past testimony?
+
++ Yes
++ No
+
+
+   ===Consistent.NotPast.NoID.Past
+
+Is declarant unavailable to testify?
+
++ Yes
++ No
+
+
+   ===Consistent.NotPast.NoID.NotPast
+
+Is it being used to refresh the witness testimony?
+
++ Yes
++ No
+
+
+   ===Consistent.NotPast.NoID.NotPast.RefreshWitness
+
+Is the witness on stand?
+
++ Yes
++ No
+
+
+   ===Consistent.NotPast.NoID.NotPast.RefreshWitness.OnStand
+
+Is the witness memory exhausted?
+
++ Yes
++ No
+
+
+   ===Consistent.NotPast.NoID.NotPast.NotRefreshWitness
+
+Is it a past recorded recollection?
+
++ Yes
++ No
+
+
+   ===Consistent.NotPast.NoID.NotPast.NotRefreshWitness.PastRecorded
+
+Is it a record that was made when the witness memory was fresh?
+
++ Yes
++ No
+
+
+   ===Consistent.NotPast.NoID.NotPast.NotRefreshWitness.PastRecorded.Fresh
+
+Is the witness on stand?
+
++ Yes
++ No
+
+
+   ===GoAhead
+
+Go for is, sounds admissible!
+
++ Summary 
+
+
+   ===DontDoIt
+
+Then no go, not admissible!
+
++ Summary
+
+
+
+
+
+   ===START
+
+You want to bring in past statements
+But can you?
+Let's see...
+Is it a past inconsistent statement?
+
++ Yes -> Inconsistent
++ No -> Consistent
+
+
+   ===Inconsistent
+
+Are you bringing in to impeach?
+
++ Yes -> Inconsistent.Impeach
++ No -> Inconsistent.NoImpeach
+
+
+   ===Inconsistent.Impeach
+
+Has the person you want to impeach testified?
+
++ Yes -> Inconsistent.Impeach.Testified
++ No -> DontDoIt
+
+   ===Inconsistent.Impeach.Testified
+
+Do you have a good faith belief that this person made this statement?
+
++ Yes -> GoAhead
++ No -> DontDoIt
+
+
+   ===Inconsistent.NoImpeach
+
+Are you bringing it in to prove something of substance?
+
++ Yes -> Inconsistent.NoImpeach.Subtance
++ No -> DontDoIt
+
+
+   ===Inconsistent.NoImpeach.Subtance
+
+Was the statement given under oath?
+
++ Yes -> Inconsistent.NoImpeach.Substance.Oath
++ No -> DontDoIt
+
+
+   ===Inconsistent.NoImpeach.Substance.Oath
+
+Was the statement at a preceding or deposition?
+
++ Yes -> Inconsistent.NoImpeach.Substance.CX?
++ No -> DontDoIt
+
+
+   ===Inconsistent.NoImpeach.Substance.CX?
+
+Did the Declarant testify & was subject to cross-examination?
+
++ Yes -> GoAhead
++ No -> DontDoIt
+
+   ===Consistent
+
+Is it a past consistent statement?
+
++ Yes ->  Consistent.Past
++ No -> Consistent.NotPast
+
+
+   ===Consistent.Past
+
+Is it being offered to rebut a charge of recent fabrication or improper motive?
+
++ Yes -> Consistent.Past.RebutRecent
++ No -> DontDoIt
+
+   ===Consistent.Past.RebutRecent
+
+Does it meet the tome rule?
+
++ Yes -> Inconsistent.NoImpeach.Substance.CX?
++ No -> DontDoIt
+
+
+   ===Consistent.NotPast
+
+Is it a statement of identification?
+
++ Yes -> Consistent.NotPast.ID
++ No -> Consistent.NotPast.NoID
+
+   ===Consistent.NotPast.ID
+
+Does it identify a person?
+
++ Yes -> Consistent.NotPast.ID.Person
++ No -> DontDoIt
+
+
+   ===Consistent.NotPast.ID.Person
+
+Was it made after the the declarant perceived the statement?
+
++ Yes ->  Inconsistent.NoImpeach.Substance.CX?
++ No -> DontDoIt
+
+
+   ===Consistent.NotPast.NoID
+
+Is it past testimony?
+
++ Yes -> Consistent.NotPast.NoID.Past
++ No -> Consistent.NotPast.NoID.NotPast
+
+
+   ===Consistent.NotPast.NoID.Past
+
+Is declarant unavailable to testify?
+
++ Yes -> Inconsistent.NoImpeach.Subtance
++ No -> DontDoIt
+
+
+   ===Consistent.NotPast.NoID.NotPast
+
+Is it being used to refresh the witness testimony?
+
++ Yes -> Consistent.NotPast.NoID.NotPast.Available?
++ No -> Consistent.NotPast.NoID.NotPast.NotRefreshWitness
+
+
+   ===Consistent.NotPast.NoID.NotPast.Available?
+
+Is the witness on stand?
+
++ Yes -> Consistent.NotPast.NoID.NotPast.RefreshWitness.OnStand
++ No -> DontDoIt
+
+
+   ===Consistent.NotPast.NoID.NotPast.RefreshWitness.OnStand
+
+Is the witness memory exhausted?
+
++ Yes -> GoAhead
++ No -> DontDoIt
+
+
+   ===Consistent.NotPast.NoID.NotPast.NotRefreshWitness
+
+Is it a past recorded recollection?
+
++ Yes -> Consistent.NotPast.NoID.NotPast.NotRefreshWitness.PastRecorded
++ No -> DontDoIt
+
+
+   ===Consistent.NotPast.NoID.NotPast.NotRefreshWitness.PastRecorded
+
+Is it a record that was made when the witness memory was fresh?
+
++ Yes
++ No
+
+
+   ===Consistent.NotPast.NoID.NotPast.NotRefreshWitness.PastRecorded.Fresh
+
+Does it reflect a witness knowledge correctly?
+
++ Yes -> Consistent.NotPast.NoID.NotPast.RefreshWitness.OnStand
++ No -> DontDoIt
+
+
+   ===GoAhead
+
+Go for is, sounds admissible!
+
++ Summary -> END
+
+
+   ===DontDoIt
+
+Then no go, not admissible!
+
++ Summary -> END
+
+
+
+
+
+
+
+
+   ===START
+
+You want to bring in past statements
+But can you?
+Let's see...
+Is it a past inconsistent statement?
+
++ Yes -> Inconsistent
+## It is a past inconsistent statement.
++ No -> Consistent
+## It is not a past inconsistent statement.
+
+
+   ===Inconsistent
+
+Are you bringing in to impeach?
+
++ Yes -> Inconsistent.Impeach
++ No -> Inconsistent.NoImpeach
+
+
+   ===Inconsistent.Impeach
+
+Has the person you want to impeach testified?
+
++ Yes -> Inconsistent.Impeach.Testified
++ No -> DontDoIt
+
+   ===Inconsistent.Impeach.Testified
+
+Do you have a good faith belief that this person made this statement?
+
++ Yes -> GoAhead
++ No -> DontDoIt
+
+
+   ===Inconsistent.NoImpeach
+
+Are you bringing it in to prove something of substance?
+
++ Yes -> Inconsistent.NoImpeach.Subtance
++ No -> DontDoIt
+
+
+   ===Inconsistent.NoImpeach.Subtance
+
+Was the statement given under oath?
+
++ Yes -> Inconsistent.NoImpeach.Substance.Oath
++ No -> DontDoIt
+
+
+   ===Inconsistent.NoImpeach.Substance.Oath
+
+Was the statement at a preceding or deposition?
+
++ Yes -> Inconsistent.NoImpeach.Substance.CX?
++ No -> DontDoIt
+
+
+   ===Inconsistent.NoImpeach.Substance.CX?
+
+Did the Declarant testify & was subject to cross-examination?
+
++ Yes -> GoAhead
++ No -> DontDoIt
+
+   ===Consistent
+
+Is it a past consistent statement?
+
++ Yes ->  Consistent.Past
++ No -> Consistent.NotPast
+
+
+   ===Consistent.Past
+
+Is it being offered to rebut a charge of recent fabrication or improper motive?
+
++ Yes -> Consistent.Past.RebutRecent
++ No -> DontDoIt
+
+   ===Consistent.Past.RebutRecent
+
+Does it meet the tome rule?
+
++ Yes -> Inconsistent.NoImpeach.Substance.CX?
++ No -> DontDoIt
+
+
+   ===Consistent.NotPast
+
+Is it a statement of identification?
+
++ Yes -> Consistent.NotPast.ID
++ No -> Consistent.NotPast.NoID
+
+   ===Consistent.NotPast.ID
+
+Does it identify a person?
+
++ Yes -> Consistent.NotPast.ID.Person
++ No -> DontDoIt
+
+
+   ===Consistent.NotPast.ID.Person
+
+Was it made after the the declarant perceived the statement?
+
++ Yes ->  Inconsistent.NoImpeach.Substance.CX?
++ No -> DontDoIt
+
+
+   ===Consistent.NotPast.NoID
+
+Is it past testimony?
+
++ Yes -> Consistent.NotPast.NoID.Past
++ No -> Consistent.NotPast.NoID.NotPast
+
+
+   ===Consistent.NotPast.NoID.Past
+
+Is declarant unavailable to testify?
+
++ Yes -> Inconsistent.NoImpeach.Subtance
++ No -> DontDoIt
+
+
+   ===Consistent.NotPast.NoID.NotPast
+
+Is it being used to refresh the witness testimony?
+
++ Yes -> Consistent.NotPast.NoID.NotPast.Available?
++ No -> Consistent.NotPast.NoID.NotPast.NotRefreshWitness
+
+
+   ===Consistent.NotPast.NoID.NotPast.Available?
+
+Is the witness on stand?
+
++ Yes -> Consistent.NotPast.NoID.NotPast.RefreshWitness.OnStand
++ No -> DontDoIt
+
+
+   ===Consistent.NotPast.NoID.NotPast.RefreshWitness.OnStand
+
+Is the witness memory exhausted?
+
++ Yes -> GoAhead
++ No -> DontDoIt
+
+
+   ===Consistent.NotPast.NoID.NotPast.NotRefreshWitness
+
+Is it a past recorded recollection?
+
++ Yes -> Consistent.NotPast.NoID.NotPast.NotRefreshWitness.PastRecorded
++ No -> DontDoIt
+
+
+   ===Consistent.NotPast.NoID.NotPast.NotRefreshWitness.PastRecorded
+
+Is it a record that was made when the witness memory was fresh?
+
++ Yes
++ No
+
+
+   ===Consistent.NotPast.NoID.NotPast.NotRefreshWitness.PastRecorded.Fresh
+
+Does it reflect a witness knowledge correctly?
+
++ Yes -> Consistent.NotPast.NoID.NotPast.RefreshWitness.OnStand
++ No -> DontDoIt
+
+
+   ===GoAhead
+
+Go for is, sounds admissible!
+
++ Summary -> END
+
+
+   ===DontDoIt
+
+Then no go, not admissible!
+
++ Summary -> END

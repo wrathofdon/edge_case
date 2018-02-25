@@ -58,6 +58,9 @@ function addSlide (id) {
 }
 
 function goTo (title) {
+  while(slideHistory.indexOf(title) > -1) {
+    goBack();
+  }
   if (slideHistory.length > 0) slides[slideHistory[slideHistory.length - 1]].hideButtons();
   slides[title].createSlide();
   slideHistory.push(title);
@@ -72,11 +75,21 @@ function clearSlide(title) {
 
 function printSummary(){
   var end = document.getElementById('END');
-  console.log(outputLog);
   for (var i = 0; i < outputLog.length; i++) {
     if (outputLog[i]) {
       slides['END'].addHTML('<br>' + outputLog[i] + '<br>')
     }
+  }
+}
+
+function goBack() {
+  if (slideHistory.length > 1) {
+    let title = slideHistory.pop();
+    clearSlide(title);
+    title = slideHistory.pop();
+    clearSlide(title);
+    goTo(title);
+    $('.button').click(runButtonScript);
   }
 }
 
@@ -89,13 +102,6 @@ function startSlideShow() {
   $('.button').click(runButtonScript);
 
   $('#GoBack').click(function() {
-    if (slideHistory.length > 1) {
-      let title = slideHistory.pop();
-      clearSlide(title);
-      title = slideHistory.pop();
-      clearSlide(title);
-      goTo(title);
-      $('.button').click(runButtonScript);
-    }
+    goBack();
   });
 }
