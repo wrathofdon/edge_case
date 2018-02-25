@@ -52,7 +52,6 @@ class Slide {
   }
 }
 
-
 function addSlide (id) {
   slides[id] = new Slide(id);
   recentSlide = slides[id];
@@ -97,5 +96,6 @@ function startSlideShow() {
       clearSlide(title);
       goTo(title);
     }
+    $('.button').click(runButtonScript);
   });
 }
