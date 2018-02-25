@@ -1,6 +1,6 @@
 {
   "globals" : {
-    "rawData": true,
+    "rawText": true,
     "app": true,
     "Handlebars": true,
     "page": true,

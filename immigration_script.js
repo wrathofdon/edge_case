@@ -1,10 +1,15 @@
-var rawText = `
+rawText += `
 
-===START
+===START_IMMIGRATION
+
+// Add some awesome graphics!!
+
    Opponents of illegal immigration are fond of telling foreigners to "get in line" before coming to work in America. But what does that line actually look like, and how many years (or decades) does it take to get through? Try it yourself!
-   [img]https://thumbnails-visually.netdna-ssl.com/what-part-of-legal-immigration-dont-you-understand_50290c8272a8d.jpg[/img]
+
    Do you have family in the USA?
+
 + Yes -> FamilyInUS $$ Family in the US
+// add some awesome javascript
 + No -> NoFamily $$ No Family in the US
 
 
