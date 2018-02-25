@@ -2,9 +2,36 @@ body {
   background-color: gray;
 }
 
+img {
+  max-width: 100%;
+}
+
 #main {
   background-color: white;
   width: 700px;
   margin: auto;
   padding: 10px;
+}
+
+#GoBack {
+  background-color: white;
+  width: 700px;
+  margin: auto;
+  padding: 10px;
+}
+
+.menu {
+  display: block;
+}
+
+.menu-hidden {
+  display: none;
+}
+
+.button {
+  display: block;
+}
+
+.button-hidden {
+  display: none;
 }
