@@ -95,7 +95,7 @@ function startSlideShow() {
       title = slideHistory.pop();
       clearSlide(title);
       goTo(title);
+      $('.button').click(runButtonScript);
     }
-    $('.button').click(runButtonScript);
   });
 }

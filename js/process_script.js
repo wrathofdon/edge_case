@@ -14,9 +14,9 @@ function processText() {
 function constructSlide (title, line) {
   addSlide(title);
   let descr = '';
-  while (script[line][0].trim() !== '+'
+  while ((!script[line] || script[line][0].trim() !== '+')
       && script[line].trim().substring(0,3) !== '===' && line < limit) {
-    if (script[line].trim().substring !== '//') {
+    if (script[line] && script[line].trim().substring(0, 2) !== '//') {
       descr += '<br>' + convertText(script[line]).trim() + '<br>';
     }
     line++;
@@ -35,7 +35,8 @@ function constructButton(line) {
   var buttonText = script[line].trim().substring(1).trim();
   while (script[line + 1].trim() && script[line + 1].trim()[0] !== '+') {
     line++;
-    buttonText = buttonText + ' ' + script[line].trim();
+    if (script[line].trim().substring(0, 2) !== '//')
+      buttonText = buttonText + ' ' + script[line].trim();
   }
   var obj = {};
   var tempArray = buttonText.split('$$');
