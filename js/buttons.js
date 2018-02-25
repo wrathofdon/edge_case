@@ -37,5 +37,4 @@ function runButtonScript () {
   outputLog.push(buttons[id].finalOutput);
   eval(buttons[id].script);
   $('.button').click(runButtonScript);
-  window.scrollTo(0,document.body.scrollHeight);
 }
