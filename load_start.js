@@ -2,7 +2,7 @@ var rawText = `
 
 ===START
 
-What example would you like to cover?
+[b]What example would you like to cover?[/b]
 
 [img]https://thumbnails-visually.netdna-ssl.com/what-part-of-legal-immigration-dont-you-understand_50290c8272a8d.jpg[/img]
 
