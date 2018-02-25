@@ -1,6 +1,8 @@
 rawText += `
 ===START_PAST
 
+[img]http://www.legaltechdesign.com/visualawlibrary/wp-content/uploads/2014/12/Evidence-FLowchart-can-you-bring-in-past-statements-YOU-WANT-TO-BRING-IN-PAST-STATEMENTS.png[/img]
+
 You want to bring in past statements
 But can you?
 Let's see...
