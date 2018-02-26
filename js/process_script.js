@@ -4,7 +4,7 @@ var limit = script.length;
 
 for (let i=0; i < limit; i++) {
   if (script2[i].indexOf('// ') > -1) script2[i] = script2[i].substring(0, script2[i].indexOf('// '));
-  if (script[2][i]) script.push(script2[i].trim());
+  if (script2[i]) script.push(script2[i].trim());
 }
 
 function processText() {
