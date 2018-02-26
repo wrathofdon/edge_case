@@ -2,7 +2,7 @@ var script = rawText.split('\n')
 var limit = script.length;
 
 for (let i=0; i < limit; i++) {
-  if (script[i].contains('//')) script[i] = script[i].substring(0, script[i].indexOf('//'));
+  if (script[i].indexOf('//') > -1) script[i] = script[i].substring(0, script[i].indexOf('//'));
   script[i] = script[i].trim();
 }
 
