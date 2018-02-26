@@ -9,7 +9,6 @@ Let's see...
 Is it a past inconsistent statement?
 
 + Yes -> Inconsistent  $$ It is a past inconsistent statement.
-
 + No -> Consistent
 
 $$ It is not a past inconsistent statement.
