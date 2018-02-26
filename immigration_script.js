@@ -11,7 +11,6 @@ rawText += `
 Do you have family in the USA?
 
 + Yes -> FamilyInUS $$ Family in the US
-// add some awesome javascript
 + No -> NoFamily $$ No Family in the US
 
 
