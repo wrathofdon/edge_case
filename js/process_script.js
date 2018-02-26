@@ -1,10 +1,10 @@
 var script2 = rawText.split('\n');
 var script = [];
-var limit = script.length;
+var limit = script2.length;
 
-for (let i=0; i < limit; i++) {
+for (var i=0; i < limit; i++) {
   if (script2[i].indexOf('// ') > -1) script2[i] = script2[i].substring(0, script2[i].indexOf('// '));
-  if (script2[i]) script.push(script2[i]);
+  if (script2[i]) script.push(script2[i].trim());
 }
 
 function processText() {
