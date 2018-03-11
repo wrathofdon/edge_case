@@ -1,3 +1,6 @@
+
+
+
 var buttons = {};
 
 class Button {
@@ -35,6 +38,6 @@ class Button {
 function runButtonScript () {
   var id = this.getAttribute('id');
   outputLog.push(buttons[id].finalOutput);
-  eval(buttons[id].script);
+  if (buttons[id].script) eval(buttons[id].script);
   $('.button').click(runButtonScript);
 }
