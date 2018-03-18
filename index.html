@@ -5,19 +5,28 @@
     <title>Edge Case</title>
     <link href="css/style.css" type="text/css" rel="stylesheet"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="js-old/convertText.js"></script>
+    <script src="pandemic/overview.js"></script>
+    <script src="pandemic/roles.js"></script>
+    <script src="pandemic/play.js"></script>
+    <script src="pandemic/obstacles.js"></script>
+    <script src="js/global.js"></script>
+    <script src="js/history.js"></script>
+    <script src="js/bbCode.js"></script>
+    <script src="js/slides.js"></script>
+    <script src="js/buttons.js"></script>
+    <script src="js/parseFile.js"></script>
+    <!-- <script src="js-old/convertText.js"></script>
     <script src="js-old/buttons.js"></script>
     <script src="js-old/slides.js"></script>
     <script src="load_start.js"></script>
     <script src="past_testimony.js"></script>
     <script src="pandemic.js"></script>
     <script src="immigration_script.js"></script>
-    <script src="js-old/process_script.js"></script>
+    <script src="js-old/process_script.js"></script> -->
   </head>
   <body>
     <div id="outer">
       <div id="main">
-        Choose your Flow Chart
       </div>
       <div id="GoBack">
         Go back
@@ -26,7 +35,10 @@
   </body>
   <footer>
     <script>
-      startSlideShow();
+      // $(document).ready(function(){
+        parseRaw(rawText);
+        startSlideShow();
+      // });
     </script>
   </footer>
 </html>

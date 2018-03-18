@@ -25,7 +25,7 @@ img {
   text-align: right;
 }
 
-.menu {
+.menu-visible {
   display: block;
 }
 
@@ -33,7 +33,7 @@ img {
   display: none;
 }
 
-.button {
+.button-visible {
   color: darkred;
   background-color: lightgray;
   display: block;
