@@ -60,19 +60,19 @@ The goal is to discover cures for all 4 diseases.
 [b]Setting up the game:[/b]
 Please complete the following:
 
-==@Pan_Setup_1==
+==@Setup_1==
 
 [toggle=[b]1. Set out the board and pieces[/b]]
 [ul][*]Place the board within easy reach of all players. Put the 6 research stations and disease cubes nearby. Separate the cubes by color into 4 supply piles.
 [*]Place 1 research station in Atlanta.
 [*]Atlanta is home to the CDC, the Center for Disease Control and Prevention.[/ul][/toggle]
 
-==@Pan_Setup_2==
+==@Setup_2==
 [toggle=[b]2. Place outbreaks and cure markers[/b]]
 [ul][*]Place the outbreaks marker on the "0" space of the Outbreaks Track.
 [*]Place the 4 cure markers, "vial" side up, near the Discovered Cure Indicators.[/ul][/toggle]
 
-==@Pan_Setup_3==
+==@Setup_3==
 [toggle=[b]3. Place infection rate marker and infect 9 cities[/b]]
 [ul][*] Place the infection rate marker on the left-most "2" space of the Infection Rate Track.
 [*]Shuffle the Infection cards and flip over 3 of them. Put 3 disease cubes of the matching color on each of these cities.
@@ -82,7 +82,7 @@ Please complete the following:
 [*]Place these 9 cards face up on the Infection Discard Pile. The other Infection cards form the Infection Deck.
 [*]Use disease cubes matching the card colors.[/ul][/toggle]
 
-==@Pan_Setup_4==
+==@Setup_4==
 [toggle=[b]4. Give each player cards and a pawn [/b]]
 [ul][*]Give each player a reference card. Shuffle the Role cards and deal 1 face up in front of each player. Place the matching colored pawns for these roles in Atlanta. Remove from the game the remaining Role cards and pawns.
 [*]Take the Epidemic cards out the Player Deck and set them aside until Step 5. Shuffle the other Player cards (City and Event cards). Deal cards to the players to form their initial hands. Give cards according to the number of players:
@@ -90,13 +90,13 @@ Please complete the following:
 [*]3-player game: 3 cards each
 [*]4-player game: 2 cards each[/ul][/ul][/toggle]
 
-==@Pan_Setup_5==
+==@Setup_5==
 [toggle=[b]5. Prepare the Player Deck[/b]]
 Set the game's difficulty level, by using either 4, 5, or 6 Epidemic cards, for an Introductory, Standard, or Heroic game. Remove any unused Epidemic cards from the game.[br][br]
 
 Divide the remaining player cards into face down piles, as equal in size as you can, so that the number of piles matches the number of Epidemic cards you are using.[br][br]Shuffle 1 Epidemic card into each pile, face down. Stack these piles to form the Player Deck, placing smaller piles on the bottom.[/toggle]
 
-==@Pan_Setup_6==
+==@Setup_6==
 [toggle=[b]6. Begin play[/b]]
 The players look at the City cards they have in their hand.[br][br]
 The player with the highest City population goes first.[/toggle]

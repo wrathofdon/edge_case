@@ -1,21 +1,21 @@
 /*jshint esversion: 6 */
 
 class Button {
-    constructor(source, position, rawText) {
-        this.source = source;
-        this.position = position;
-        this.buttonId = source + '-Button-' + position;
-        this.rawText = rawText;
+  constructor(source, position, rawText) {
+    this.source = source;
+    this.position = position;
+    this.buttonId = source + '-Button-' + position;
+    this.rawText = rawText;
 
-        this.display = '';
-        this.addBBCode = [];
-        this.condition = null;
-        this.link = null;
-        this.limit = defaultButtonLimit; // the number of times the button can be clicked before disappearing.  For no limit, set to -1.
-        this.count = defaultButtonLimit;
+    this.display = '';
+    this.addBBCode = [];
+    this.condition = null;
+    this.link = null;
+    this.limit = defaultButtonLimit; // the number of times the button can be clicked before disappearing.  For no limit, set to -1.
+    this.count = defaultButtonLimit;
 
-        this.parseButton();
-    }
+    this.parseButton();
+}
 
     // converts the rawText into button properties
     parseButton() {

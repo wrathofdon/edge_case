@@ -7,8 +7,15 @@
     "$": true,
     "marked": true,
     "hljs": true,
-    "Button": true;
-    "Card": true;
+    "Button": true,
+    "buttons": true,
+    "Card": true,
+    "cards": true,
+    "convertTags": true,
+    "toggleCounter":true,
+    "addNameSpace": true,
+    "currentSlide":true,
+    "slides":true
   },
   "extends": "eslint:recommended",
   "parserOptions": {
@@ -26,7 +33,7 @@
     "no-template-curly-in-string": "error",
     "no-console": "off",
     "no-undefined": "off",
-    "indent": ["error", 2],
+    "indent": ["error", 4],
     "quotes": ["warn", "single", {"allowTemplateLiterals": true}],
     "no-multi-spaces": ["warn", {"exceptions": { "VariableDeclarator": true }}],
     "no-trailing-spaces": "warn",
