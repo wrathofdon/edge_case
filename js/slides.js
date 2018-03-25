@@ -1,4 +1,6 @@
 /*jshint esversion: 6 */
+/* global Button, parseJSCode */
+
 class Slide {
     constructor (title, project, namespace, text, buttons) {
         this.title = title; // user assigned title
@@ -29,21 +31,22 @@ class Slide {
         let currentExcerpt = null;
         for (let i = 0; i < lines.length; i++) {
             // detects if the script wants to signify a new excerpt
-            if (lines[i].substring(0,3) == '==@') {
+            if (lines[i].substring(0,3) === '==@') {
                 currentExcerpt = lines[i].substring(3, lines[i].lastIndexOf('==')).trim();
                 if (!(currentExcerpt in this.excerpts)) this.excerpts[currentExcerpt] = [];
             } else {
                 let line = lines[i].trim();
                 this.excerpts.all.push(line);
-                if (currentExcerpt) this.excerpts[currentExcerpt].push(line);
-    }}}
+                if (currentExcerpt) this.excerpts[currentExcerpt].push(line);}
+        }
+    }
 
     // renders slide into HTML
     renderSlide() {
         this.existingCopies += 1;
         this.timesVisited += 1;
         currentSlideName = this.title;
-        if (document.getElementById(globalHistory.currentChapterID()) == null) {
+        if (document.getElementById(globalHistory.currentChapterID()) === null) {
             document.getElementById('main').innerHTML += `<div id="${this.currentChapterID()}" class="chapter-visible">`;
         }
         var chapter = document.getElementById(globalHistory.currentChapterID());
@@ -55,10 +58,7 @@ class Slide {
         }
         
         this.renderButtonMenu();
-        $(".toggle-button").click(function(){
-            var id = this.getAttribute('toggleId');
-            $('#' + id).toggle();
-        });
+        activateInteraction();
     }
 
     renderButtonMenu() {
@@ -81,7 +81,7 @@ class Slide {
         for (let i = 0; i < currentButtonsArray.length; i++) {
             let button = currentButtonsDictionary[currentButtonsArray[i]];
             let buttonElement = document.getElementById(button.buttonId);
-            if (buttonElement.innerHTML != button.getHTML())
+            if (buttonElement.innerHTML !== button.getHTML())
                 buttonElement.innerHTML = button.getHTML();
             button.checkState();
         }
@@ -95,7 +95,7 @@ class Slide {
     // adds individual lines of HTML
     addLine(text) {
         text = parseJSCode(text).trim();
-        if (text && text.toLowerCase() != 'blank') {
+        if (text && text.toLowerCase() !== 'blank') {
             document.getElementById(this.displayId()).innerHTML += ('<br>' + text + '<br>');
         }
         return !!text;

@@ -1,12 +1,17 @@
 /*jshint esversion: 6 */
+/* global addNameSpace, runButton */
+
+/**
+ * Handles the navigation
+ */
 
 class History {
     constructor() {
         // this is a history of all the slides that the user has visited in.  It is an array of arrays.  The second level arrays represent individual "chapters", which is signified any time the current screen is cleared out.  The chapters contain a list of strings, which are the titles of the slides.
         this.historicalLogs = [];
     }
-
-     // returns the HTML ID of the current chapter
+    
+    // returns the HTML ID of the current chapter
     currentChapterID() {
         return 'main-chapter-' + this.historicalLogs.length;
     }
@@ -25,7 +30,7 @@ class History {
 
     // attaches the next slide onto the current one
     attach(title, alreadyAddedToHistory = false) {
-        if (currentSlideName != null) {
+        if (currentSlideName !== null) {
             currentSlide().clearButtonMenu();
             title = addNameSpace(title, currentSlide().project, currentSlide().namespace);
         }
@@ -35,9 +40,9 @@ class History {
 
     // deletes the latest slide, and returns an object containing information
     deleteLatestSlide() {
-        if (currentSlideName == null) return {name: 'START'};
+        if (currentSlideName === null) return {name: 'START'};
         let newChapter = false; // boolean on whether or no the slide being deleted was the start of a new chapter
-        if (this.historicalLogs[-1].length == 1) {
+        if (this.historicalLogs[-1].length === 1) {
             let currentChapter = document.getElementById(this.currentChapterID());
             currentChapter.parentNode.removeChild(currentChapter);
             this.historicalLogs.pop();
@@ -50,7 +55,7 @@ class History {
             this.historicalLogs[-1].pop();
         }
         currentSlide().existingCopies -= 1;
-        if (this.historicalLogs.length == 0) currentSlideName = null;
+        if (this.historicalLogs.length === 0) currentSlideName = null;
         else currentSlideName = this.historicalLogs[-1][-1];
         return {name: currentSlideName, newChapter: newChapter};
     }
@@ -59,13 +64,13 @@ class History {
     goBack() {
         var previousSlideName = this.deleteLatestSlide().name; // the first delete will provide us with name of the second delete
         let newChapter = this.deleteLatestSlide().newChapter; // the second delete will tell us whether or not we need to start a 
-        if (this.historicalLogs.length == 0) {
+        if (this.historicalLogs.length === 0) {
             this.goto('START');
             return;
         }
-        console.log(66);
         if (newChapter) this.goto(previousSlideName);
         else this.attach(previousSlideName);
+        $('#' + this.currentChapterID()).attr('class', 'chapter-visible');
     }
 }
 
@@ -89,10 +94,10 @@ function startSlideShow() {
     goto('START');
     $('.button-visible').click(runButton);
     $('#GoBack').click(function() {
-    goBack();
-  });
+        goBack();
+    });
 }
 
 // the user can specify the default link type, which is no associated with the appropriate function
-if (defaultLinkType == 'attach') defaultLinkType = attach;
+if (defaultLinkType === 'attach') defaultLinkType = attach;
 else defaultLinkType = goto;

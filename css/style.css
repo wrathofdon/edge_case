@@ -33,6 +33,14 @@ img {
   display: none;
 }
 
+.chapter-visible {
+  display: block;
+}
+
+.chapter-hidden {
+  display: none;
+}
+
 .button-visible {
   color: darkred;
   background-color: lightgray;
@@ -46,4 +54,9 @@ img {
 
 .button-hidden {
   display: none;
+}
+
+goto {
+  color: green;
+  font-weight: bold;
 }

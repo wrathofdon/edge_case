@@ -1,6 +1,6 @@
 /*jshint esversion: 6 */
 
-var rawText = `
+rawText += `
 
 ====project$Pandemic====
 ====namespace#Intro====

@@ -1,22 +1,21 @@
 {
   "globals" : {
-    "rawText": true,
-    "app": true,
-    "Handlebars": true,
-    "page": true,
-    "$": true,
-    "marked": true,
-    "hljs": true,
-    "Button": true,
-    "buttons": true,
-    "Card": true,
-    "cards": true,
-    "convertTags": true,
-    "toggleCounter":true,
-    "addNameSpace": true,
-    "currentSlide":true,
-    "slides":true
+    "rawText":true,
+    "slides": true,
+    "globalHistory": true,
+    "toggleCounter": true,
+    "currentSlideName": true,
+    "selectedButton": true,
+    "currentButtonsDictionary": true,
+    "currentButtonsArray": true,
+    "defaultLinkType": true,
+    "defaultButtonLimit": true,
+    "currentSlide": true,
+    "runButton": true,
+    "activateToggles": true,
+    "activateInteraction": true
   },
+
   "extends": "eslint:recommended",
   "parserOptions": {
     "ecmaVersion": 6,
