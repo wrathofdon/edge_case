@@ -1,19 +1,38 @@
 {
   "globals" : {
-    "rawText":true,
-    "slides": true,
-    "globalHistory": true,
-    "toggleCounter": true,
-    "currentSlideName": true,
-    "selectedButton": true,
-    "currentButtonsDictionary": true,
-    "currentButtonsArray": true,
-    "defaultLinkType": true,
-    "defaultButtonLimit": true,
-    "currentSlide": true,
-    "runButton": true,
-    "activateToggles": true,
-    "activateInteraction": true
+    # classes
+    "Block": true,
+    "BlockArray": true,
+    "Button": true,
+    "Card": true,
+    "Conditional": true,
+    # user input
+    "rawScript": true,
+    # the default html div
+    "mainHTMLnode": true,
+    # temporary dictionaries
+    "globalExcerpts": true,
+    "globalTagList": true,
+    "idToNode": true,
+    # permanent dictionaries
+    "globalCardDict": true,
+    "globalButtons": true,
+    "globalVar": true,
+    "cardVar": true,
+    "tempVar": true,
+    "cardHistoryStack": true,
+    # global methods
+    "addToGlobalTagList": true,
+    "removeQuotes": true,
+    "getUniqueId": true,
+    "preprocessRaw": true,
+    "preprocessCards": true,
+    "activateEventListeners": true,
+    "gotoPreviousCard": true,
+    "replaceAll": true,
+    # parser dictionaries
+    "bbCodeHTMLConversions": true,
+    "bbCodeHTMLProcess": true,
   },
 
   "extends": "eslint:recommended",
@@ -32,7 +51,7 @@
     "no-template-curly-in-string": "error",
     "no-console": "off",
     "no-undefined": "off",
-    "indent": ["error", 4],
+    "indent": ["error", 2],
     "quotes": ["warn", "single", {"allowTemplateLiterals": true}],
     "no-multi-spaces": ["warn", {"exceptions": { "VariableDeclarator": true }}],
     "no-trailing-spaces": "warn",

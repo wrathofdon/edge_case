@@ -10,7 +10,11 @@ img {
   max-width: 100%;
 }
 
-#main {
+pre {
+  font-family: monospace;
+}
+
+#mainWindow {
   background-color: white;
   width: 700px;
   margin: auto;
@@ -25,23 +29,7 @@ img {
   text-align: right;
 }
 
-.menu-visible {
-  display: block;
-}
-
-.menu-hidden {
-  display: none;
-}
-
-.chapter-visible {
-  display: block;
-}
-
-.chapter-hidden {
-  display: none;
-}
-
-.button-visible {
+.button {
   color: darkred;
   background-color: lightgray;
   display: block;
@@ -52,11 +40,6 @@ img {
   text-align: center;
 }
 
-.button-hidden {
+.hidden {
   display: none;
-}
-
-goto {
-  color: green;
-  font-weight: bold;
 }

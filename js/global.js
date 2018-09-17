@@ -1,67 +1,117 @@
 /*jshint esversion: 6 */
+/* global splitStringByTags bbCodeRenderText */
 
-var rawText = '';
-var slides = {}; // maps slide titles to slide objects
-var globalHistory = null; // this is a record of the current file path to allow for backtracking
-var toggleCounter = 0; // the number of active toggles, so that each one can have a unique ID
+// these are objects that the user can store variables into to prevent collissions
+// Later on, these variables could also be saved in local storage
+var globalVar = {};
+var cardVar = {};
+var tempVar = {};
 
-var currentSlideName = null; // whenever a new slide is loaded, it will set this variable to itself
+// the input variable
+var rawScript = '';
 
-var selectedButton = null; // any time a button is clicked, it will set this variable to itself
-var currentButtonsDictionary = {}; // maps button IDs to button objects
-var currentButtonsArray = []; // lists button IDs for current slide
+// a dictionary mapping card title to card object
+var globalCardDict = {};
+var globalButtons = {};
+// A stack containing previously visited cards so you can go back
+var cardHistoryStack = [];
 
+// A global dictionary of block ids to block.
+// Necessary in preprocess to keep track of excerpts in case you want a copy
+var globalExcerpts = {};
 
-var defaultLinkType = 'attach'; // the default method for loading new slides.  'attach' means the next slide will be attached to the current, while 'goto' will result in clearing the current slide from the screen
-var defaultButtonLimit = 1; // the default number of times a button can be clicked before disappearing.  Set to -1 for no limit.
+// A list of all the tags that the parser can recognized
+// In the pre-process stage, these will be converted to lowercase
+var globalTagList = ['card', 'html', 'b', 'i', 'u', 'br', 'p', 'preformatted', 'hr'];
 
-// retrieves the current slide object
-function currentSlide() {
-    return slides[currentSlideName];
-}
-
-
-function runButton () {
-    var id = this.getAttribute('id');
-    selectedButton = currentButtonsDictionary[id];
-    if (selectedButton === null) return;
-    if (selectedButton.count > 1) selectedButton.count -= 1; // button no longer shows when this count reaches 0
-    let addedText = false; // boolean to determine whether or not additional display text has been added by the BB Code.
-    for (let i = 0; i < selectedButton.addBBCode.length; i++) {
-        addedText = addedText | currentSlide().addLine(selectedButton.addBBCode[i]);
-    }
-    if (!addedText) {
-        currentSlide().addLine('You selected: ' + selectedButton.display); // if no BB Code text has been added, add the button text to the slide
-    }
-    if (selectedButton.link) defaultLinkType(selectedButton.link);
-    currentSlide().updateButtons();
-    $('.button-visible').click(runButton);
-}
-
-// allows for negative indexing of arrays.  arr[-1] returns the last item of the array
+/*
+* you can now use [-1] as an array index to quickly retrieve the last element
+*/
 Object.defineProperty(Array.prototype, '-1', {
-    get() { return this[this.length - 1] ;}
+  get() { return this[this.length - 1] ;}
 });
 
+/*
+* you can now use [-1] as an string index to quickly retrieve the last element
+*/
+Object.defineProperty(String.prototype, '-1', {
+  get() { return this[this.length - 1] ;}
+});
 
-// makes it so that any toggles that have been added to the slide will now work
-function activateToggles() {
-    $('.toggle-button').click(function(){
-        var id = this.getAttribute('toggleId');
-        $('#' + id).toggle();
-    });
+/*
+* Replaces all occurances of a substring within a string
+*/
+String.prototype.replaceAll = function(search, replacement) {
+  var target = this;
+  return target.split(search).join(replacement);
+};
+
+/*
+* Removes quotation marks.  You can also request an alternative symbol
+*/
+function removeQuotes(text, symbol='\'"') {
+  if (!text || !text.trim()) {
+    return false;
+  }
+  text = text.trim();
+  if (text[0] === text[-1] && (symbol.includes(text[0]))) {
+    text = text.substring(1, text.length - 1);
+  }
+  return text;
 }
 
+/*
+* Imports a parser dictionary and collects all the keys
+* During preprocessing, all known keys will be converted to lowercase
+*/
+function addToGlobalTagList(dict) {
+  for (let i in Object.keys(dict)) {
+    let key = Object.keys(dict)[i];
+    globalTagList.push(key.substring(1));
+  }
+}
 
-// makes it so that any toggles that have been added to the slide will now work
-function activateGoto() {
-    $('goto').click(function(){
-        globalHistory.goto(this.getAttribute('slide'));
-    });
+/*
+* A method of generating unique numbers for unique html IDs
+*/
+var sUniqueIdCounter = 0;
+function getUniqueId() {
+  sUniqueIdCounter += 1;
+  return sUniqueIdCounter;
+}
+
+/*
+* Enables the back button to work
+*/
+function gotoPreviousCard() {
+  if (cardHistoryStack.length === 1) {
+    return;
+  }
+  delete cardHistoryStack[cardHistoryStack.length - 1];
+  cardHistoryStack.length -= 1;
+  cardHistoryStack[- 1].loadCard(true);
 }
 
 // activates non-button interactive elements of the slide
-function activateInteraction() {
-    activateToggles();
-    activateGoto();
+function activateEventListeners() {
+  $('.cardlink').off('click');
+  $('.cardlink').click(function(){
+    let id = this.getAttribute('cardlink');
+    let card = globalCardDict[id];
+    if (card) {
+      card.loadCard();
+    } else {
+      console.log(`${id} not found`);
+    }
+  });
+  $('.button').off('click');
+  $('.button').click(function(){
+    let id = this.getAttribute('id');
+    let buttonBlock = globalButtons[id];
+    if (!buttonBlock) {
+      console.log(`error loadeding button: ${id}`);
+      return;
+    }
+    buttonBlock.button.clickButton();
+  });
 }
