@@ -52,7 +52,7 @@ class BlockArray {
     // search efficiency is a little different if there's only 1 tag
     // TODO: Add a trie data structure
     if (tags.length === 1) return this.checkSingleTag(index, tags[0]);
-    else return this.checkMultipleTags(index, tags);
+    else return this.checkMultipleTags(index);
   }
 
   /*
@@ -66,62 +66,50 @@ class BlockArray {
       index = this.rawText.indexOf(`[${tag}`, index);
       if (index === -1) return false;
       // if partial opening is found, attempts to validate proper formatting
-      tagObj = this.validateTag(index, tag, originalTag);
+      tagObj = this.validateTag(index, originalTag);
       // if block was formatted improperly, move forward
-      if (!tagObj) {
-        index += tag.length + 2;
-        continue;
-      }
-      return tagObj;
+      if (tagObj) return tagObj;
+      index += tag.length + 1;
     }
     return false;
   }
 
-  checkMultipleTags(index, tags) {
-    let tagObj;
-    while (-1 < index && index < this.rawText.length) {
+  checkMultipleTags(start) {
+    let index = start;
+    let limit = this.rawText.length;
+    while (-1 < index && index < limit) {
       index = this.rawText.indexOf(`[`, index);
-      if (index < 0) {
-        return false;
-      }
-      // checks all possible tags in dictionary for possible match
-      // TODO: This is very inefficient.  Replace later with a trie search method
-      for (let i in tags) {
-        let originalTag = tags[i];
-        let tag = originalTag.substring(1);
-        let substring = this.rawText.substring(index + 1, index + 1 + tag.length);
-        if (tag === substring) {
-          if (']: '.indexOf(this.rawText[index + 1 + tag.length]) >= 0) {
-            tagObj = this.validateTag(index, tag, originalTag);
-            if (!tagObj) {
-              index += tag.length + 2;
-              break;
-            }
-          }
-          return tagObj;
-        }
-      }
+      if (index < 0) return false;
+      start = index;
       index += 1;
+      let trie = globalTagTrie[this.dict];
+      while (index < limit && trie[this.rawText[index]]) {
+        trie = trie[this.rawText[index]];
+        index += 1;
+      }
+      if (!' ]:'.includes(this.rawText[index - 1])) continue;
+      let tagObj = this.validateTag(start, trie);
+      if (tagObj) return tagObj;
     }
     return false;
   }
 
-  validateTag(start, tag, originalTag) {
-    let postTagSymbol = this.rawText[start + tag.length + 1];
-    let content = null
-    let properties = null
+  validateTag(start, originalTag) {
+    let postTagSymbol = this.rawText[start + originalTag.length];
+    if (!' ]:'.includes(postTagSymbol)) return false;
+    let tag = originalTag.substring(1);
+    let hasContent = (originalTag[0] === '2') ? true : false;
+    let content = null;
+    let properties = null;
     let contentStart;
     // tags that start with '2' will have contents
     // the '2' signifies having both an opening and a closing tag
-    let hasContent = (originalTag[0] === '2') ? true : false;
     // checks to see if this is a simple tag with no properties
     if (postTagSymbol === ']') {
       contentStart = start + tag.length + 2;
-    }
-    // otherwise, assume that the block has specified properties
-    else if (postTagSymbol === ':' || postTagSymbol === ' ') {
+    } else {
       // search for the ending of the closing tag
-      contentStart = this.findClose(start + length + 2, '[', ']');
+      contentStart = this.findClose(start + tag.length + 2, '[', ']');
       if (contentStart === -1) return false;
       // the end of the opening tag is where content will end
       contentStart = contentStart.end
@@ -137,7 +125,6 @@ class BlockArray {
       if (!properties) return false;
       properties = this.parseProperties(properties);
     }
-    else return false;
     // the end of the block is either at the end of the opening or closing tag
     let end = contentStart;
     if (hasContent) {

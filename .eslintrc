@@ -13,6 +13,7 @@
     # temporary dictionaries
     "globalExcerpts": true,
     "globalTagList": true,
+    "globalTagTrie": true,
     "idToNode": true,
     # permanent dictionaries
     "globalCardDict": true,
@@ -30,6 +31,7 @@
     "activateEventListeners": true,
     "gotoPreviousCard": true,
     "replaceAll": true,
+    "addCard": true,
     # parser dictionaries
     "bbCodeHTMLConversions": true,
     "bbCodeHTMLProcess": true,

@@ -4,29 +4,30 @@
 */
 function preprocessCards(rawText) {
   let cardBlocks = new BlockArray({'2card': null}, rawText);
-  let cardList = [];
   for (let i = 0; i < (cardBlocks.array.length); i++) {
-    if (!cardBlocks.array[i].tag === '2card') {
+    let block = cardBlocks.array[i];
+    if (!block.tag === '2card') {
       continue;
     }
-    let title = cardBlocks.array[i].properties.card;
-    let content = cardBlocks.array[i].content.trim();
-    if (!content) continue;
-    let card = new Card(title, content);
-    // let cardRaw = cardBlocks.array[i];
-    // if (cardRaw.tag === '2card') {
-    //   let card = new Card(cardRaw.properties.card, cardRaw.content);
-    if (globalCardDict[title]) {
-      console.log(`Error:  Card titled ${title} already exists`);
-    } else {
-      // this steps generates the properties list for certain HTML elements
-      // if the block has an id property, it is stored in globalExcerpts
-      globalCardDict[title] = card;
-      cardList.push(card)
+    if (!block.properties.card) {
+      console.log(`Error: Card missing title\n${block.content.trim()}`)
+      continue;
     }
+    addCard(block.properties.card, block.content.trim(), true)
   }
-  for (let i in cardList) {
-    cardList[i].replaceCopies();
+  for (let title in globalCardDict) {
+    globalCardDict[title].replaceCopies();
+  }
+}
+
+function addCard(title, content, preprocessed = false) {
+  if (globalCardDict[title]) {
+    console.log(`Error:  Card titled ${title} already exists`);
+  } else {
+    if (!preprocessed) {
+      content = preprocessRaw(content)
+    }
+    globalCardDict[title] = new Card(title, content);
   }
 }
 

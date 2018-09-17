@@ -70,7 +70,6 @@ function preprocessBasicHTML(text) {
     'hr': 'hr',
     'bq': 'blockquote'
   }
-  var oldText = text;
   for (let htmlTag in htmlConversions) {
     // console.log(htmlTag)
     text = text.replaceAll(`[${htmlTag}]`, `<${htmlConversions[htmlTag]}>`);

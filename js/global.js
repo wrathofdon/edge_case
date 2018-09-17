@@ -13,6 +13,7 @@ var rawScript = '';
 // a dictionary mapping card title to card object
 var globalCardDict = {};
 var globalButtons = {};
+var globalTagTrie = {};
 // A stack containing previously visited cards so you can go back
 var cardHistoryStack = [];
 
@@ -22,7 +23,7 @@ var globalExcerpts = {};
 
 // A list of all the tags that the parser can recognized
 // In the pre-process stage, these will be converted to lowercase
-var globalTagList = ['card', 'html', 'b', 'i', 'u', 'br', 'p', 'preformatted', 'hr'];
+var globalTagList = ['card', 'html', 'b', 'i', 'u', 'br', 'p', 'code', 'hr'];
 
 /*
 * you can now use [-1] as an array index to quickly retrieve the last element
@@ -65,9 +66,21 @@ function removeQuotes(text, symbol='\'"') {
 * During preprocessing, all known keys will be converted to lowercase
 */
 function addToGlobalTagList(dict) {
+  globalTagTrie[dict] = {}
   for (let i in Object.keys(dict)) {
     let key = Object.keys(dict)[i];
     globalTagList.push(key.substring(1));
+    let currentDict = globalTagTrie[dict];
+    for (let j = 1; j < key.length; j++) {
+      if (!currentDict[key[j]]) {
+        currentDict[key[j]] = {};
+      }
+      currentDict = currentDict[key[j]];
+    }
+    currentDict[null] = true;
+    currentDict[' '] = key;
+    currentDict[':'] = key;
+    currentDict[']'] = key;
   }
 }
 
@@ -87,8 +100,7 @@ function gotoPreviousCard() {
   if (cardHistoryStack.length === 1) {
     return;
   }
-  delete cardHistoryStack[cardHistoryStack.length - 1];
-  cardHistoryStack.length -= 1;
+  cardHistoryStack.pop();
   cardHistoryStack[- 1].loadCard(true);
 }
 
