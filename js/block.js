@@ -15,7 +15,7 @@ class Block
     this.classes = [];
     this.htmlId = this.processId();
     if (this.htmlId && this.card) {
-      globalExcerpts[`${this.card.title}-${this.htmlId}`] = this;
+      globalExcerpts[this.getHtmlId()] = this;
     }
     this.elementNode = null;
     // if this block is a button, then this variable will contain a button object
@@ -56,6 +56,10 @@ class Block
     return contents;
   }
 
+  getHtmlId() {
+    return `${this.card.title}-${this.htmlId}`;
+  }
+
   /*
   * Updates the contents
   */
@@ -63,7 +67,7 @@ class Block
     if (!this.htmlId) return;
     this.checkCondition();
     if (this.enabled) {
-      let node = document.getElementById(`${this.card.title}-${this.htmlId}`);
+      let node = document.getElementById(this.getHtmlId());
       if (node) {
         node.innerHTML = this.getContents();
       }
@@ -175,7 +179,7 @@ class Block
     }
     if (this.tag === '2button') {
       this.button = new Button(this, this.card);
-      globalButtons[`${this.card.title}-${this.htmlId}`] = this;
+      globalButtons[this.getHtmlId()] = this;
       if (this.properties.buttonstyle) {
         this.classes.push(this.properties.buttonstyle);
         delete this.properties.buttonstyle;
@@ -197,7 +201,7 @@ class Block
   getPropertiesOutput() {
     let output = [];
     if (this.htmlId) {
-      output.push(`id="${this.card.title}-${this.htmlId}"`);
+      output.push(`id="${this.getHtmlId()}"`);
     }
     if (this.classes.length) {
       output.push(`class="${this.classes.join(' ')}"`);
@@ -214,7 +218,7 @@ class Block
   addClassProperty(str) {
     if (!this.classes.includes(str)) {
       this.classes.push(str);
-      $(`#${this.card.title}-${this.htmlId}`).addClass(str);
+      $(`#${this.getHtmlId()}`).addClass(str);
     }
   }
   /*
@@ -223,7 +227,7 @@ class Block
   removeClassProperty(str) {
     if (this.classes.includes(str)) {
       delete this.classes[this.classes.indexOf(str)];
-      $(`#${this.card.title}-${this.htmlId}`).removeClass(str);
+      $(`#${this.getHtmlId()}`).removeClass(str);
     }
   }
 }

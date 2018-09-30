@@ -2,31 +2,13 @@
 * Parses anything basic that can be handled early
 */
 function preprocessRaw(text) {
-  text = preProcessTagsToLowerCase(text, globalTagList);
-  text = preprocessRemoveComments(text);
-  text = preprocessConvertAngledBrackets(text);
-  text = preprocessBasicHTML(text);
-  return text;
-}
-
-/*
-* Converts known tags to lowercase for easier parsing.
-*/
-function preProcessTagsToLowerCase(text, list) {
   // What if a user wants "[b][/b]" to show up on the screen, without being
   // parsed into the HTML?  Adding the tilda ('~') acts as an escape character,
   // only it only works for the open square bracket.
   text = text.replaceAll('~[', '&lsqb;');
-  for (let i in list) {
-    let tag = list[i];
-    // converts all known tags to lower case
-    // this can be bypassed by using the '~' symbol mentioned above
-    let lower = tag.toLowerCase();
-    text = text.replace(new RegExp(`\\[${tag}\\]`, 'ig'), `[${lower}]`);
-    text = text.replace(new RegExp(`\\[${tag}\\:`, 'ig'), `[${lower}:`);
-    text = text.replace(new RegExp(`\\[${tag}\\ `, 'ig'), `[${lower} `);
-    text = text.replace(new RegExp(`\\[\/${tag}\\]`, 'ig'), `[/${lower}]`);
-  }
+  text = preprocessRemoveComments(text);
+  text = preprocessConvertAngledBrackets(text);
+  text = preprocessBasicHTML(text);
   return text;
 }
 
@@ -70,12 +52,9 @@ function preprocessBasicHTML(text) {
     'hr': 'hr',
     'bq': 'blockquote'
   }
-  for (let htmlTag in htmlConversions) {
-    // console.log(htmlTag)
-    text = text.replaceAll(`[${htmlTag}]`, `<${htmlConversions[htmlTag]}>`);
-    text = text.replaceAll(`[/${htmlTag}]`, `</${htmlConversions[htmlTag]}>`);
-    // if (oldText !== text) console.log(text)
-    // oldText = text;
+  for (let tag in htmlConversions) {
+    text = text.replace(new RegExp(`\\[${tag}\\]`, 'ig'), `<${htmlConversions[tag]}>`);
+    text = text.replace(new RegExp(`\\[/${tag}\\]`, 'ig'), `</${htmlConversions[tag]}>`);
   }
   return text;
 }

@@ -6,7 +6,7 @@ function preprocessCards(rawText) {
   let cardBlocks = new BlockArray({'2card': null}, rawText);
   for (let i = 0; i < (cardBlocks.array.length); i++) {
     let block = cardBlocks.array[i];
-    if (!block.tag === '2card') {
+    if (block.tag !== '2card') {
       continue;
     }
     if (!block.properties.card) {
@@ -44,8 +44,9 @@ var bbCodeHTMLConversions = {
   '2else': bbCodeHTMLElseConditional,
   '2button': bbCodeHTMLButton,
   '2js': bbCodeJSEval,
-  '2prompt': bbCodeReturnContents,
+  '2label': bbCodeReturnContents,
   '2toggle': bbCodeReturnContents,
+  '2togglelabel': bbCodeReturnContents,
   '2reveal': bbCodeReturnContents,
   '1get': bbCodeGetTempVariable,
   '1set': bbCodeSetTempVariables,
