@@ -111,6 +111,9 @@ class Button {
         block.addClassProperty('toggleOff');
       }
     }
+    if (!this.displayBlock) {
+      this.displayBlock = new Block('2label', null, this.block.content, this.block.dict, true, this.card)
+    }
   }
 
   getDisplayContent() {

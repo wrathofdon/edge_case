@@ -28,15 +28,15 @@ function preprocessRemoveComments(text) {
 * To bypass, use the [html][/html] tag
 */
 function preprocessConvertAngledBrackets(text) {
-  let blockArray = new BlockArray({'2html': null}, text);
+  let blockArray = (new BlockArray({'2html': null}, text)).array;
   for (let i = 0; i < blockArray.length; i++) {
     if (blockArray[i].tag === '2html') {
       blockArray[i] = blockArray[i].content;
     } else {
-      blockArray[i] = blockArray[i].content.replace('<', '&lt;').replace('>', '&gt;');
+      blockArray[i] = blockArray[i].content.replaceAll('<', '&lt;').replaceAll('>', '&gt;');
     }
   }
-  return blockArray.joinBlocks();
+  return blockArray.join('');
 }
 /*
 * Converts common and simple bbCode into html at the start

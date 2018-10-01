@@ -43,6 +43,7 @@ class Card {
     cardVar.timesLoaded += 1;
     mainHTMLnode.innerHTML = this.blockArray.joinBlocks();
     activateEventListeners();
+    $('html,body').scrollTop(0);
   }
 
   /*

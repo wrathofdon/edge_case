@@ -32,6 +32,7 @@
     "gotoPreviousCard": true,
     "replaceAll": true,
     "addCard": true,
+    "getGlobalTrie": true,
     # parser dictionaries
     "bbCodeHTMLConversions": true,
     "bbCodeHTMLProcess": true,

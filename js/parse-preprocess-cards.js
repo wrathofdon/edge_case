@@ -31,6 +31,7 @@ function addCard(title, content, preprocessed = false) {
   }
 }
 
+// TODO: We should probably rename this because it covers a lot more than HTML now
 var bbCodeHTMLConversions = {
   '2ol': bbCodeHTMLConvertLists,
   '2ul': bbCodeHTMLConvertLists,
@@ -43,7 +44,8 @@ var bbCodeHTMLConversions = {
   '2if': bbCodeHTMLIfConditional,
   '2else': bbCodeHTMLElseConditional,
   '2button': bbCodeHTMLButton,
-  '2js': bbCodeJSEval,
+  '2js': bbCodeJSBackground,
+  '2return': bbCodeJSReturn,
   '2label': bbCodeReturnContents,
   '2toggle': bbCodeReturnContents,
   '2togglelabel': bbCodeReturnContents,
@@ -180,17 +182,27 @@ function bbCodeHTMLButton(block) {
   return block.button.getHtml();
 }
 /*
-* Runs JS code in the background.  The "return" keyword can also be used to return text
+* Runs JS code in the background inside an IIFE and returns the result as text
 */
-function bbCodeJSEval(block) {
+function bbCodeJSReturn(block) {
   try {
-    eval(`(function () {${block.getContents()}})();`);
+    return eval(`(function () {${block.getContents()}})();`);
   } catch(err) {
-    return err.message;
+    return `Error: ${err.message}`;
+  }
+}
+
+/*
+* Runs JS code in the background as code, does not return unless there's an error
+*/
+function bbCodeJSBackground(block) {
+  try {
+    eval(block.getContents());
+  } catch(err) {
+    console.log(`Error: ${err.message}`);
   }
   return '';
 }
-
 
 /*
 * Getters for variable
