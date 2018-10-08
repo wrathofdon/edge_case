@@ -1,23 +1,17 @@
-// rawScript += `
-// [card:'main']tex[$]dfsfsdf[/$]t [b]hello[/b]  [html]<b>goodbye</b>[/html]
-// [button cardlink:'card2']test[/button]
-// [button]button2[/button][/card]
-//
-// [card:'card2']card 2[/card]
-// `
-
 rawScript += `
+
+  [card:'placeholder']
+    This is a placeholder for future content.
+  [/card]
 
   [card:'main']
     [b][u]Welcome to Edge Case[/u][/b]
 
-    Edge Case is a simple markup language for creating complicated non-linear scripts.  It can be used for non-linear tutorials, simple games, "choose your own adventure" style stories, modeling control flows, and more.
+    Edge Case is a custom markup language for creating non-linear scripts.  It can be used for interactive tutorials, simple games, "choose your own adventure" style stories, modeling control flows, and more.
 
-    Scripts can be written in any text editor and launched in any browser, without the need for any special software or server.  Edge Case is best suited for evolving "works-in-progress" and early prototyping, especially in a collaborative environment.  It's easy to edit, and more importantly, easy to track changes when using services like Git.  Software teams can include an Edge Case folder in existing private repositories, and update the documentation at the same time they update their products.
+    These scripts can be written in any text editor and launched in any browser, without the need for any special software or server.  Edge Case is best suited for evolving "works-in-progress" and rapid prototyping.  It's easy to edit, and easy to track changes when using services like Git, which is useful for collaborative projects.  Software teams can include an Edge Case folder in existing private repositories, and update the documentation at the same time they update their products.
 
-    One of the main goals of Edge Case is to create a tool for troubleshooting the learning process.  Different people get stuck at different points for different reasons.  A non-linear system makes it easier for people to find their own individual path towards education.  Whenever a person gets stuck in a way that the tutorial didn't cover, that needs to get treated as a bug.  And since the software is easy to use, students can be empowered to work together to fix these bugs on their own, rather than putting all the burden on the teacher.
-
-    I will try my best to keep the current draft of this tutorial accessible to everyone.  However, it does help if you're at least moderately familiar with the basics of HTML, and hopefully JavaScript as well.  I assume that anyone who is reading this very preliminary version  on GitHub likely already is.  If not, stay tuned for future versions, which will simplify things even further.
+    I will try my best to keep the current draft of this tutorial accessible to everyone.  However, it does help if you're at least moderately familiar with the basics of HTML, and hopefully JavaScript as well.  I assume that anyone who stumbled upon this project already have that background.  If not, stay tuned for future versions, which will simplify things even further.
 
     [button cardlink:'GettingStarted-Intro']Building your first project[/button]
 
@@ -66,6 +60,8 @@ rawScript += `
 
     Cards are basically the equivalent of a PowerPoint slide, and are the main containers of content on a project.  When the software parses the script, one of the first steps is to break the raw text down into individual cards.  All navigation happens by moving from one card to the next.
 
+    Like with PowerPoint, you can set up Edge Case to display only one card at a time.  But you can also set it up so that it simply attaches the new card at the bottom of the previous one, which is what we're doing now.  This allows the user to keep track of context, and create a seamless user experience.
+
     How do you create a card?  Well, if you're familiar with markup languages, then this should be pretty straight-forward:
 
     [bq]
@@ -86,12 +82,9 @@ rawScript += `
 
     Properties in Edge Case are key-value pairs.  In this case, [b]"card"[/b] is the key, and [b]"InsertTitleHere"[/b] is the value.  Formatting relies on the JavaScript convention of a colon, rather than the HTML convention of using an equal sign.
 
+    [button cardlink:'GettingStarted-Markup']You're going too fast!  I don't understand what those square brackets mean.[/button]
+
     [button cardlink:'GettingStarted-main']'Okay, that makes sense.  So how do I make a project?'[/button]
-
-    [button cardlink:'main']'Go to main'[/button]
-
-    [button card:'GettingStarted-Markup']You're going too fast!  I don't understand what those square brackets mean.[/button]
-
   [/card]
 
   [card:'GettingStarted-main']
@@ -108,11 +101,12 @@ rawScript += `
 
     Why 'main'?  When Edge Case first launches, it needs to know where to start.  By default, it searches the index for a called titled "main", which should always be the name of the first card you have in mind.  It's basically like the first page in a "choose your own adventure" book.  The second and third page could be anywhere, but you need to put the first page at the beginning so that the reader has a clear starting place.
 
-    [button cardlink:'example-main1']Click here to see the an example of the card we just made.[/button]
+    [button cardlink:'example-main1']
+    [label]Click here to see the an example of the card we just made.[/label]
+    [reveal]Below is the "Hellow World" card that we just created.  Of course, there's a problem.  Right now, the card we created shows text, but it doesn't give us anywhere to go or anything to do.  That's because we created a card that doesn't have any buttons.
 
-    Of course, there's a problem.  Right now, the card we created shows text, but it doesn't give us anywhere to go.
-
-    [b]Note:  If you ever get stuck, remember you can use the "go back" button.[/b]
+    [b]Note:  If you ever get stuck on a card with no active buttons, remember you can use the "go back" link at the bottom.[/b][/reveal]
+    [/button]
 
     [button cardlink:'GettingStarted-AddingOptions']Let's fix that by adding additional cards for it to visit.[/button]
 
@@ -241,11 +235,20 @@ rawScript += `
       [b]~[card:'reply-thanks'][/b]You reply, "Thanks, and how are you?[b]~[/card][/b]
     [/bq]
 
-    As you can see, the value of the cardlink properties corresponds with the title of the cards that the button should be linking to.
+    As you can see, the value of the cardlink property corresponds with the title of the cards that the button should be linking to.
 
     [bq][button cardlink:'example-main3']Let's see this in action[/button][/bq]
 
-    And there you go, a finish project in less than a dozen lines of text.  You can basically use this knowledge to create a "Choose Your Own Adventure" style story, simply by creating more cards with more buttons, and linking everything together.
+    And there you go, a finish project in less than a dozen lines of text.
+
+    At this point, you already have enough information to create a "choose your own adventure" style story.  Simply create a new card on each page, and then add buttons so that the pages link together.
+
+    However, Edge Case can also be used for a lot more than that.  The markup language for Edge Case allows you to directly interact with JavaScript, so if you're familiar with how programming languages work, you can use Edge Case to create complex user experiences.  You can even modify the underlying engine based on your own needs.  If you aren't familiar with how programming languages work, then Edge Case is a good way to ease into it.
+
+    [button cardlink:'GettingStarted-Recap']Recap of what you learned[/button]
+    [button cardlink:'placeholder']Learn how to setup files[/button]
+    [button cardlink:'main']Return to main menu[/button]
+
 
   [/card]
 
@@ -274,7 +277,17 @@ rawScript += `
 
     Now that we've gone over the basics, let's recap what we've learned:
 
-    1.
+    1.  Edge Case is a markup language, which uses tags wrapped in square brackets.  A markup language is a language that can be written in any ordinary word processor, where sections of the text are "tagged" to let the computer know that you would like to do something special with it.
+
+    2.  The use of tags are referred to as "blocks" in Edge Case.  Projects are made up of blocks, which can be broken down into smaller blocks.  Most (but not all) blocks take the following form:  [b]~[tag] content ~[/tag].[/b]  Blocks aren't simply used for formatting text.  They can also be used to create cards, buttons, and executing JavaScript modules.
+
+    4.  Blocks can include additional modifiers, known as properties, which are key-value pairs specified in the opening tag.  We've seen examples of how properties are used when creating cards and buttons, and we'll see more examples as we delve deeper.
+
+    5.  Cards are a special type of block which are the main containers of information, and are basically equivalent to a PowerPoint slide.  When the script first loads, the software breaks it down into individual "cards."  You cannot hold a card inside of any other block, including another card.
+
+    6.  Buttons are another special type of block, which allows for interaction upon being clicked.  The most common form of interaction, and the only one we covered so far, is linking to another card.  But there's a lot more they can do, which will be covered later.
+
+    [button cardlink:'main']Return to main menu[/button]
   [/card]
 
 

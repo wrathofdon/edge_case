@@ -88,7 +88,7 @@ class Block
       }
       return this.lockedContent;
     }
-    let contents = this.contentArray.joinBlocks();
+    let contents = joinBlockArray(this.innerBlocks);
     if (this.properties.update === 'never') this.lockedContent = contents;
     if (this.tag === '2jsreturn') {
       this.lockedContent = `(function () {${contents}})();`;

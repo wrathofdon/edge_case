@@ -43,11 +43,13 @@ class Card {
     }
     for (let i in this.startJS) this.startJS[i].parseContents();
     let contents = joinBlockArray(this.innerBlocks);
+    contents = `<a name="${this.getDivTitle()}"></a>` + contents;
     let html = `<div id='${this.getDivTitle()}'>${contents}<hr></div>`;
     mainHTMLnode.innerHTML += html;
     for (let i in this.endJS) this.endJS[i].parseContents();
     activateEventListeners();
     currentCard = this;
+    window.location.href = `#${this.getDivTitle()}`;
   }
 
   /*
