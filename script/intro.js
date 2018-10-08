@@ -129,6 +129,8 @@ rawScript += `
         [b]~[card:'main'][/b]"Hello World"[b]~[/card][/b]
       [/bq]
 
+    The rule of thumb is this:  Two consecutive line breaks within a single tag will be treated as separate paragraphs.  A single line break or line breaks that are part of separate tags will simply be ignored.
+
     Anyway, after we set up our first card, we should start creating additional cards for what we want to do next.  Suppose after seeing "Hello World," the user has the option to reply with either "Hello Back" or "Thanks, and how are you?"
 
     Creating additional cards follows the same format as creating the first card:
@@ -140,8 +142,6 @@ rawScript += `
 
       [b]~[card:'reply-thanks'][/b]You reply, "Thanks, and how are you?[b]~[/card][/b]
     [/bq]
-
-    You may have noticed that this example, unlike the previous one, is all one-line with no line breaks.
 
     See how simple that was?  Of course, there's one last problem.  We now have additional cards, but we have no way to link them.
 
