@@ -8,13 +8,18 @@
     "Conditional": true,
     # user input
     "rawScript": true,
+    # empty block placeholder
+    "nullBlock": true,
+    "currentCard": true,
+    "currentButton": true,
     # the default html div
     "mainHTMLnode": true,
+    "tagsThatCanUpdate": true,
     # temporary dictionaries
     "globalExcerpts": true,
     "globalTagList": true,
     "globalTagTrie": true,
-    "idToNode": true,
+    "globalSettings": true,
     # permanent dictionaries
     "globalCardDict": true,
     "globalButtons": true,
@@ -33,8 +38,9 @@
     "replaceAll": true,
     "addCard": true,
     "getGlobalTrie": true,
+    "getCardHistoryPrefix": true,
     # parser dictionaries
-    "bbCodeHTMLConversions": true,
+    "bbCodeProcessCard": true,
     "bbCodeHTMLProcess": true,
   },
 

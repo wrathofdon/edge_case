@@ -4,7 +4,15 @@ $('#GoBack').click(function(){
   gotoPreviousCard()
 });
 
-preprocessCards(preprocessRaw(rawScript))
+var globalSettings = {
+  rewind: true,
+  attach: true
+}
+
+parseCardsPreprocess(preprocessRaw(rawScript))
+// cardHistoryStack = ['main'];
+// globalCardDict[cardHistoryStack[-1]].loadCard();
+
 
 
 globalCardDict['main'].loadCard();

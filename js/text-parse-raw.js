@@ -11,16 +11,15 @@ function preprocessRaw(text) {
   text = preprocessBasicHTML(text);
   return text;
 }
-
 /*
 * Removes comments, which are marked with the [$]comment[/$] tag
 */
 function preprocessRemoveComments(text) {
-  let blockArray = new BlockArray({'2$': (a) => { return '' }}, text);
-  for (let i = 0; i < blockArray.length; i++) {
-    blockArray[i] = (blockArray[i].tag === '2$') ? '' : blockArray[i].content;
+  let array = splitTextIntoBlocks (text, {'2$': null});
+  for (let i = 0; i < array.length; i++) {
+    if (typeof(array[i]) !== 'string') array[i] = '';
   }
-  return blockArray.joinBlocks();
+  return array.join('');
 }
 
 /*
@@ -28,16 +27,17 @@ function preprocessRemoveComments(text) {
 * To bypass, use the [html][/html] tag
 */
 function preprocessConvertAngledBrackets(text) {
-  let blockArray = (new BlockArray({'2html': null}, text)).array;
-  for (let i = 0; i < blockArray.length; i++) {
-    if (blockArray[i].tag === '2html') {
-      blockArray[i] = blockArray[i].content;
+  let array = splitTextIntoBlocks (text, {'2html': null});
+  for (let i = 0; i < array.length; i++) {
+    if (typeof(array[i]) === 'string') {
+      array[i] = array[i].replaceAll('<', '&lt;').replaceAll('>', '&gt;');
     } else {
-      blockArray[i] = blockArray[i].content.replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+      array[i] = array[i].rawContent;
     }
   }
-  return blockArray.join('');
+  return array.join('');
 }
+
 /*
 * Converts common and simple bbCode into html at the start
 */

@@ -1,60 +1,61 @@
 class Card {
   constructor(title, rawText) {
     this.title = title;
-    this.blockArray = new BlockArray(bbCodeHTMLConversions, rawText.trim(), true, this);
-    this.cardVar = {timesLoaded: 0};
-    this.idBlocks = [];
+    this.rawText = rawText;
+    this.cardVar = {timesLoaded: 0};[];
+    this.innerBlocks = splitTextIntoBlocks (rawText, bbCodeProcessCard, true, this);
+    this.alwaysUpdateBlocks = [];
+    this.excerpts = {};
+    this.buttonBlocks = [];
+    this.startJS = [];
+    this.initJS = [];
+    this.endJS = [];
+    this.exitJS = []
   }
 
-  /*
-  * Checks card for use of the copy tag.  If found, tag is replaced with what it's citing
-  * Afterwards, properties are updated, and blocks with ID tag are placed in special section
-  */
-  replaceCopies(blockArray=this.blockArray) {
-    for (let i = 0; i < blockArray.array.length; i++) {
-      if (blockArray.array[i].tag === '1copy') {
-        let citedBlock = globalExcerpts[blockArray.array[i].properties.copy];
-        if (citedBlock) {
-          blockArray.array[i] = citedBlock.makeCopy(this.card);
-        }
-      }
-      let block = blockArray.array[i];
-      block.updatePropertiesList();
-      if (block.htmlId) {
-        this.idBlocks.push(block);
-      }
-      if (block.blockArray) {
-        this.replaceCopies(block.blockArray);
-      }
-    }
+  getDivTitle(modifier=0) {
+    return `${getCardHistoryPrefix(modifier)}-${this.title}`
   }
-
   /*
   * Loads card to html
   */
-  loadCard(backtrack = false) {
-    if (!backtrack) {
-      cardHistoryStack.push(this);
+  loadCard() {
+    if (currentButton) currentButton.disable();
+    for (let id in currentButtons) currentButtons[id].onExit();
+    if (globalSettings.rewind) {
+      rewindToPreviousCard(this.title);
     }
-    // clears temporary variables and updates pointer to card variables
+    cardHistoryStack.push(this.title);
     tempVar = {};
     cardVar = this.cardVar;
-    cardVar.isBacktrack = backtrack;
     cardVar.timesLoaded += 1;
-    mainHTMLnode.innerHTML = this.blockArray.joinBlocks();
+    for (let i in this.buttonBlocks) {
+      let block = this.buttonBlocks[i];
+      if (block.properties.update !== 'never') {
+        block.button.toggleOn = false;
+        block.button.enable();
+      }
+      currentButtons[block.getHtmlId()] = block.button;
+    }
+    // clears temporary variables and updates pointer to card variables
+    if (cardVar.timesLoaded === 1) {
+      for (let i in this.initJS) this.initJS[i].parseContents();
+    }
+    for (let i in this.startJS) this.startJS[i].parseContents();
+    let contents = joinBlockArray(this.innerBlocks);
+    let html = `<div id='${this.getDivTitle()}'>${contents}<hr></div>`;
+    mainHTMLnode.innerHTML += html;
+    for (let i in this.endJS) this.endJS[i].parseContents();
     activateEventListeners();
-    $('html,body').scrollTop(0);
+    currentCard = this;
   }
 
   /*
   * Checks blocks with ids and updates them if necessary
   */
   updateBlocks() {
-    for (let i in this.idBlocks) {
-      let block = this.idBlocks[i];
-      if (block.alwaysUpdate) {
-        block.updateContents;
-      }
+    for (let i in this.alwaysUpdateBlocks) {
+      this.alwaysUpdateBlocks[i].updateContents();
     }
   }
 }

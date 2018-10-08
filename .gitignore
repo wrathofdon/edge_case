@@ -68,5 +68,6 @@ $RECYCLE.BIN/
 
 # Other
 old/
+cyoa/
 
 # End of https://www.gitignore.io/api/linux,macos,windows
