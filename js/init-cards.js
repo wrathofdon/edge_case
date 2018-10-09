@@ -1,31 +1,30 @@
 /*
-* Creates card objects and populates the main dictionary
-* Parses text for any changes that only need to be done once
+* INITIALIZES CARDS
 */
+
+// takes an input string of the raw script and converts them to cards
 function parseCardsPreprocess(text) {
+  // converts text to card blocks, adds individual cards to global dictionary
   parseCardsLoadGlobalDict(text);
+  // extracts any inner blocks with a user specified ID, in the event that this
+  // id might be cited by another card for copying
   for (let title in globalCardDict) {
     globalCardDict[title].excerpts = {};
     parseCardsExtractExcerpts(globalCardDict[title], globalCardDict[title].innerBlocks);
   }
+  // After all the IDs have been extracted, we iterate through the cards again
+  // and make any necessary replacements
   for (let title in globalCardDict) {
     parseCardsReplaceCopies(globalCardDict[title], globalCardDict[title].innerBlocks);
   }
+  // We then finalize block and card properties
   for (let title in globalCardDict) {
     globalCardDict[title].excerpts = {};
     parseCardsFinalize(globalCardDict[title], globalCardDict[title].innerBlocks);
   }
 }
 
-/*
-* A method of generating unique numbers for unique html IDs
-*/
-var sUniqueIdCounter = 0;
-function getUniqueId() {
-  sUniqueIdCounter += 1;
-  return sUniqueIdCounter;
-}
-
+// Adds cards to dictionary so they can be accessed by title
 function parseCardsLoadGlobalDict(text) {
   let array = splitTextIntoBlocks (text, {'2card':null});
   for (let i = 0; i < array.length; i++) {
@@ -44,6 +43,7 @@ function parseCardsLoadGlobalDict(text) {
   }
 }
 
+// Recursively explores the card for any blocks with user specified IDs
 function parseCardsExtractExcerpts(card, array) {
   for (let i in array) {
     if (typeof(array[i]) === 'string') continue;
@@ -53,6 +53,7 @@ function parseCardsExtractExcerpts(card, array) {
   }
 }
 
+// Recursively explores the card and makes any replacements called by the copy tag
 function parseCardsReplaceCopies(card, array) {
   for (let i in array) {
     if (typeof(array[i]) === 'string') continue;
@@ -74,6 +75,8 @@ function parseCardsReplaceCopies(card, array) {
   }
 }
 
+// Categorizes specialized blocks, such as blocks containing JS scripts
+// Removes properties that have already been processed
 function parseCardsFinalize(card, array) {
   for (let i in array) {
     if (typeof(array[i]) === 'string') continue;

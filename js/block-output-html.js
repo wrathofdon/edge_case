@@ -1,4 +1,15 @@
-// TODO: We should probably rename this because it covers a lot more than HTML now
+function joinBlockArray(array) {
+  let outputArray = [];
+  for (let i in array) {
+    let block = array[i]
+    if (block) {
+      if (typeof(block) === 'string') outputArray.push(block);
+      else outputArray.push(block.parseContents());
+    }
+  }
+  return outputArray.join('');
+}
+
 var bbCodeProcessCard = {
   '2ol': bbCodeHTMLConvertLists,
   '2ul': bbCodeHTMLConvertLists,

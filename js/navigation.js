@@ -1,15 +1,12 @@
-// var cardHistoryStack = [];
-// var cardHistoryStack = JSON.parse(localStorage.cardHistoryStack) || ['main'];
+// a stack of all the cards visited in the path from start to current
 var cardHistoryStack = [];
-/*
-* Enables the back button to work
-*/
+
 function gotoPreviousCard() {
   if (cardHistoryStack.length === 1) {
     return;
   }
   removeLastCardAttachment();
-  removeLastCardAttachment().loadCard();
+  removeLastCardAttachment().loadCard(true);
 }
 
 

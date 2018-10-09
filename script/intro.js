@@ -9,9 +9,9 @@ rawScript += `
 
     Edge Case is a custom markup language for creating non-linear scripts.  It can be used for interactive tutorials, simple games, "choose your own adventure" style stories, modeling control flows, and more.
 
-    These scripts can be written in any text editor and launched in any browser, without the need for any special software or server.  Edge Case is best suited for evolving "works-in-progress" and rapid prototyping.  It's easy to edit, and easy to track changes when using services like Git, which is useful for collaborative projects.  Software teams can include an Edge Case folder in existing private repositories, and update the documentation at the same time they update their products.
+    These scripts can be written in any text editor and launched client-side in any browser, without the need for any special software or server.  It is best suited for evolving "works-in-progress" and rapid prototyping, as opposed to a commercial product.  It's easy to edit and easy to track changes, especially when intergrated with git in colaborative projects.  Software teams can include an Edge Case folder in existing private repositories, and update the documentation at the same time they update their products.
 
-    I will try my best to keep the current draft of this tutorial accessible to everyone.  However, it does help if you're at least moderately familiar with the basics of HTML, and hopefully JavaScript as well.  I assume that anyone who stumbled upon this project already have that background.  If not, stay tuned for future versions, which will simplify things even further.
+    I will try my best to keep the current draft of this tutorial accessible to everyone.  However, it does help if you're at least moderately familiar with the basics of HTML and JavaScript.  I assume that anyone who stumbled upon this project already has that background.  If not, stay tuned for future versions, which will simplify things even further.
 
     [button cardlink:'GettingStarted-Intro']Building your first project[/button]
 
@@ -82,8 +82,6 @@ rawScript += `
 
     Properties in Edge Case are key-value pairs.  In this case, [b]"card"[/b] is the key, and [b]"InsertTitleHere"[/b] is the value.  Formatting relies on the JavaScript convention of a colon, rather than the HTML convention of using an equal sign.
 
-    [button cardlink:'GettingStarted-Markup']You're going too fast!  I don't understand what those square brackets mean.[/button]
-
     [button cardlink:'GettingStarted-main']'Okay, that makes sense.  So how do I make a project?'[/button]
   [/card]
 
@@ -103,7 +101,7 @@ rawScript += `
 
     [button cardlink:'example-main1']
     [label]Click here to see the an example of the card we just made.[/label]
-    [reveal]Below is the "Hellow World" card that we just created.  Of course, there's a problem.  Right now, the card we created shows text, but it doesn't give us anywhere to go or anything to do.  That's because we created a card that doesn't have any buttons.
+    [reveal]Below is the "Hello World" card that we just created.  Of course, there's a problem.  Right now, the card we created shows text, but it doesn't give us anywhere to go or anything to do.  That's because we created a card that doesn't have any buttons.
 
     [b]Note:  If you ever get stuck on a card with no active buttons, remember you can use the "go back" link at the bottom.[/b][/reveal]
     [/button]
@@ -129,7 +127,7 @@ rawScript += `
         [b]~[card:'main'][/b]"Hello World"[b]~[/card][/b]
       [/bq]
 
-    The rule of thumb is this:  Two consecutive line breaks within a single tag will be treated as separate paragraphs.  A single line break or line breaks that are part of separate tags will simply be ignored.
+    The rule of thumb is this:  Two consecutive line breaks within a single tag will be treated as separate paragraphs.  A single line break, or consecutive line breaks that are part of separate tags will simply be ignored.
 
     Anyway, after we set up our first card, we should start creating additional cards for what we want to do next.  Suppose after seeing "Hello World," the user has the option to reply with either "Hello Back" or "Thanks, and how are you?"
 
@@ -279,7 +277,9 @@ rawScript += `
 
     1.  Edge Case is a markup language, which uses tags wrapped in square brackets.  A markup language is a language that can be written in any ordinary word processor, where sections of the text are "tagged" to let the computer know that you would like to do something special with it.
 
-    2.  The use of tags are referred to as "blocks" in Edge Case.  Projects are made up of blocks, which can be broken down into smaller blocks.  Most (but not all) blocks take the following form:  [b]~[tag] content ~[/tag].[/b]  Blocks aren't simply used for formatting text.  They can also be used to create cards, buttons, and executing JavaScript modules.
+    2.  The use of tags are referred to as "blocks" in Edge Case.  Projects are made up of blocks, which can be broken down into smaller blocks.  Most (but not all) blocks take the following form:  [b]~[tag] content ~[/tag].[/b]
+
+    3.  Blocks aren't simply used for formatting text.  They can also be used to create cards, buttons, and executing JavaScript modules.
 
     4.  Blocks can include additional modifiers, known as properties, which are key-value pairs specified in the opening tag.  We've seen examples of how properties are used when creating cards and buttons, and we'll see more examples as we delve deeper.
 

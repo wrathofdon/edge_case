@@ -15,18 +15,18 @@ pre {
 }
 
 #mainWindow {
-  background-color: white;
-  width: 700px;
+  width: 800px;
   margin: auto;
-  padding: 10px;
 }
 
 #GoBack {
-  background-color: white;
-  width: 700px;
+  width: 760px;
   margin: auto;
-  padding: 10px;
-  text-align: right;
+  background-color: white;
+  margin-top: 10px;
+  margin-bottom: 300px;
+  text-align: center;
+  padding: 20px;
 }
 
 .buttonDefaultStyle {
@@ -57,4 +57,10 @@ pre {
 
 .toggleOff {
   display: none;
+}
+
+.cardwindow {
+  background-color: white;
+  padding: 20px;
+  margin-top: 20px;
 }
