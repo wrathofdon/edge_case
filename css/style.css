@@ -24,7 +24,6 @@ pre {
   margin: auto;
   background-color: white;
   margin-top: 10px;
-  margin-bottom: 300px;
   text-align: center;
   padding: 20px;
 }
@@ -55,9 +54,9 @@ pre {
   display: none;
 }
 
-.toggleOff {
+/* .toggleOff {
   display: none;
-}
+} */
 
 .cardwindow {
   background-color: white;

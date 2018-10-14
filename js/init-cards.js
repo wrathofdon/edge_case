@@ -4,20 +4,18 @@
 
 // takes an input string of the raw script and converts them to cards
 function parseCardsPreprocess(text) {
-  // converts text to card blocks, adds individual cards to global dictionary
+  // extract card objects from text and adds them to global dictionary
   parseCardsLoadGlobalDict(text);
-  // extracts any inner blocks with a user specified ID, in the event that this
-  // id might be cited by another card for copying
+  // finds inner blocks with IDs so they can be excerpted and copied
   for (let title in globalCardDict) {
     globalCardDict[title].excerpts = {};
     parseCardsExtractExcerpts(globalCardDict[title], globalCardDict[title].innerBlocks);
   }
-  // After all the IDs have been extracted, we iterate through the cards again
-  // and make any necessary replacements
+  // replaces copy blocks with excerpts
   for (let title in globalCardDict) {
     parseCardsReplaceCopies(globalCardDict[title], globalCardDict[title].innerBlocks);
   }
-  // We then finalize block and card properties
+  // finalizes inner blocks
   for (let title in globalCardDict) {
     globalCardDict[title].excerpts = {};
     parseCardsFinalize(globalCardDict[title], globalCardDict[title].innerBlocks);
@@ -75,18 +73,19 @@ function parseCardsReplaceCopies(card, array) {
   }
 }
 
-// Categorizes specialized blocks, such as blocks containing JS scripts
-// Removes properties that have already been processed
+// finalizes card objects
 function parseCardsFinalize(card, array) {
   for (let i in array) {
     if (typeof(array[i]) === 'string') continue;
     let block = array[i];
+    // checks for duplicate ids, replaces them if necessary
     if (block.htmlId) {
       if (card.excerpts[block.htmlId]) block.htmlId = `uid${getUniqueId()}`;
       card.excerpts[block.htmlId] = block;
     }
+    // checks if blocks fit certain categories
     if (block.properties.update === 'always') card.alwaysUpdateBlocks.push(block);
-    if (block.tag === '2button') card.buttonBlocks.push(block);
+    if (block.tag === '2button') card.buttonBlocks[block.htmlId] = block;
     else if (block.tag === '2js' && block.properties.trigger) {
       block.properties.trigger = block.properties.trigger.toLowerCase().trim();
       if (block.properties.trigger === 'initial') card.initJS.push(block);
@@ -96,11 +95,13 @@ function parseCardsFinalize(card, array) {
       blockArray.blocks[i] = nullBlock;
       continue;
     }
+    // prunes properties that have already been processed
     delete block.properties.id;
     delete block.properties.class;
     delete block.properties.condition;
     delete block.properties.buttonstyle;
     delete block.properties.trigger;
+    delete block.properties.persist;
     if (block.innerBlocks) parseCardsFinalize(card, block.innerBlocks);
   }
 }

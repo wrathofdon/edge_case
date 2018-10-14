@@ -11,94 +11,11 @@ class Button {
     this.cardlink = null;
     this.cardattach = null;
     this.enabled = true;
-    this.parseInnerContents();
+    this.persist = false;
+    this.initializeButtonProperties();
   }
 
-  // what to do when button is clicked
-  clickButton() {
-    if (!this.enabled) {
-      activateEventListeners();
-      return;
-    }
-    currentButton = this;
-    if (this.actionBlock) {
-      eval(this.actionBlock.getContents())
-    }
-    this.toggleButton();
-    this.card.updateBlocks();
-    if (this.cardlink) {
-      let cardlink = globalCardDict[this.cardlink];
-      if (cardlink) {
-        cardlink.loadCard();
-      } else {
-        console.log(`error finding card: ${this.cardlink}`);
-      }
-    }
-    activateEventListeners();
-  }
-
-
-  disable() {
-    this.enabled = false;
-    this.block.removeClassProperty('buttonDefaultStyle');
-    this.block.addClassProperty('buttonGrayedOut');
-  }
-  enable() {
-    this.enabled = true;
-    this.block.addClassProperty('buttonDefaultStyle');
-    this.block.removeClassProperty('buttonGrayedOut');
-  }
-
-  /*
-  * Outputs for html.  Creates placeholder for toggled text if necessary
-  */
-  getButtonHtml() {
-    this.block.checkCondition();
-    if (!this.block.enabled) {
-      let output = `<div ${this.block.getPropertiesOutput()}></div>`;
-      if (this.toggleBlock)
-        output += `<div ${this.toggleBlock.getPropertiesOutput()}></div>`;
-      return output;
-    }
-    if (!this.toggleBlock) {
-      return `<div ${this.block.getPropertiesOutput()}>${this.getDisplayContent()}</div>`
-    }
-    return `<div ${this.block.getPropertiesOutput()}>${this.getDisplayContent()}</div>
-      <div ${this.toggleBlock.getPropertiesOutput()}>${this.getToggleContent()}</div>`;
-  }
-
-  toggleButton() {
-    if (!this.toggleBlock) return;
-    if (this.toggleOn) this.toggleOnToOff();
-    else this.toggleOffToOn();
-  }
-
-  toggleOnToOff() {
-    this.toggleOn = false;
-    if (this.toggleDisplayBlock) {
-      document.getElementById(this.block.getHtmlId()).innerHTML = this.getDisplayContent();
-    }
-    this.toggleBlock.removeClassProperty('toggleOn');
-    this.toggleBlock.addClassProperty('toggleOff');
-  }
-
-  toggleOffToOn() {
-    this.toggleOn = true;
-    if (this.toggleBlock.tag === '2reveal') {
-      this.disable();
-    }
-    if (this.toggleDisplayBlock) {
-      document.getElementById(this.block.getHtmlId()).innerHTML = this.getDisplayContent();
-    }
-    this.toggleBlock.addClassProperty('toggleOn');
-    this.toggleBlock.removeClassProperty('toggleOff');
-    document.getElementById(this.toggleBlock.getHtmlId()).innerHTML = this.getToggleContent();
-  }
-
-  /*
-  * Parses inner button components upon initialization
-  */
-  parseInnerContents() {
+  initializeButtonProperties() {
     let innerBlocks = this.block.innerBlocks;
     // if there are no tags, treat the unformatted text as the display block
     if (this.block.properties.cardlink) {
@@ -131,6 +48,97 @@ class Button {
     }
   }
 
+  // what to do when button is clicked
+  clickButton(cardNo) {
+    if (!this.enabled) {
+      activateEventListeners();
+      return;
+    }
+    projectState.currentButtonCardNum = cardNo;
+    currentButton = this;
+    if (this.actionBlock) {
+      eval(this.actionBlock.getContents())
+    }
+    this.toggleButton();
+    this.card.updateBlocks();
+    if (this.cardlink) {
+      let cardlink = globalCardDict[this.cardlink];
+      while (cardHistoryStack.length > projectState.currentButtonCardNum + 1) {
+        console.log('test')
+        removeLastCardAttachment();
+      }
+      if (cardlink) {
+        cardlink.loadCard();
+      } else {
+        console.log(`error finding card: ${this.cardlink}`);
+      }
+    }
+    currentButton = null;
+    projectState.currentButtonCardNum = null;
+    activateEventListeners();
+  }
+
+  // button is still visible, but not longer enabled
+  disable() {
+    this.enabled = false;
+    this.block.removeClassProperty('buttonDefaultStyle');
+    this.block.addClassProperty('buttonGrayedOut');
+  }
+
+  enable() {
+    this.enabled = true;
+    this.block.addClassProperty('buttonDefaultStyle');
+    this.block.removeClassProperty('buttonGrayedOut');
+  }
+
+  // outputs html, outputs placeholder if button/toggle is unavilable
+  getButtonHtml() {
+    this.block.checkCondition();
+    if (!this.block.enabled) {
+      let output = `<div ${this.block.getPropertiesOutput()}></div>`;
+      if (this.toggleBlock)
+        output += `<div ${this.toggleBlock.getPropertiesOutput()}></div>`;
+      return output;
+    }
+    if (!this.toggleBlock) {
+      return `<div ${this.block.getPropertiesOutput()}>${this.getDisplayContent()}</div>`
+    }
+    return `<div ${this.block.getPropertiesOutput()}>${this.getDisplayContent()}</div>
+      <div ${this.toggleBlock.getPropertiesOutput()}>${this.getToggleContent()}</div>`;
+  }
+
+  toggleButton() {
+    if (!this.toggleBlock) return;
+    if (this.toggleOn) this.toggleOnToOff();
+    else this.toggleOffToOn();
+  }
+
+  toggleOnToOff() {
+    this.toggleOn = false;
+    if (this.toggleDisplayBlock) {
+      this.block.getNode().innerHTML = this.getDisplayContent();
+    }
+    this.toggleBlock.removeClassProperty('toggleOn');
+    this.toggleBlock.addClassProperty('toggleOff');
+    $(`#${this.toggleBlock.getHtmlId()}`).slideUp('fast');
+  }
+
+  toggleOffToOn() {
+    this.toggleOn = true;
+    if (this.toggleBlock.tag === '2reveal') {
+      this.disable();
+    }
+    if (this.toggleDisplayBlock) {
+      this.block.getNode().innerHTML = this.getDisplayContent();
+    }
+    this.toggleBlock.addClassProperty('toggleOn');
+    this.toggleBlock.removeClassProperty('toggleOff');
+    let toggleNode = $(`#${this.toggleBlock.getHtmlId()}`);
+    toggleNode.hide();
+    this.toggleBlock.getNode().innerHTML = this.getToggleContent();
+    toggleNode.slideDown('fast');
+  }
+
   getDisplayContent() {
     if (typeof(this.displayLabel) === 'string') return this.displayLabel;
     if (this.toggleOn && this.toggleDisplayBlock) {
@@ -143,14 +151,5 @@ class Button {
     if (this.toggleOn && this.toggleBlock)
       return this.toggleBlock.getContents();
     return '';
-  }
-
-  onExit() {
-    if (this.enabled) {
-      this.block.removeNode();
-      if (this.toggleBlock) {
-        this.toggleBlock.removeNode()
-      }
-    }
   }
 }

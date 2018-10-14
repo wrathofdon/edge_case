@@ -6,7 +6,7 @@ class Block
     this.rawText = rawText;
     this.dict = dict;
     if (this.tag === '2js') this.rawText = this.rawText.replaceAll('\n', ' ');
-    this.innerBlocks = (recursive) ?
+    this.innerBlocks = (recursive && rawText) ?
       splitTextIntoBlocks(rawText, dict, recursive, card) : null;
     this.card = card;
     this.button = null;
@@ -15,13 +15,11 @@ class Block
     this.lockedContent = null;
     this.condition = null;
     this.enabled = true;
-    this.initProperties();
+    this.initializeProperties();
   }
 
-  /*
-  * Generates an ID in cases where a new ID is needed
-  */
-  initProperties() {
+  initializeProperties() {
+    // moves properties from properties object to block properties
     if (this.properties.update)
       this.properties.update = (this.properties.update).toLowerCase().trim();
     if (this.properties.condition)
@@ -37,6 +35,7 @@ class Block
     if (this.properties.cardlink) this.classes.push('cardlink');
     if (this.tag === '2button') {
       this.button = new Button(this, this.card);
+      this.button.persist = this.properties.persist;
       this.classes.push(this.properties.buttonstyle || 'buttonDefaultStyle');
     } else if (this.tag === '2toggle' || this.tag === '2reveal') {
       this.classes.push('toggleOff');
@@ -47,35 +46,33 @@ class Block
     }
   }
 
-  getHtmlId() {
-    let prefix = '' + cardHistoryStack.length;
-    prefix = 'c000'.substring(0, 4 - prefix.length) + prefix;
-    return `${prefix}-${this.htmlId}`;
+  // generates unique ID based on block ID and current card number
+  getHtmlId(modifier=0, prefix=null) {
+    return `${getCardHistoryPrefix(modifier, prefix)}-${this.htmlId}`;
   }
 
-  getNode() {
-    return document.getElementById(this.getHtmlId());
+  // returns node for block if node is present
+  getNode(modifier=0, prefix=null) {
+    return document.getElementById(this.getHtmlId(modifier, prefix));
   }
 
-  removeNode() {
-    let node = this.getNode();
-    if (node) node.parentNode.removeChild(node);
+  // removes node associated with block from DOM
+  removeNode(modifier=0, prefix=null) {
+    $(`#${this.getHtmlId(modifier, prefix)}`).slideUp(250);
+    let currentNode = this.getNode(modifier, prefix);
+    if (currentNode) {
+      setTimeout(function(){
+        currentNode.parentNode.removeChild(currentNode);
+      }, 250)
+    }
   }
 
-  /*
-  * Returns a deep copy of itself assigned to a new card
-  */
+  // returns a deep copy of current block assigned to a different card
   makeCopy(card) {
     return new Block(this.tag, this.properties, this.rawText, this.dict, true, card);
   }
 
-
-
-  /*
-  * Parses the internal contents of the block, but does not parse them in the
-  * context of the block itself. For instance, a div block might use this to
-  * return the content of the div, but it will not yet be wrapped in the div tag
-  */
+  // parses the internal contents of the block prior to being processed by tag
   getContents() {
     if (this.tag === null || this.contentArray === null) return this.rawContent;
     this.checkCondition();
@@ -97,28 +94,24 @@ class Block
     return contents;
   }
 
-
-
-  /*
-  * Updates the contents
-  */
-  updateContents() {
+  // updates contents of node if node exists
+  updateContents(modifier=0, prefix=null) {
     if (!this.htmlId) return;
+    let node = this.getNode(modifier, prefix);
+    if (!node) return;
     this.checkCondition();
     if (this.enabled) {
-      let node = document.getElementById(this.getHtmlId());
       if (node) {
         node.innerHTML = this.getContents();
       }
     }
   }
 
-  /*
-  * Checks if condition is required, and if condition is being met
-  */
+  // checks if block requires condition, and if condition is met
+  // sets enabled boolean accordingly
   checkCondition() {
     if (this.button) {
-      if (!this.button.disabled) {
+      if (!this.button.enabled) {
         return;
       }
     }
@@ -133,17 +126,12 @@ class Block
     return;
   }
 
-  /*
-  * Parses the block with the properties of the block tag.  i.e., a div block
-  * will now be wrapped in the div blocks
-  */
+  // parses block based on block data and tag behavior
   parseContents() {
     return this.dict[this.tag](this);
   }
 
-  /*
-  * Outputs the properties object and member variables to html attributes
-  */
+  // outputs a string of properties for html
   getPropertiesOutput() {
     let output = [];
     if (this.htmlId) {
@@ -158,18 +146,15 @@ class Block
     return output.join(' ');
   }
 
-  /*
-  * Adds class to block object.  Useful if we want to change the style
-  */
+  // adds class property from block, adds to node if node is present
   addClassProperty(str) {
     if (!this.classes.includes(str)) {
       this.classes.push(str);
       $(`#${this.getHtmlId()}`).addClass(str);
     }
   }
-  /*
-  * Removes class from block object.  Useful if we want to change the style
-  */
+
+  // removes class property from block, removes from node if node is present
   removeClassProperty(str) {
     if (this.classes.includes(str)) {
       delete this.classes[this.classes.indexOf(str)];

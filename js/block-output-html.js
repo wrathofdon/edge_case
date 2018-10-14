@@ -1,3 +1,4 @@
+// takes an array of blocks/strings and returns a text output
 function joinBlockArray(array) {
   let outputArray = [];
   for (let i in array) {
@@ -10,6 +11,7 @@ function joinBlockArray(array) {
   return outputArray.join('');
 }
 
+// maps tag names for processing cards to functions
 var bbCodeProcessCard = {
   '2ol': bbCodeHTMLConvertLists,
   '2ul': bbCodeHTMLConvertLists,
@@ -34,60 +36,45 @@ var bbCodeProcessCard = {
   '1setglobal': bbCodeSetGlobalVariables,
 };
 
-/*
-* Parses bbCode into lists.  Lists are created with [ul][/ul] or [ol][/ol]
-* List atoms are signified with [*], no closing tag
-*/
+// creates a list
 function bbCodeHTMLConvertLists(block) {
   // TODO: this can break if the user forgets to input [*] at the beginning
   return `<${block.tag.substring(1)}>${block.getContents().trim().replaceAll('[*]',
     '</li><li>').substring(5)}</li></${block.tag.substring(1)}>`
 }
-/*
-* Parses a link using the format [url:"http://site.com"]My website[/url]
-* Other properties can also be specified
-*/
+// creates a link
 function bbCodeHTMLConvertURL(block) {
   return `<a href="${removeQuotes(block.properties.url)}"
     target="blank">${block.getContents()}</a>`;
 }
-/*
-* Inserts an image with [img]http://imageurl.com[/url].
-* Other properties can also be specified
-*/
+
+// displays an image
 function bbCodeHTMLConvertIMG(block) {
   return `<img ${block.getPropertiesOutput()}>`;
 }
-/*
-* Placeholder, which can be used to import a block from somewhere else.
-* Use the ID of the other block as the property, [copy:"card title"]
-}
-*/
+
+// copies over excerpt from other cards
 function bbCodeHTMLCopyExcerpt(block) {
   return `\nError: Could not find ${block.properties.copy}\n`;
 }
-/*
-* Generates a span tag.  Can be combined with custom properties
-*/
+
+// generates a span tag.
 function bbCodeHTMLSpan(block) {
   return `<span ${block.getPropertiesOutput()}>${block.getContents()}</span>`;
 }
-/*
-* Generates a DIV tag.  Can be combined with custom properties
-*/
+
+// generates a div block
 function bbCodeHTMLDiv(block) {
   return `<div ${block.getPropertiesOutput()}>${block.getContents()}</div>`;
 }
-/*
-* Generates html for button
-*/
+
+// generates a button
 function bbCodeHTMLButton(block) {
   if (!block.button) return '';
   return block.button.getButtonHtml();
 }
-/*
-* Runs JS code in the background inside an IIFE and returns the result as text
-*/
+
+// runs js code as an anonymous and outputs return text
 function bbCodeJSReturn(block) {
   let jsOutputText = '';
   try {
@@ -98,6 +85,7 @@ function bbCodeJSReturn(block) {
   return `<span ${block.getPropertiesOutput()}>${jsOutputText}</span>`;
 }
 
+// evaluates js code and returns the result
 function bbCodeJSEval(block) {
   let jsOutputText = '';
   try {
@@ -107,9 +95,8 @@ function bbCodeJSEval(block) {
   }
   return `<span ${block.getPropertiesOutput()}>${jsOutputText}</span>`;
 }
-/*
-* Runs JS code in the background as code, does not return unless there's an error
-*/
+
+// runs js code.  does not return anything.
 function bbCodeJSBackground(block) {
   try {
     eval(block.getContents());
@@ -118,9 +105,8 @@ function bbCodeJSBackground(block) {
   }
   return '';
 }
-/*
-* Getters for variable
-*/
+
+// getters for variables
 function genericGetVariable(str) {
   try {
     return eval(str);
@@ -150,9 +136,7 @@ function genericSetVariables(name, value, error) {
   return error;
 }
 
-/*
-* Setters for variables
-*/
+// setters for variables
 function bbCodeSetTempVariables(block) {
   let error = '';
   for (let name in block.properties) {
@@ -177,9 +161,7 @@ function bbCodeSetGlobalVariables(block) {
   return error;
 }
 
-/*
-* For tags that do nothing on their own
-*/
+// creates a placeholder
 function bbCodeReturnContents(block) {
   return `<span ${block.getPropertiesOutput()}>${block.getContents()}</span>`;
 }

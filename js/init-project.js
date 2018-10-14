@@ -2,31 +2,24 @@
 * PROJECT VARIABLES
 */
 
-// the main input string that the program takes in
-var rawScript = '';
-// dictionary that maps card titles to card objects
-var globalCardDict = {};
-// maps block conversion dictionaries to a trie structure
-var globalTagTrie = {};
+var rawScript = ''; // the main input string that the program takes in
+var globalCardDict = {}; // maps card titles to card objects
+var globalTagTrie = {}; // maps dictionaries to trie data structures
 var mainHTMLnode = document.getElementById('mainWindow');
 
-// An object for storing all global variables that are shared between cards
-var globalVar = {}
-// An object for storing variables that are specific to the current card, and
-// which will persist for that character afterwards
-var cardVar = {};
-// An object for variables that are only stored until a new card is loaded
-var tempVar = {};
+var globalVar = {} // shared object for storing variables among all cards
+var cardVar = {}; // placeholder for current card persistant variables
+var tempVar = {}; // object for storing data that will disappear when card is exited
 
-// placeholder for the most recent card being displayed
-var currentCard = null;
-// placeholder for the most recent button that was clicked
-var currentButton = null;
-// list of all current buttons for current card
-var currentButtons = {};
+// presents information if the program is in the process of doing something
+var projectState = {
+  loadingCardNum: null,
+  currentButtonCardNum: null
+}
 
-// A counter to ensure that ids are unqiue for elements that need one
-var sUniqueIdCounter = 0;
+var currentCard = null; // placeholder for current active card
+var currentButton = null; // placeholder for current button clicked
+var sUniqueIdCounter = 0; // used for generating new IDs for html nodes
 
 /*
 * PROTOTYPES
@@ -54,8 +47,8 @@ String.prototype.replaceAll = function(search, replacement) {
 function preprocessRaw(text) {
   // uses "~" as escape character to ignore blocks that should be parsed as text
   text = text.replaceAll('~[', '&lsqb;');
+  text = text.replaceAll('~<', '&lt;').replaceAll('~>', '&gt;');
   text = preprocessRemoveComments(text);
-  text = preprocessConvertAngledBrackets(text);
   text = preprocessBasicHTML(text);
   return text;
 }
@@ -65,20 +58,6 @@ function preprocessRemoveComments(text) {
   let array = splitTextIntoBlocks (text, {'2$': null});
   for (let i = 0; i < array.length; i++) {
     if (typeof(array[i]) !== 'string') array[i] = '';
-  }
-  return array.join('');
-}
-
-// Converts any angled bracket that is not inside of an [htmk]text[/html] into
-// a version that will not be mistaken for HTML
-function preprocessConvertAngledBrackets(text) {
-  let array = splitTextIntoBlocks (text, {'2html': null});
-  for (let i = 0; i < array.length; i++) {
-    if (typeof(array[i]) === 'string') {
-      array[i] = array[i].replaceAll('<', '&lt;').replaceAll('>', '&gt;');
-    } else {
-      array[i] = array[i].rawContent;
-    }
   }
   return array.join('');
 }

@@ -12,6 +12,10 @@
     "nullBlock": true,
     "currentCard": true,
     "currentButton": true,
+    "currentButtons": true,
+    "currentButtonCardNumber": true,
+    "currentButtonCard": true,
+    "projectState": true,
     # the default html div
     "mainHTMLnode": true,
     "tagsThatCanUpdate": true,
