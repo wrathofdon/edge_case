@@ -1,0 +1,3 @@
+rawScript = rawScript + `
+[card:'']
+`

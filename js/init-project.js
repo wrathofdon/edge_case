@@ -53,9 +53,9 @@ function preprocessRaw(text) {
   return text;
 }
 
-// Removes comments that are surrounded by [$]comment[/$] tags
+// Removes comments that are surrounded by [~]comment[/$] tags
 function preprocessRemoveComments(text) {
-  let array = splitTextIntoBlocks (text, {'2$': null});
+  let array = splitTextIntoBlocks (text, {'2~': null});
   for (let i = 0; i < array.length; i++) {
     if (typeof(array[i]) !== 'string') array[i] = '';
   }

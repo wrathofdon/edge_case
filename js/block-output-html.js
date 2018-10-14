@@ -44,7 +44,7 @@ function bbCodeHTMLConvertLists(block) {
 }
 // creates a link
 function bbCodeHTMLConvertURL(block) {
-  return `<a href="${removeQuotes(block.properties.url)}"
+  return `<a href="${block.properties.url}"
     target="blank">${block.getContents()}</a>`;
 }
 
