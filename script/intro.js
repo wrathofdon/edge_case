@@ -154,7 +154,7 @@ rawScript += `
     Now, let's present the user with two different choices, which are linked to two different cards.  One cards opens door #1, and the other card opens door #2:
 
     [bq]
-      [b]~[card:'main'][/b]"Hello World!  Why don't you pick a door?"[br]
+      [b]~[card:'main'][/b]"Hello World!  Why don't you pick a door?"[b]~[/card][/b][br]
 
       [b]~[card:'door1'][/b]You open door #1 and you win a prize.[b]~[/card][/b]
 
@@ -184,8 +184,7 @@ rawScript += `
     The button label is the contents that you want the user to interact with.  This usually means text, but it could also be an image, or a combination of both.  Let's add two new buttons to the "main" card:
 
     [bq]
-      [b]~[card:'main'][/b][br]
-      "Hello World!  Why don't you pick a door?"[br]
+      [b]~[card:'main'][/b]"Hello World!  Why don't you pick a door?"[b]~[/card][/b][br]
       [b]~[button cardlink:'door1'][/b] Pick door #1 [b]~[/button][/b][br]
       [b]~[button cardlink:'door2'][/b] Pick door #1 [b]~[/button][/b][br]
       [b]~[/card][/b]
@@ -227,8 +226,7 @@ rawScript += `
     With that in mind, let's create the updated code, with the proper cardlinks attached:
 
     [bq]
-      [b]~[card:'main'][/b][br]
-      "Hello World!  Why don't you pick a door?"[br]
+      [b]~[card:'main'][/b]"Hello World!  Why don't you pick a door?"[b]~[/card][/b][br]
       [b]~[button cardlink:'door1'][/b] Pick door #1 [b]~[/button][/b][br]
       [b]~[button cardlink:'door2'][/b] Pick door #1 [b]~[/button][/b][br]
       [b]~[/card][/b]
