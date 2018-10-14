@@ -28,9 +28,11 @@ rawScript += `
       [button persist:'true']
         [label]Click here to see a sample of the scripting language.[/label]
         [toggle]
-          [b]~[card:'main'][/b]"Hello World!  Why don't you pick a door?"[b]~[/card][/b][br]
-          [b]~[button cardlink:'door1'][/b] Pick door #1 [b]~[/button][/b][br]
-          [b]~[button cardlink:'door2'][/b] Pick door #1 [b]~[/button][/b][br]
+          [b]~[card:'main'][/b]"Hello World!  Why don't you pick a door?"[b]~[/card][/b]
+
+          [b]~[button cardlink:'door1'][/b] Pick door #1 [b]~[/button][/b]
+
+          [b]~[button cardlink:'door2'][/b] Pick door #2 [b]~[/button][/b]
           [b]~[/card][/b]
 
           [b]~[card:'door1'][/b]You open door #1 and you win a prize.[b]~[/card][/b]
@@ -153,7 +155,7 @@ rawScript += `
     Now, let's present the user with two different choices, which are linked to two different cards.  One cards opens door #1, and the other card opens door #2:
 
     [bq]
-      [b]~[card:'main'][/b]"Hello World!  Why don't you pick a door?"[b]~[/card][/b][br]
+      [b]~[card:'main'][/b]"Hello World!  Why don't you pick a door?"[b]~[/card][/b]
 
       [b]~[card:'door1'][/b]You open door #1 and you win a prize.[b]~[/card][/b]
 
@@ -183,14 +185,12 @@ rawScript += `
     The button label is the contents that you want the user to interact with.  This usually means text, but it could also be an image, or a combination of both.  Let's add two new buttons to the "main" card:
 
     [bq]
-      [b]~[card:'main'][/b]"Hello World!  Why don't you pick a door?"[b]~[/card][/b][br]
-      [b]~[button cardlink:'door1'][/b] Pick door #1 [b]~[/button][/b][br]
-      [b]~[button cardlink:'door2'][/b] Pick door #1 [b]~[/button][/b][br]
+      [b]~[card:'main'][/b]"Hello World!  Why don't you pick a door?"[b]~[/card][/b]
+
+      [b]~[button cardlink:'door1'][/b] Pick door #1 [b]~[/button][/b]
+
+      [b]~[button cardlink:'door2'][/b] Pick door #1 [b]~[/button][/b]
       [b]~[/card][/b]
-
-      [b]~[card:'door1'][/b]You open door #1 and you win a prize.[b]~[/card][/b]
-
-      [b]~[card:'door2'][/b]You open door #2 and win nothing.[b]~[/card][/b]
     [/bq]
 
     [button cardlink:'example-main3']
@@ -225,14 +225,12 @@ rawScript += `
     With that in mind, let's create the updated code, with the proper cardlinks attached:
 
     [bq]
-      [b]~[card:'main'][/b]"Hello World!  Why don't you pick a door?"[b]~[/card][/b][br]
-      [b]~[button cardlink:'door1'][/b] Pick door #1 [b]~[/button][/b][br]
-      [b]~[button cardlink:'door2'][/b] Pick door #1 [b]~[/button][/b][br]
+      [b]~[card:'main'][/b]"Hello World!  Why don't you pick a door?"[b]~[/card][/b]
+
+      [b]~[button cardlink:'door1'][/b] Pick door #1 [b]~[/button][/b]
+
+      [b]~[button cardlink:'door2'][/b] Pick door #2 [b]~[/button][/b]
       [b]~[/card][/b]
-
-      [b]~[card:'door1'][/b]You open door #1 and you win a prize.[b]~[/card][/b]
-
-      [b]~[card:'door2'][/b]You open door #2 and win nothing.[b]~[/card][/b]
     [/bq]
 
     This is the same code that you saw at the introduction.  If it didn't make any sense to you back then, then hopefully it should make sense now.
@@ -272,17 +270,11 @@ rawScript += `
 
     Now that we've gone over the basics, let's recap what we've learned:
 
-    1.  Edge Case is a markup language, which uses tags wrapped in square brackets.  A markup language is a language that can be written in any ordinary word processor, where sections of the text are "tagged" to let the computer know that you would like to do something special with it.
-
-    2.  The use of tags are referred to as "blocks" in Edge Case.  Projects are made up of blocks, which can be broken down into smaller blocks.  Most (but not all) blocks take the following form:  [b]~[tag] content ~[/tag].[/b]
-
-    3.  Blocks aren't simply used for formatting text.  They can also be used to create cards, buttons, and executing JavaScript modules.
-
-    4.  Blocks can include additional modifiers, known as properties, which are key-value pairs specified in the opening tag.  We've seen examples of how properties are used when creating cards and buttons, and we'll see more examples as we delve deeper.
-
-    5.  Cards are a special type of block which are the main containers of information, and are basically equivalent to a PowerPoint slide.  When the script first loads, the software breaks it down into individual "cards."  You cannot hold a card inside of any other block, including another card.
-
-    6.  Buttons are another special type of block, which allows for interaction upon being clicked.  The most common form of interaction, and the only one we covered so far, is linking to another card.  But there's a lot more they can do, which will be covered later.
+    [ol]
+      [*]Edge Case is a [b]markup language[/b], which uses tags wrapped in square brackets.  A markup language is a language that can be written in any ordinary word processor, where sections of the text are "tagged" to let the computer know that you would like to do something special with it.  We refer to these as [b]blocks[/b], and we can use blocks to construct more complex data objects, such as [b]cards[/b] and [b]buttons[/b].
+      [*]Most blocks contain some type of content, and when they do, you should have both an opening tag and a matching closing tag with a "/" symbol.  Some blocks are self-closing, meaning they do not have a separate closing tag, and they do not contain any contents.
+      [*]Blocks can include additional modifiers, known as properties, which are key-value pairs specified in the opening tag.  We've seen examples of how properties are used when creating cards and buttons, and we'll see more examples as we delve deeper.  Cards use properties to specify a title, and buttons can use properties to link to other cards.
+    [/ol]
 
     [button cardlink:'main']Return to main menu[/button]
   [/card]
