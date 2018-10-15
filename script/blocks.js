@@ -185,16 +185,7 @@ rawScript = rawScript + `
 
       Div and Span attributes that can be customized in HTML can also be set in specified in Edge Case. Use the same property name and values that you would use in regular HTML, but use the JavaScript style formatting.
 
-      Examples of this will be provided later.
-    [/toggle]
-  [/button]
-
-  [button]
-    [label]Copy Tag: ~[copy][/label]
-    [toggle]
-      The div and span tags both create containers.  If you're familiar with HTML/CSS, you should already know how they work.  If not, then you probably aren't at the point where you need to learn them.  They don't do much on their own, but they can give you the ability play around with the properties to give you a greater level of control.
-
-      Div and Span attributes that can be customized in HTML can also be set in specified in Edge Case. Use the same property name and values that you would use in regular HTML, but use the JavaScript style formatting.
+      They're also useful to use as excerpts for copying to other cards.
 
       Examples of this will be provided later.
     [/toggle]
