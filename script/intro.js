@@ -16,6 +16,8 @@ rawScript = rawScript + `
 
     [button cardlink:'GettingStarted-Setup']Learn how to setup files[/button]
 
+    [button cardlink:'Blocks-Intro']Block Library[/button]
+
   [/card]
 
   [card:'GettingStarted-Intro']
@@ -138,7 +140,24 @@ rawScript = rawScript + `
     [url:'http://github.com'] Let's make a repo [/url]
     [/bq]
 
-    In this example, the "url" contains a behavior to tell the software to create a link to an outside website.  For that, it needs link text to present to the user, and a link url of the page to visit.  In this case, "url" is both the name of the tag, and the name of the property.  Most of the time, you will have tag names that are not properties, and property names names that are not tags.
+    In this example, the "url" contains a behavior to tell the software to create a link to an outside website.  For that, it needs link text to present to the user, and a link url of the page to visit.  Let's break this down:
+
+    [bq]
+    [b]Block State:[/b]
+    [ul]
+    [*][b]url:[/b]  'http://github.com'
+    [*][b]content:[/b] ' Let's make a repo '
+    [/ul]
+
+    [b]Block Behavior:[/b]
+    [ul]
+    [*]Display the text from the "content" property, covert it into a link.
+    [*]The new link should point to the address from the "url" property.
+    [*]Wrap this up in proper HTML formatting.
+    [/ul]
+    [/bq]
+
+    In this case, "url" is both the name of the tag, and the name of the property.  Most of the time, you will have tag names that are not properties, and property names names that are not tags.
 
   [/card]
 

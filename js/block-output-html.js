@@ -39,13 +39,14 @@ var bbCodeProcessCard = {
 // creates a list
 function bbCodeHTMLConvertLists(block) {
   // TODO: this can break if the user forgets to input [*] at the beginning
+  contents = block.getContents().trim();
+  if (contents.substring(0, 3) !== '[*]') contents = '[*]' + contents;
   return `<${block.tag.substring(1)}>${block.getContents().trim().replaceAll('[*]',
     '</li><li>').substring(5)}</li></${block.tag.substring(1)}>`
 }
 // creates a link
 function bbCodeHTMLConvertURL(block) {
-  return `<a href="${block.properties.url}"
-    target="blank">${block.getContents()}</a>`;
+  return `<a ${block.getPropertiesOutput()}>${block.getContents()}</a>`;
 }
 
 // displays an image

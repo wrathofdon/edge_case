@@ -69,7 +69,6 @@ function preprocessBasicHTML(text) {
     'i': 'em',
     'u': 'u',
     'br': 'br',
-    'p': 'p',
     'code': 'pre',
     'hr': 'hr',
     'bq': 'blockquote'

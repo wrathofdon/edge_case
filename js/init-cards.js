@@ -55,7 +55,7 @@ function parseCardsExtractExcerpts(card, array) {
 function parseCardsReplaceCopies(card, array) {
   for (let i in array) {
     if (typeof(array[i]) === 'string') continue;
-    if (array[i].tag === '2copy') {
+    if (array[i].tag === '1copy') {
       let source = globalCardDict[array[i].properties.card];
       if (!source) {
         let error = `Copy Error: card ${array[i].properties.card} not found`;
@@ -67,7 +67,9 @@ function parseCardsReplaceCopies(card, array) {
         console.log(error);
         array[i] = error;
         continue;
-      } else array[i] = source.excerpts[array[i].properties.id].makeCopy(card);
+      } else {
+        array[i] = source.excerpts[array[i].properties.id].makeCopy(card);
+      }
     }
     if (array[i].innerBlocks) parseCardsReplaceCopies(card, array[i].innerBlocks);
   }
@@ -83,6 +85,10 @@ function parseCardsFinalize(card, array) {
       if (card.excerpts[block.htmlId]) block.htmlId = `uid${getUniqueId()}`;
       card.excerpts[block.htmlId] = block;
     }
+    if (block.tag === '2url') {
+      block.properties.href = block.properties.url;
+      delete block.properties.url;
+    }
     // checks if blocks fit certain categories
     if (block.properties.update === 'always') card.alwaysUpdateBlocks.push(block);
     if (block.tag === '2button') card.buttonBlocks[block.htmlId] = block;
@@ -92,7 +98,7 @@ function parseCardsFinalize(card, array) {
       else if (block.properties.trigger === 'start') card.startJS.push(block);
       else if (block.properties.trigger === 'end') card.endJS.push(block);
       else if (block.properties.trigger === 'exit') card.exitJS.push(block);
-      blockArray.blocks[i] = nullBlock;
+      array[i] = '';
       continue;
     }
     // prunes properties that have already been processed
