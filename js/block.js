@@ -43,6 +43,8 @@ class Block
       this.properties.target = this.properties.target || 'blank';
     } else if (this.tag === '2img') {
       this.properties['src'] = this.rawText;
+    } else if (this.tag === '2eccode') {
+      this.classes.push('eccodebq');
     }
   }
 
@@ -74,7 +76,7 @@ class Block
 
   // parses the internal contents of the block prior to being processed by tag
   getContents() {
-    if (this.tag === null || this.contentArray === null) return this.rawContent;
+    if (this.tag === null || this.innerBlocks === null) return this.rawText;
     this.checkCondition();
     if (!this.enabled) {
       return '';

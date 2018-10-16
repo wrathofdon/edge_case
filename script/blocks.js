@@ -32,62 +32,55 @@ rawScript = rawScript + `
   These are blocks that offer simple formatting.  In the underlying Edge Case code, they are translated directly into the HTML equivalent during the prepocessing stage.
 
   [button][label]Bold tag: ~[b]~[/b][/label][toggle]
-  Script:[br]
-  [b]~[b][/b] The quick red fox jumped over the lazy dogs [b]~[/b][/b]
-
-  Output:[br]
-  [b] The quick red fox jumped over the lazy dogs [/b]
+  [bq]Script:[/bq]
+  [eccode]~[b]The quick red fox jumped over the lazy dogs~[/b][/eccode]
+  [bq]Output:[br]
+  [b]The quick red fox jumped over the lazy dogs[/b][/bq]
   [/toggle][/button]
 
   [button][label]Italicized tag: ~[i]~[/i][/label][toggle]
-  Script:[br]
-  [b]~[i][/b] The quick red fox jumped over the lazy dogs [b]~[/i][/b]
-
-  Output:[br]
-  [i] The quick red fox jumped over the lazy dogs [/i]
+  [bq]Script:[/bq]
+  [eccode]~[i]The quick red fox jumped over the lazy dogs~[/i][/eccode]
+  [bq]Output:[br]
+  [i]The quick red fox jumped over the lazy dogs[/i][/bq]
   [/toggle][/button]
 
   [button][label]Underline tag: ~[u]~[/u][/label][toggle]
-  Script:[br]
-  [b]~[u][/b] The quick red fox jumped over the lazy dogs [b]~[/u][/b]
-
-  Output:[br]
-  [u] The quick red fox jumped over the lazy dogs [/u]
+  [bq]Script:[/bq]
+  [eccode]~[u]The quick red fox jumped over the lazy dogs~[/u][/eccode]
+  [bq]Output:[br]
+  [u]The quick red fox jumped over the lazy dogs[/u][/bq]
   [/toggle][/button]
 
   [button][label]Blockquote Tag: ~[bq]~[/bq][/label][toggle]
-  Script:[br]
-  The quick [b]~[bq][/b]red fox jumped over[b]~[/bq][/b] the lazy dogs
-
-  Output:[br]
-  The quick [bq]red fox jumped over[/bq] the lazy dogs
+  Indents subsection of text.
+  [bq]Script:[/bq]
+  [eccode]The quick ~[bq]red fox jumped over~[/bq] the lazy dogs[/eccode]
+  [bq]Output:[br]
+  The quick [bq]red fox jumped over[/bq] the lazy dogs[/bq]
   [/toggle][/button]
 
   [button][label]Line Break Tag: ~[br][/label][toggle]
-  Script:[br]
-  The quick [br]red fox [br]jumped over [br]the lazy dogs
-
-  Output:[br]
+  Individual line breaks in the script are simply ignored.  In order to include them, you must manually insert them with the [b]~[br][/b] tag.
+  [bq]Script:[/bq]
+  [eccode]The quick [br]red fox [br]jumped over [br]the lazy dogs[/eccode]
+  [bq]Output:[br]
   The quick
   red fox
   jumped over
-  the lazy dogs
+  the lazy dogs[/bq]
+  [bq]Script:[/bq]
+  [eccode]The quick [br]red fox [br]jumped over [br]the lazy dogs[/eccode]
+  [bq]Output:[br]
+  The quick [br]red fox [br]jumped over [br]the lazy dogs[/bq]
+  [/toggle][/button]
 
-  Script:[br]
-  The quick [b]~[br][/b]red fox [b]~[br][/b]jumped over [b]~[br][/b]the lazy dogs
-
-  Output:[br]
-  The quick [br]red fox [br]jumped over [br]the lazy dogs
-  [/bq]
-
-  [b]Horizontal Rule Tag: ~[hr][/b][br]
+  [button][label]Horizontal Rule Tag: ~[hr][/label][toggle]
   Adds a horizontal line
-  [bq]
-  Script:[br]
-  The quick red fox jumped over[b]~[hr][/b] the lazy dogs
-
-  Output:[br]
-  The quick red fox jumped over[hr] the lazy dogs
+  [bq]Script:[/bq]
+  [eccode]The quick red fox jumped over~[hr] the lazy dogs[/eccode]
+  [bq]Output:[br]
+  The quick red fox jumped over[hr] the lazy dogs[/bq]
   [/toggle][/button]
 
   [u][b]Intermediate HTML Formatting[/b][/u]

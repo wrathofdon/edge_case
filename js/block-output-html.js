@@ -19,6 +19,7 @@ var bbCodeProcessCard = {
   '2url': bbCodeHTMLConvertURL,
   '2span': bbCodeHTMLSpan,
   '2div': bbCodeHTMLDiv,
+  '2eccode': bbCodeHTMLECCode,
   '1copy': bbCodeHTMLCopyExcerpt,
   '2button': bbCodeHTMLButton,
   '2js': bbCodeJSBackground,
@@ -67,6 +68,12 @@ function bbCodeHTMLSpan(block) {
 // generates a div block
 function bbCodeHTMLDiv(block) {
   return `<div ${block.getPropertiesOutput()}>${block.getContents()}</div>`;
+}
+
+// generates a code block
+function bbCodeHTMLECCode(block) {
+  return `<div class='eccodebq'>${block.getContents()}</div>`
+  // return `<blockquote ${block.getPropertiesOutput()}>${inner}</blockquote>`;
 }
 
 // generates a button

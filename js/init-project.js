@@ -69,7 +69,7 @@ function preprocessBasicHTML(text) {
     'i': 'em',
     'u': 'u',
     'br': 'br',
-    'code': 'pre',
+    'pre': 'pre',
     'hr': 'hr',
     'bq': 'blockquote'
   }

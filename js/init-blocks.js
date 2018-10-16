@@ -99,7 +99,7 @@ function validateFullBlock(openBracketStart, originalTag, text, lower) {
     return {start: openBracketStart, end: openTagObj.openTagEnd,
       properties: openTagObj.properties, content: null, tag: originalTag};
   }
-  let closeTagStart = findClose(text, lower, openTagObj.openTagEnd, `[${tag}`, `[/${tag}]`);
+  let closeTagStart = findClose(lower, openTagObj.openTagEnd, `[${tag}`, `[/${tag}]`);
   if (closeTagStart === -1) return null;
   return {start: openBracketStart, end: closeTagStart + tag.length + 3,
     properties: openTagObj.properties, content: text.substring(openTagObj.openTagEnd, closeTagStart), tag: originalTag}
@@ -113,7 +113,7 @@ function validateOpenTag(text, lower, openBracket, tag) {
     return {properties: {}, openTagEnd: openBracket + tag.length + 2};
   }
   if (postTagSymbol === ' ' || postTagSymbol === ':') {
-    let closeBracket = findClose(text, lower, openBracket + tag.length + 1, '[', ']');
+    let closeBracket = findClose(lower, openBracket + tag.length + 1, '[', ']');
     if (closeBracket === -1) return null;
     let propertiesStart = (postTagSymbol === ':') ?
       openBracket + 1 : openBracket + tag.length + 1;
@@ -152,7 +152,7 @@ function parseBlockProperties(text, caseSensitive = false) {
 
 // attempts to find a the next valid closing symbol
 // this means ignoring nested matches in between
-function findClose(text, lower, startIndex, openStr, closeStr) {
+function findClose(lower, startIndex, openStr, closeStr) {
   let nextCloseStrIndex = lower.indexOf(closeStr, startIndex);
   if (nextCloseStrIndex === -1) return -1;
   let nextOpenStrIndex = lower.substring(0, nextCloseStrIndex).indexOf(openStr, startIndex);
@@ -163,3 +163,31 @@ function findClose(text, lower, startIndex, openStr, closeStr) {
   }
   return nextCloseStrIndex;
 }
+
+function parseECCode(text) {
+  let array = text.split('&lsqb;');
+  for (let i = 1; i < array.length; i++) {
+    let tag = '';
+    let properties = '';
+    let closeBracket = findClose(array[i], 0, '[', ']');
+    if (closeBracket < 0) continue;
+    let after = array[i].substring(closeBracket + 1);
+    if (array[i][0] === '/') tag = array[i].substring(0, closeBracket);
+    else {
+      let colon = array[i].substring(0, closeBracket).indexOf(':');
+      let space = array[i].substring(0, closeBracket).indexOf(' ');
+      if (colon === -1) tag = array[i].substring(0, closeBracket);
+      else if (space < 0 || colon < space) properties = array[i].substring(0, closeBracket);
+      else {
+        tag = array[i].substring(0, space + 1);
+        properties = array[i].substring(space + 1, closeBracket);
+      }
+    }
+    if (properties)
+      properties = `<span class='eccodeproperty'>${properties}</span>`;
+    array[i] = `<strong><span class='eccodetag'>&lsqb;${tag}${properties}]</span></strong>${after}`;
+  }
+  return array.join('').replaceAll('[*]', `<div class='eccode'>`).replaceAll('[/*]', '</div>');
+}
+// text = text.replaceAll('~[', '&lsqb;');
+// text = text.replaceAll('~<', '&lt;').replaceAll('~>', '&gt;');

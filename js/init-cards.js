@@ -46,6 +46,12 @@ function parseCardsExtractExcerpts(card, array) {
   for (let i in array) {
     if (typeof(array[i]) === 'string') continue;
     let block = array[i];
+    if (block.tag === '2eccode') {
+      console.log(block.properties.id)
+      block.rawText = parseECCode(block.rawText);
+      // console.log(block.rawText)
+      block.innerBlocks = null;
+    }
     if (block.htmlId) card.excerpts[block.htmlId] = block;
     if (block.innerBlocks) parseCardsExtractExcerpts(card, block.innerBlocks);
   }

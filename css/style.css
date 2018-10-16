@@ -1,5 +1,4 @@
 * {
-  font-family: sans-serif;
 }
 
 body {
@@ -27,6 +26,8 @@ pre {
   margin-bottom: : 35px;
   text-align: center;
   padding: 20px;
+  font-family: 'Roboto', sans-serif;
+  /* font-family: sans-serif; */
 }
 
 .buttonDefaultStyle {
@@ -55,12 +56,28 @@ pre {
   display: none;
 }
 
-/* .toggleOff {
-  display: none;
-} */
-
 .cardwindow {
   background-color: white;
   padding: 20px;
   margin-top: 15px;
+  /* font-family: sans-serif; */
+  font-family: 'Roboto', sans-serif;
+}
+
+.eccode {
+  margin-left: 1em;
+}
+
+.eccodebq {
+  padding: 10px;
+  font-family: monospace;
+  background-color: #e2e2e2;
+}
+.eccodetag {
+  color: darkred;
+}
+
+.eccodeproperty {
+  font-weight:800;
+  color: green;
 }
