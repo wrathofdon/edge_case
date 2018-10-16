@@ -156,6 +156,7 @@ rawScript += `
     The link text is stored in the content.  Additional properties, such as the URL, can be specified in the opening tag, which is highlighted in green.
 
     The block object created also has a method:  Take the contents of the block and convert it into a link, which should point to the URL address.  In this case, the tag name is also the name of the property.  Most of the time, you will have tag names that are not properties, and property names names that are not tags.
+  [/card]
 
   [card:'GettingStarted-AddingOptions']
     [b][u]Adding additional cards[/u][/b]

@@ -32,54 +32,54 @@ rawScript = rawScript + `
   These are blocks that offer simple formatting.  In the underlying Edge Case code, they are translated directly into the HTML equivalent during the prepocessing stage.
 
   [button][label]Bold tag: ~[b]~[/b][/label][toggle]
-  [bq]Script:[/bq]
+  [bq]Script:
   [eccode]~[b]The quick red fox jumped over the lazy dogs~[/b][/eccode]
-  [bq]Output:[br]
+  Output:[br]
   [b]The quick red fox jumped over the lazy dogs[/b][/bq]
   [/toggle][/button]
 
   [button][label]Italicized tag: ~[i]~[/i][/label][toggle]
-  [bq]Script:[/bq]
+  [bq]Script:
   [eccode]~[i]The quick red fox jumped over the lazy dogs~[/i][/eccode]
-  [bq]Output:[br]
+  Output:[br]
   [i]The quick red fox jumped over the lazy dogs[/i][/bq]
   [/toggle][/button]
 
   [button][label]Underline tag: ~[u]~[/u][/label][toggle]
-  [bq]Script:[/bq]
+  [bq]Script:
   [eccode]~[u]The quick red fox jumped over the lazy dogs~[/u][/eccode]
-  [bq]Output:[br]
+  Output:[br]
   [u]The quick red fox jumped over the lazy dogs[/u][/bq]
   [/toggle][/button]
 
   [button][label]Blockquote Tag: ~[bq]~[/bq][/label][toggle]
   Indents subsection of text.
-  [bq]Script:[/bq]
+  [bq]Script:
   [eccode]The quick ~[bq]red fox jumped over~[/bq] the lazy dogs[/eccode]
-  [bq]Output:[br]
+  Output:[br]
   The quick [bq]red fox jumped over[/bq] the lazy dogs[/bq]
   [/toggle][/button]
 
   [button][label]Line Break Tag: ~[br][/label][toggle]
   Individual line breaks in the script are simply ignored.  In order to include them, you must manually insert them with the [b]~[br][/b] tag.
-  [bq]Script:[/bq]
+  [bq]Script:
   [eccode]The quick [br]red fox [br]jumped over [br]the lazy dogs[/eccode]
-  [bq]Output:[br]
+  Output:[br]
   The quick
   red fox
   jumped over
   the lazy dogs[/bq]
-  [bq]Script:[/bq]
+  [bq]Script:
   [eccode]The quick [br]red fox [br]jumped over [br]the lazy dogs[/eccode]
-  [bq]Output:[br]
+  Output:[br]
   The quick [br]red fox [br]jumped over [br]the lazy dogs[/bq]
   [/toggle][/button]
 
   [button][label]Horizontal Rule Tag: ~[hr][/label][toggle]
   Adds a horizontal line
-  [bq]Script:[/bq]
+  [bq]Script:
   [eccode]The quick red fox jumped over~[hr] the lazy dogs[/eccode]
-  [bq]Output:[br]
+  Output:[br]
   The quick red fox jumped over[hr] the lazy dogs[/bq]
   [/toggle][/button]
 
@@ -93,13 +93,20 @@ rawScript = rawScript + `
     [label]Ordered List Tag: ~[ol]~[/ol][/label]
     [toggle]
       Creates a numbered list of items.  Use the [b]~[ol]~[/ol][/b] around the entire list, and then put the [b]~[*][/b] tag before each entry.
-      [bq]
-      Script:[br]
-      [b]~[ol][br] ~[*][/b] Item 1 [b]~[*][/b] Item 2 [b]~[*][/b] Item 3 [br][b]~[/ol][/b]
-
+      [bq]Script:
+      [eccode]
+        ~[ol][*]
+          ~[*]Item 1[br]
+          ~[*]Item 2[br]
+          ~[*]Item 3
+        [/*]~[/ol]
+      [/eccode]
       Output:[br]
-      [ol] [*] Item 1 [*] Item 2 [*] Item 3 [/ol]
-      [/bq]
+      [ol]
+        [*]Item 1
+        [*]Item 2
+        [*]Item 3
+      [/ol][/bq]
     [/toggle]
   [/button]
 
@@ -107,16 +114,20 @@ rawScript = rawScript + `
     [label]Unordered List Tag: ~[ul]~[/ul][/label]
     [toggle]
       Similar to the ordered list, only this created an unnumbered bullet list.
-      [bq]
-      Script:[br]
-      [b]~[ul][br] ~[*][/b] Item 1 [b]~[*][/b] Item 2 [b]~[*][/b] Item 3 [br]
-      [b]~[/ul][/b]
-
+      [bq]Script:
+      [eccode]
+        ~[ul][*]
+          ~[*]Item 1[br]
+          ~[*]Item 2[br]
+          ~[*]Item 3
+        [/*]~[/ul]
+      [/eccode]
       Output:[br]
       [ul]
-      [*] Item 1 [*] Item 2 [*] Item 3
-      [/ul]
-      [/bq]
+        [*]Item 1
+        [*]Item 2
+        [*]Item 3
+      [/ul][/bq]
     [/toggle]
   [/button]
 
@@ -124,23 +135,16 @@ rawScript = rawScript + `
     [label]Image Tag: ~[img]~[/img][/label]
     [toggle]
       Displays image.  The content of the tag should contain the image url.
-      [bq]
-      Script:[br]
-      [b]~[img][/b]https://image.flaticon.com/icons/svg/25/25231.svg[b]~[/img][/b]
-
+      [bq]Script:
+      [eccode]~[img]https://image.flaticon.com/icons/svg/25/25231.svg~[/img][/eccode]
       Output:[br]
-      [img]https://image.flaticon.com/icons/svg/25/25231.svg[/img]
-      [/bq]
+      [img]https://image.flaticon.com/icons/svg/25/25231.svg[/img][/bq]
 
       The "img" tag supports HTML/CSS customization.
-
-      [bq]
-      Script:[br]
-      [b]~[img alt:'Github logo', width:'50'][/b]https://image.flaticon.com/icons/svg/25/25231.svg[b]~[/img][/b]
-
+      [bq]Script:
+      [eccode]~[img alt:'Github logo', width:'50']https://image.flaticon.com/icons/svg/25/25231.svg~[/img][/eccode]
       Output:[br]
-      [img alt:'Github logo', width:'50']https://image.flaticon.com/icons/svg/25/25231.svg[/img]
-      [/bq]
+      [img alt:'Github logo', width:'50']https://image.flaticon.com/icons/svg/25/25231.svg[/img][/bq]
     [/toggle]
   [/button]
 
@@ -148,26 +152,21 @@ rawScript = rawScript + `
     [label]URL Tag: ~[url]~[/url][/label]
     [toggle]
       Creates a link.
-      [bq]
-      Script:[br]
-      [b]~[url:'http://www.github.com'][/b]Let's make a GitHub repo![b]~[/url][/b]
-
+      [bq]Script:
+      [eccode]~[url:'http://www.github.com']Let's make a GitHub repo!~[/url][/eccode]
       Output:[br]
-      [url:'http://www.github.com']Let's make a GitHub repo![/url]
-      [/bq]
-    [B]Block content:[/b]  Should contain the text to present to the user.
+      [url:'http://www.github.com']Let's make a GitHub repo![/url][/bq]
 
-    [b]url property:[/b]  Should contain the url of the page you want to link to.
+      [B]Block content:[/b]  Should contain the text to present to the user.
 
-    The "url" tag supports HTML/CSS customization.
+      [b]url property:[/b]  Should contain the url of the page you want to link to.
 
-    [bq]
-    Script:[br]
-    [b]~[url:'http://www.github.com', style:'font-size:200%;'][/b]Let's make a GitHub repo![b]~[/url][/b]
+      The "url" tag supports HTML/CSS customization.
 
-    Output:[br]
-    [url:'http://www.github.com', style:'font-size:200%;']Let's make a GitHub repo![/url]
-    [/bq]
+      [bq]Script:
+      [eccode]~[url:'http://www.github.com', style:'font-size:200%;']Let's make a GitHub repo!~[/url][/eccode]
+      Output:[br]
+      [url:'http://www.github.com', style:'font-size:200%;']Let's make a GitHub repo![/url][/bq]
     [/toggle]
   [/button]
 
