@@ -77,5 +77,12 @@ function preprocessBasicHTML(text) {
     text = text.replace(new RegExp(`\\[${tag}\\]`, 'ig'), `<${htmlConversions[tag]}>`);
     text = text.replace(new RegExp(`\\[/${tag}\\]`, 'ig'), `</${htmlConversions[tag]}>`);
   }
-  return text;
+  text = text.replace(new RegExp(`\\[tab]`, 'ig'), `&emsp;`);
+  let array = splitTextIntoBlocks (text, {'2center': null});
+  for (let i = 0; i < array.length; i++) {
+    if (typeof(array[i]) !== 'string') {
+      array[i] = `<div align='center'>${array[i].rawText}</div>`;
+    }
+  }
+  return array.join('');
 }

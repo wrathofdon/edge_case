@@ -30,26 +30,54 @@ pre {
   /* font-family: sans-serif; */
 }
 
+
 .buttonDefaultStyle {
-  color: darkred;
-  background-color: lightgray;
+  color: #3a3a78;
+  background-color: #c8d9ea;
   display: block;
-  font-weight: bold;
-  border: 5px solid black;
+  font-weight: 600;
+  border: 4px solid black;
   padding: 10px;
   margin: 10px;
   text-align: center;
+  box-shadow: 3px 3px 5px #3a3a78;
 }
 
 .buttonGrayedOut {
   opacity: 0.3;
   background-color: lightgray;
   display: block;
-  font-weight: bold;
+  font-weight: 600;
   border: 5px solid black;
   padding: 10px;
   margin: 10px;
   text-align: center;
+  box-shadow: 3px 3px 5px;
+}
+
+.buttonDefaultToggleStyle{
+  color: darkred;
+  display: block;
+  font-weight: 600;
+  border: 3px solid #666666;
+  background-color: #d9d9d9;
+  padding: 5px;
+  margin: 5px 5px 15px 5px;
+  text-align: center;
+  box-shadow: 3px 3px 5px black;
+}
+
+.buttonToggleGrayedOut{
+  opacity: 0.6;
+  color: darkred;
+  display: block;
+  font-weight: 600;
+  border: 3px solid #666666;
+  background-color: #d9d9d9;
+  padding: 5px;
+  margin: 5px 5px 15px 5px;
+  text-align: center;
+  box-shadow: 3px 3px 5px  black;
 }
 
 .hidden {
@@ -60,7 +88,6 @@ pre {
   background-color: white;
   padding: 20px;
   margin-top: 15px;
-  /* font-family: sans-serif; */
   font-family: 'Roboto', sans-serif;
 }
 
@@ -73,11 +100,17 @@ pre {
   font-family: monospace;
   background-color: #e2e2e2;
 }
+
+.grayback {
+  padding: 10px;
+  background-color: #e2e2e2;
+}
 .eccodetag {
+  font-weight:600;
   color: darkred;
 }
 
 .eccodeproperty {
-  font-weight:800;
+  font-weight:600;
   color: green;
 }

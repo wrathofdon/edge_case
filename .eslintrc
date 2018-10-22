@@ -13,7 +13,6 @@
     "currentCard": true,
     "currentButton": true,
     "currentButtons": true,
-    "currentButtonCardNumber": true,
     "currentButtonCard": true,
     "projectState": true,
     # the default html div

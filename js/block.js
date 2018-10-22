@@ -36,7 +36,6 @@ class Block
     if (this.tag === '2button') {
       this.button = new Button(this, this.card);
       this.button.persist = this.properties.persist;
-      this.classes.push(this.properties.buttonstyle || 'buttonDefaultStyle');
     } else if (this.tag === '2toggle' || this.tag === '2reveal') {
       this.classes.push('toggleOff');
     } else if (this.properties.url) {

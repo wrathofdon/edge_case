@@ -2,6 +2,10 @@
 var cardHistoryStack = [];
 
 
+function getPreviousCardTitle() {
+  if (cardHistoryStack.length < 2) return null;
+  return cardHistoryStack[cardHistoryStack.length - 2];
+}
 
 function gotoPreviousCard() {
   if (cardHistoryStack.length === 1) {
@@ -71,4 +75,12 @@ function activateEventListeners() {
     }
     button.clickButton(convertHtmlIdToInt(id));
   });
+}
+
+function hideLocalElement(element, time=500) {
+  $(`#${getCardHistoryPrefix()}-${element}`).slideUp(time);
+}
+
+function showLocalElement(element, time=500) {
+  $(`#${getCardHistoryPrefix()}-${element}`).slideDown(time);
 }

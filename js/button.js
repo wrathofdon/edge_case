@@ -2,7 +2,8 @@ class Button {
   constructor(block, card) {
     this.card = card;
     this.block = block;
-    this.block.addClassProperty('button');
+    this.style = 'buttonDefaultStyle';
+    this.inactiveStyle = 'buttonGrayedOut';
     this.displayLabel = null;
     this.toggleDisplayBlock = null;
     this.actionBlock = null;
@@ -16,6 +17,7 @@ class Button {
   }
 
   initializeButtonProperties() {
+    this.block.addClassProperty('button');
     let innerBlocks = this.block.innerBlocks;
     // if there are no tags, treat the unformatted text as the display block
     if (this.block.properties.cardlink) {
@@ -43,6 +45,15 @@ class Button {
         block.addClassProperty('toggleOff');
       }
     }
+    if (this.toggleBlock) {
+      this.style = this.block.properties.buttonstyle || 'buttonDefaultToggleStyle';
+      this.inactiveStyle = 'buttonToggleGrayedOut';
+    } else {
+      if (this.block.properties.buttonstyle)
+        this.style = this.block.properties.buttonstyle;
+    }
+    this.block.classes.push(this.style);
+    delete this.block.properties.buttonstyle;
     if (!this.displayLabel) {
       this.displayLabel = new Block('2label', null, this.block.content, this.block.dict, true, this.card)
     }
@@ -57,6 +68,7 @@ class Button {
     projectState.currentButtonCardNum = cardNo;
     currentButton = this;
     if (this.actionBlock) {
+      // console.log(this.actionBlock.getContents());
       eval(this.actionBlock.getContents())
     }
     this.toggleButton();
@@ -64,7 +76,6 @@ class Button {
     if (this.cardlink) {
       let cardlink = globalCardDict[this.cardlink];
       while (cardHistoryStack.length > projectState.currentButtonCardNum + 1) {
-        console.log('test')
         removeLastCardAttachment();
       }
       if (cardlink) {
@@ -81,14 +92,14 @@ class Button {
   // button is still visible, but not longer enabled
   disable() {
     this.enabled = false;
-    this.block.removeClassProperty('buttonDefaultStyle');
-    this.block.addClassProperty('buttonGrayedOut');
+    this.block.removeClassProperty(this.style);
+    this.block.addClassProperty(this.inactiveStyle);
   }
 
   enable() {
     this.enabled = true;
-    this.block.addClassProperty('buttonDefaultStyle');
-    this.block.removeClassProperty('buttonGrayedOut');
+    this.block.addClassProperty(this.style);
+    this.block.removeClassProperty(this.inactiveStyle);
   }
 
   // outputs html, outputs placeholder if button/toggle is unavilable

@@ -2,54 +2,44 @@ rawScript = rawScript + `
 
 [card:'Blocks-Intro']
 
-  [u][b]Block Library[/b][/u]
+  [center][u][b]Block Library[/b][/u][/center]
 
-  Once you understand how blocks what blocks are and how they work, you can start using this tutorial to teach you what all the different types of blocks actually do so that you can use them in your project.
+  Once you understand how blocks what blocks are and how they work, you can now explore more options on how to use them to build your project.
 
-  [button]
-    [label]Can you please remind me of what blocks are and how they work?[/label]
-    [toggle][bq]
-      If you need a refresher, you should check out the "getting started" guide and read it thoroughly.  If you'd like to do anything more complicated than linking cards together, make sure you also review the section on how object-oriented programming work if you haven't already done that.
-
-      [button cardlink:'GettingStarted-Intro']Writing your first project[/button]
-
-      [button cardlink:'GettingStarted-OOP']Brief summary of object oriented programming[/button]
-    [/bq][/toggle]
-  [/button]
-  [button cardlink:'Blocks-HTML']HTML Formatting Blocks[/button]
+  [button cardlink:'Blocks-SimpleFormatting']Simple Formatting Blocks[/button]
+  [button cardlink:'Blocks-IntermediateFormatting']Intermediate Formatting Blocks[/button]
 
   [button cardlink:'Blocks-SpecialProperties']Learn about Special Properties:  IDs, Conditions and Updates[/button]
 
   [button cardlink:'Blocks-CopyTag']Re-using block excerpts with the ~[copy] tag[/button]
 
   [button cardlink:'Blocks-JavaScript']Blocks that run JavaScript[/button]
-
 [/card]
 
-[card:'Blocks-HTML']
-  [u][b]Simple HTML Formatting[/b][/u]
+[card:'Blocks-SimpleFormatting']
+  [center][u][b]Simple Formatting Blocks[/b][/u][/center]
 
-  These are blocks that offer simple formatting.  In the underlying Edge Case code, they are translated directly into the HTML equivalent during the prepocessing stage.
+  This section is for blocks that generally do not require or accept additional properties, or any other special considerations.  Many of these are replaced with direct HTML substitutions during the preprocessing stage, and are not actually stored as blocks in memory.
 
   [button][label]Bold tag: ~[b]~[/b][/label][toggle]
   [bq]Script:
   [eccode]~[b]The quick red fox jumped over the lazy dogs~[/b][/eccode]
   Output:[br]
-  [b]The quick red fox jumped over the lazy dogs[/b][/bq]
+  [div class:'grayback'][b]The quick red fox jumped over the lazy dogs[/b][/div][/bq]
   [/toggle][/button]
 
   [button][label]Italicized tag: ~[i]~[/i][/label][toggle]
   [bq]Script:
   [eccode]~[i]The quick red fox jumped over the lazy dogs~[/i][/eccode]
   Output:[br]
-  [i]The quick red fox jumped over the lazy dogs[/i][/bq]
+  [div class:'grayback'][i]The quick red fox jumped over the lazy dogs[/i][/div][/bq]
   [/toggle][/button]
 
   [button][label]Underline tag: ~[u]~[/u][/label][toggle]
   [bq]Script:
   [eccode]~[u]The quick red fox jumped over the lazy dogs~[/u][/eccode]
   Output:[br]
-  [u]The quick red fox jumped over the lazy dogs[/u][/bq]
+  [div class:'grayback'][u]The quick red fox jumped over the lazy dogs[/u][/div][/bq]
   [/toggle][/button]
 
   [button][label]Blockquote Tag: ~[bq]~[/bq][/label][toggle]
@@ -57,7 +47,7 @@ rawScript = rawScript + `
   [bq]Script:
   [eccode]The quick ~[bq]red fox jumped over~[/bq] the lazy dogs[/eccode]
   Output:[br]
-  The quick [bq]red fox jumped over[/bq] the lazy dogs[/bq]
+  [div class:'grayback']The quick [bq]red fox jumped over[/bq] the lazy dogs[/div][/bq]
   [/toggle][/button]
 
   [button][label]Line Break Tag: ~[br][/label][toggle]
@@ -65,14 +55,14 @@ rawScript = rawScript + `
   [bq]Script:
   [eccode]The quick [br]red fox [br]jumped over [br]the lazy dogs[/eccode]
   Output:[br]
-  The quick
+  [div class:'grayback']The quick
   red fox
   jumped over
   the lazy dogs[/bq]
   [bq]Script:
   [eccode]The quick [br]red fox [br]jumped over [br]the lazy dogs[/eccode]
   Output:[br]
-  The quick [br]red fox [br]jumped over [br]the lazy dogs[/bq]
+  [div class:'grayback']The quick [br]red fox [br]jumped over [br]the lazy dogs[/div][/bq]
   [/toggle][/button]
 
   [button][label]Horizontal Rule Tag: ~[hr][/label][toggle]
@@ -80,12 +70,25 @@ rawScript = rawScript + `
   [bq]Script:
   [eccode]The quick red fox jumped over~[hr] the lazy dogs[/eccode]
   Output:[br]
-  The quick red fox jumped over[hr] the lazy dogs[/bq]
+  [div class:'grayback']The quick red fox jumped over[hr] the lazy dogs[/div][/bq]
   [/toggle][/button]
 
-  [u][b]Intermediate HTML Formatting[/b][/u]
+  [button][label]Comments Tag: ~[~]~[/~] (tilda symbol)[/label][toggle]
+  This tag is for author comments that will appear in the raw script file, but which will be excluded from the raw output.
+  [bq]
+    Script:
+    [eccode]aaaaaaaaaaa~[~] COMMENT TEXT ~[/~]aaaaaaaaaaaaaaa.[/eccode]
 
-  Intermediate formatting tags are tags that require a bit more logic in order to use.
+    Output:
+    [div class:'grayback']aaaaaaaaaaa[~] COMMENT TEXT [/~]aaaaaaaaaaaaaaa.[/div]
+  [/bq]
+  [/toggle][/button]
+[/card]
+
+[card:'Blocks-IntermediateFormatting']
+  [center][u][b]Intermediate Formatting Blocks[/b][/u][/center]
+
+  This section is for blocks that can or should be formatted in a specific way, usually in the form of an additional property.
 
   [b]Several of these tags can be customized with the HTML/CSS attribute equivalent.[/b]  If you're not familiar with what that means, then don't worry about it for now.  If you are familiar with what that means, then treat the open tag the same way you would in HTML, but use JavaScript formatting instead (colons instead of equal signs, multiple properties should be separated by commas).
 
@@ -101,12 +104,12 @@ rawScript = rawScript + `
           ~[*]Item 3
         [/*]~[/ol]
       [/eccode]
-      Output:[br]
-      [ol]
+      Output:
+      [div class:'grayback'][ol]
         [*]Item 1
         [*]Item 2
         [*]Item 3
-      [/ol][/bq]
+      [/ol][/div][/bq]
     [/toggle]
   [/button]
 
@@ -122,12 +125,12 @@ rawScript = rawScript + `
           ~[*]Item 3
         [/*]~[/ul]
       [/eccode]
-      Output:[br]
-      [ul]
+      Output:
+      [div class:'grayback'][ul]
         [*]Item 1
         [*]Item 2
         [*]Item 3
-      [/ul][/bq]
+      [/ul][div class:'grayback'][/div][/bq]
     [/toggle]
   [/button]
 
@@ -155,7 +158,7 @@ rawScript = rawScript + `
       [bq]Script:
       [eccode]~[url:'http://www.github.com']Let's make a GitHub repo!~[/url][/eccode]
       Output:[br]
-      [url:'http://www.github.com']Let's make a GitHub repo![/url][/bq]
+      [div class:'grayback'][url:'http://www.github.com']Let's make a GitHub repo![/url][/div][/bq]
 
       [B]Block content:[/b]  Should contain the text to present to the user.
 
@@ -166,7 +169,7 @@ rawScript = rawScript + `
       [bq]Script:
       [eccode]~[url:'http://www.github.com', style:'font-size:200%;']Let's make a GitHub repo!~[/url][/eccode]
       Output:[br]
-      [url:'http://www.github.com', style:'font-size:200%;']Let's make a GitHub repo![/url][/bq]
+      [div class:'grayback'][url:'http://www.github.com', style:'font-size:200%;']Let's make a GitHub repo![/url][/div][/bq]
     [/toggle]
   [/button]
 
@@ -187,11 +190,7 @@ rawScript = rawScript + `
 [card:'Blocks-CopyTag']
   [u][b]Re-Using Block Excerpts[/b][/u]
 
-  Sometimes, you'll want to re-use a block in multiple locations.  In that case, you can use the [b]~[copy][/b] tag in the location where you want the copy to appear.  The copy tag is self-closing.  Most blocks can be copied if you provide them with an "id" property.  The ones that can't be copied are the simple HTML formatting blocks (i.e., ~[b], ~[u], ~[i], etc.).
-
-  The copy tag takes two properties:
-  [ul][*][b]card:[/b]  The title of the card where the block is located.[br][br]
-  [*][b]id:[/b]  The unique id of the block you want copied.[/ul]
+  Sometimes, you'll want to re-use a block in multiple locations.  In that case, you can use the [b]~[copy][/b] tag in the location where you want the copy to appear.  The copy tag is self-closing.  Blocks can generally be copied if they support the "id" property, such as [span class:'eccodetag']~[div][/span] and [span class:'eccodetag']~[span][/span].
 
   Here are a few scenarios where the copy tag could come in handy:
 
@@ -201,26 +200,41 @@ rawScript = rawScript + `
     [*] You can create a card called "glossay" to include a bunch of standard definitions, then have code to copy those definitions over to the relavant pages.
   [/ul]
 
-  Here is a sample of the copy tag in action:
+  The copy tag takes two properties:
+  [ul][*][span class:'eccodeproperty']card:[/span] The title of the card where the block is located.[br][br]
+  [*][span class:'eccodeproperty']id:[/span]  The unique id of the block you want copied.[/ul]
 
-  [bq]
-    [b]~[card:'CopyTagExample1'][/b]
-      [bq]This is ~[b]card #1~[/b] from the copy tag example.
+  For instance, the first [span class:'eccodeproperty']~[card][/span] you visited when you launched this project was called [span class:'eccodeproperty']"main"[/span].
 
-      [b]~[div id:'excerpt'][/b][br]
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non fermentum neque. Proin non ex at elit dignissim pellentesque. Quisque sed arcu turpis. Integer dictum quam ut magna vestibulum tristique. Phasellus sit amet neque in dui sagittis vehicula eu vitae lacus. In vulputate ipsum id urna rhoncus tincidunt. Maecenas ac convallis velit, vel convallis urna. Sed pellentesque quis ante nec tempus.[br]
-      [b]~[/div][br][/bq]
-    ~[/card]
+  In that card, there is a [span class:'eccodetag']~[div][/span] block with property [span class:'eccodeproperty']id:'sample'[/span], which contains the raw code for the sample project.  So what happens if I want to copy that div over to this page?
+
+  [bq]Script:
+  [eccode]~[copy card:'main', id:'sample'][/eccode]
+  Output:[/bq]
+  [copy card:'main', id:'sample']
+
+  Here is another sample of the copy tag in action:
+
+  [bq][eccode]
+    rawScript += \`
+    [*]~[card:'CopyTagExample1']
+      [*]This is ~[b]card #1~[/b] from the copy tag example.[br][br]
+      ~[div id:'excerpt']
+      [*]Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non fermentum neque. Proin non ex at elit dignissim pellentesque. Quisque sed arcu turpis. Integer dictum quam ut magna vestibulum tristique. Phasellus sit amet neque in dui sagittis vehicula eu vitae lacus. In vulputate ipsum id urna rhoncus tincidunt. Maecenas ac convallis velit, vel convallis urna. Sed pellentesque quis ante nec tempus.[/*]
+      ~[/div][/*]
+    ~[/card][br][br]
 
     ~[card:'CopyTagExample2'][/b]
-      [bq]This is ~[b]card #2~[/b] from the copy tag example.
+      [*]This is ~[b]card #2~[/b] from the copy tag example.[br][br]
 
-      [b]~[copy card:'CopyTagExample1', id: 'excerpt'][/bq]
-    ~[/card][/b]
-  [/bq]
+      ~[copy card:'CopyTagExample1', id: 'excerpt'][/*]
+    ~[/card][/b]\`[/*]
+  [/eccode][/bq]
 
-    [button cardlink:'CopyTagExample1']see card #1[/button]
-      [button cardlink:'CopyTagExample2']see card #2[/button]
+  The excerpted text is only included in the first card, but it appears in the final output for both of them.
+
+  [button cardlink:'CopyTagExample1']see card #1[/button]
+  [button cardlink:'CopyTagExample2']see card #2[/button]
 [/card]
 
 
@@ -239,14 +253,14 @@ rawScript = rawScript + `
 [/card]
 
 [card:'Blocks-SpecialProperties']
-  [u][b]Special Properties:  IDs, Conditions and Updates[/b][/u]
+  [center][u][b]Special Properties:  IDs, Conditions and Updates[/b][/u][/center]
 
   [button][label]Learn more about the ID properties[/label]
   [toggle]
     The ID properties is supported by most blocks, and represents the ID used as an HTML for the html node associated with it.  It can also be used in conjunction with the copy tag.
 
     [bq]
-    [b]~[tag id:'section01'][/b] content [b]~[/tag][/b]
+    [eccode]~[tag id:'section01'] content ~[/tag][/eccode]
     [/bq]
 
     IDs within a card must be unique.  If two blocks in the same card share the same ID, then a new ID will be generated automatically.
@@ -262,38 +276,38 @@ rawScript = rawScript + `
     For example:
 
     [bq]
-      [b]~[div condition:'level < 8'][/b][br]
-      The princess is in another castle[br]
-      [b]~[/div][/b]
+      [eccode]~[div condition:'level < 8']
+      [*]The princess is in another castle[/*]
+      ~[/div][/eccode]
     [/bq]
 
-    In this case, if your character finishes a castle in any level below level 8, then the boolean returns "true", you're told that the princess is in another castle.  Once you reach level 8, the boolean returns "false", and the message doesn't appear.
+    In this case, if your character finishes a castle in any level below level 8, then the boolean returns "true".  In that case, the condition is met, and you are told that the princess is in another castle.  Once you reach level 8, the boolean returns "false", and the message doesn't appear.
 
-    Let's create some code which checks for the current day of the month.  We create a div tag with a condition that will only return true if the day is even:
+    Let's create some code which checks for the current day of the month, which for today, is [b][jseval:'new Date().getDate()'][/b].  We create a div tag with a condition that will only return true if the day is even:
 
     [bq]
-    Script:[br]
-    [b]~[div condition:'new Date().getDate() % 2 == 0'][/b][br]
-    The current day of the month must be even[br]
-    [b]~[/div][/b]
+    Script:
+    [eccode]~[div condition:'new Date().getDate() % 2 == 0']
+    [*]The current day of the month must be even[/*]
+    ~[/div][/eccode]
 
-    Output:[br]
-    [div condition:'new Date().getDate() % 2 == 0']
-    The current day of the month must be even[br]
+    Output:
+    [div class:'grayback', condition:'new Date().getDate() % 2 == 0']
+      The current day of the month must be even
     [/div]
     [/bq]
 
     And here is similar code, but now the condition only returns true if the current day is odd:
 
     [bq]
-    Script:[br]
-    [b]~[div condition:'new Date().getDate() % 2 == 1'][/b][br]
-    The current day of the month must be even[br]
-    [b]~[/div][/b]
+    Script:
+    [eccode]~[div condition:'new Date().getDate() % 2 == 1']
+    [*]The current day of the month must be odd[/*]
+    ~[/div][/eccode]
 
-    Output:[br]
-    [div condition:'new Date().getDate() % 2 == 1']
-    The current day of the month must be even[br]
+    Output:
+    [div class:'grayback', condition:'new Date().getDate() % 2 == 1']
+      The current day of the month must be odd
     [/div]
     [/bq]
 

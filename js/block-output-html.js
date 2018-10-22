@@ -57,7 +57,7 @@ function bbCodeHTMLConvertIMG(block) {
 
 // copies over excerpt from other cards
 function bbCodeHTMLCopyExcerpt(block) {
-  return `\nError: Could not find ${block.properties.copy}\n`;
+  return `\nError: Could not find ${block.htmlId} in ${block.properties.card}\n`;
 }
 
 // generates a span tag.

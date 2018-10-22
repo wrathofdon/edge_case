@@ -1,2 +1,0 @@
-rawScript = rawScript + `
-`

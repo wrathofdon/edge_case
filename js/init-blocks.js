@@ -18,7 +18,7 @@ function splitTextIntoBlocks (text, dict, recursive=false, card=null) {
     // dictionary entries includes a '2' for tags with an open/close and
     // a '1' for self-closing tags
     let originalTag = nextOpenTagObj.originalTag;
-    let nextOpenTagIndex = nextOpenTagObj.index
+    let nextOpenTagIndex = nextOpenTagObj.index;
     // Checks to see if block is valid.  If not, then move to the next one
     let tagObj = validateFullBlock(nextOpenTagIndex, originalTag, text, lower);
     if (!tagObj) {
@@ -45,6 +45,7 @@ function splitTextIntoBlocks (text, dict, recursive=false, card=null) {
   return array;
 }
 
+
 // searches text for next open tag.  Returns an object with tag name and index
 // Returning object with an index of -1 means no valid open tag was found
 function findNextOpenTag(tagList, dict, lower, start) {
@@ -53,22 +54,23 @@ function findNextOpenTag(tagList, dict, lower, start) {
     return {originalTag: tagList[0], index:
       lower.indexOf(`[${tagList[0].substring(1)}`, start)}
   }
-  start = lower.indexOf('[', start);
-  if (start === -1) return {originalTag: null, index: -1};
-  let pointer = start + 1;
-  // if there are multiple tags to search, then we use a trie model
   let trie = getTagTrieFromDict(dict);
   let limit = lower.length;
-  while (pointer < limit && trie[lower[pointer]]) {
-    trie = trie[lower[pointer]];
+  let pointer = start;
+  do {
+    pointer = lower.indexOf('[', pointer);
+    start = pointer;
+    if (pointer === -1) return {originalTag: null, index: -1};
     pointer += 1;
-  }
+    while (pointer < limit && trie[lower[pointer]]) {
+      trie = trie[lower[pointer]];
+      pointer += 1;
+    }
+  } while (pointer < limit && !dict[trie]);
   if (pointer >= limit || !dict[trie]) return {originalTag: null, index: -1};
   return {originalTag: trie, index: start};
 }
 
-// Returns trie for a given dict.
-// Generates a trie if a trie does not currently exist.
 function getTagTrieFromDict(dict) {
   if (globalTagTrie[dict]) return globalTagTrie[dict];
   globalTagTrie[dict] = {}
@@ -163,31 +165,3 @@ function findClose(lower, startIndex, openStr, closeStr) {
   }
   return nextCloseStrIndex;
 }
-
-function parseECCode(text) {
-  let array = text.split('&lsqb;');
-  for (let i = 1; i < array.length; i++) {
-    let tag = '';
-    let properties = '';
-    let closeBracket = findClose(array[i], 0, '[', ']');
-    if (closeBracket < 0) continue;
-    let after = array[i].substring(closeBracket + 1);
-    if (array[i][0] === '/') tag = array[i].substring(0, closeBracket);
-    else {
-      let colon = array[i].substring(0, closeBracket).indexOf(':');
-      let space = array[i].substring(0, closeBracket).indexOf(' ');
-      if (colon === -1) tag = array[i].substring(0, closeBracket);
-      else if (space < 0 || colon < space) properties = array[i].substring(0, closeBracket);
-      else {
-        tag = array[i].substring(0, space + 1);
-        properties = array[i].substring(space + 1, closeBracket);
-      }
-    }
-    if (properties)
-      properties = `<span class='eccodeproperty'>${properties}</span>`;
-    array[i] = `<strong><span class='eccodetag'>&lsqb;${tag}${properties}]</span></strong>${after}`;
-  }
-  return array.join('').replaceAll('[*]', `<div class='eccode'>`).replaceAll('[/*]', '</div>');
-}
-// text = text.replaceAll('~[', '&lsqb;');
-// text = text.replaceAll('~<', '&lt;').replaceAll('~>', '&gt;');

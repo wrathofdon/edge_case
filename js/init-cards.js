@@ -46,10 +46,6 @@ function parseCardsExtractExcerpts(card, array) {
   for (let i in array) {
     if (typeof(array[i]) === 'string') continue;
     let block = array[i];
-    if (block.tag === '2eccode') {
-      block.rawText = parseECCode(block.rawText);
-      block.innerBlocks = null;
-    }
     if (block.htmlId) card.excerpts[block.htmlId] = block;
     if (block.innerBlocks) parseCardsExtractExcerpts(card, block.innerBlocks);
   }
@@ -58,24 +54,31 @@ function parseCardsExtractExcerpts(card, array) {
 // Recursively explores the card and makes any replacements called by the copy tag
 function parseCardsReplaceCopies(card, array) {
   for (let i in array) {
-    if (typeof(array[i]) === 'string') continue;
-    if (array[i].tag === '1copy') {
-      let source = globalCardDict[array[i].properties.card];
+    let block = array[i];
+    if (typeof(block) === 'string') continue;
+    if (block.tag === '1copy') {
+      let source = globalCardDict[block.properties.card];
       if (!source) {
-        let error = `Copy Error: card ${array[i].properties.card} not found`;
+        let error = `Copy Error: card ${block.properties.card} not found`;
         console.log(error);
-        array[i] = error;
+        block = error;
         continue;
-      } else if (!source.excerpts[array[i].properties.id]) {
-        let error = (`Copy Error: ID ${array[i].properties.card} in card ${array[i].properties.card} not found`);
+      } else if (!source.excerpts[block.htmlId]) {
+        let error = (`Copy Error: ID ${block.htmlId} in card ${block.properties.card} not found`);
         console.log(error);
-        array[i] = error;
+        block = error;
         continue;
       } else {
-        array[i] = source.excerpts[array[i].properties.id].makeCopy(card);
+        array[i] = source.excerpts[block.htmlId].makeCopy(card);
+        block = array[i];
       }
     }
-    if (array[i].innerBlocks) parseCardsReplaceCopies(card, array[i].innerBlocks);
+    if (block.tag === '2eccode') {
+      block.rawText = parseECCode(block.rawText, '[', ']', '&lsqb;', ':');
+      block.rawText = parseECCode(block.rawText, '<', '>', '&lt;', '=');
+      block.innerBlocks = null;
+    }
+    if (block.innerBlocks) parseCardsReplaceCopies(card, block.innerBlocks);
   }
 }
 
@@ -98,7 +101,7 @@ function parseCardsFinalize(card, array) {
     if (block.tag === '2button') card.buttonBlocks[block.htmlId] = block;
     else if (block.tag === '2js' && block.properties.trigger) {
       block.properties.trigger = block.properties.trigger.toLowerCase().trim();
-      if (block.properties.trigger === 'initial') card.initJS.push(block);
+      if (block.properties.trigger === 'init') card.initJS.push(block);
       else if (block.properties.trigger === 'start') card.startJS.push(block);
       else if (block.properties.trigger === 'end') card.endJS.push(block);
       else if (block.properties.trigger === 'exit') card.exitJS.push(block);
@@ -109,9 +112,35 @@ function parseCardsFinalize(card, array) {
     delete block.properties.id;
     delete block.properties.class;
     delete block.properties.condition;
-    delete block.properties.buttonstyle;
     delete block.properties.trigger;
     delete block.properties.persist;
     if (block.innerBlocks) parseCardsFinalize(card, block.innerBlocks);
   }
+}
+
+
+function parseECCode(text, openSym, closeSym, replaceSym, assignSym) {
+  let array = text.split(replaceSym);
+  for (let i = 1; i < array.length; i++) {
+    let tag = '';
+    let properties = '';
+    let closeBracket = findClose(array[i], 0, openSym, closeSym);
+    if (closeBracket < 0) continue;
+    let after = array[i].substring(closeBracket + 1);
+    if (array[i][0] === '/') tag = array[i].substring(0, closeBracket);
+    else {
+      let colon = array[i].substring(0, closeBracket).indexOf(assignSym);
+      let space = array[i].substring(0, closeBracket).indexOf(' ');
+      if (colon === -1) tag = array[i].substring(0, closeBracket);
+      else if (space < 0 || colon < space) properties = array[i].substring(0, closeBracket);
+      else {
+        tag = array[i].substring(0, space + 1);
+        properties = array[i].substring(space + 1, closeBracket);
+      }
+    }
+    if (properties)
+      properties = `<span class='eccodeproperty'>${properties}</span>`;
+    array[i] = `<strong><span class='eccodetag'>${replaceSym}${tag}${properties}${closeSym}</span></strong>${after}`;
+  }
+  return array.join('').replaceAll('[*]', `<div class='eccode'>`).replaceAll('[/*]', '</div>');
 }

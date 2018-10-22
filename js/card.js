@@ -33,9 +33,6 @@ class Card {
       projectState.loadingCardNum = cardHistoryStack.length - 1;
       this.appendCardNode();
     }
-    tempVar = {};
-    cardVar = this.cardVar;
-    cardVar.timesLoaded += 1;
 
     // clears temporary variables and updates pointer to card variables
     currentCard = this;
@@ -53,6 +50,9 @@ class Card {
 
   // loads contents of card into node, can also be used to update
   loadCardNode() {
+    tempVar = {};
+    cardVar = this.cardVar;
+    cardVar.timesLoaded += 1;
     if (cardVar.timesLoaded === 1) {
       for (let i in this.initJS) this.initJS[i].parseContents();
     }
