@@ -14,7 +14,7 @@ rawScript += `
 
   [tab]One of the biggest hurdles in STEM is the lack of effective documentation.  Software teams can integrate Edge Case in their existing workflows by putting a folder in their private repositories.  Since everything is text based, it's easy to revise and easy to track changes using Git.
 
-  [div id:'sampleWithIntro'][tab]Here is an example of an entire working script, from start to finish, in just 8 lines of code:
+  [tab]Here is an example of an entire working script, from start to finish, in just 8 lines of code:
 
   [div id:'sample'][bq][eccode]
   rawScript += \`[*]~[card:'main']
