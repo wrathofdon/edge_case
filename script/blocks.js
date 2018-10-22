@@ -58,9 +58,9 @@ rawScript = rawScript + `
   [div class:'grayback']The quick
   red fox
   jumped over
-  the lazy dogs[/bq]
-  [bq]Script:
-  [eccode]The quick [br]red fox [br]jumped over [br]the lazy dogs[/eccode]
+  the lazy dogs[/div][br][br]
+  Script:
+  [eccode]The quick ~[br]red fox ~[br]jumped over ~[br]the lazy dogs[/eccode]
   Output:[br]
   [div class:'grayback']The quick [br]red fox [br]jumped over [br]the lazy dogs[/div][/bq]
   [/toggle][/button]
