@@ -311,7 +311,7 @@ rawScript = rawScript + `
     [/div]
     [/bq]
 
-    Depending on the current day of the month, only one of those blocks will appear.  The other block will show up as blank.  If you can again tomorrow, then you should see the opposite result.
+    Depending on the current day of the month, only one of those blocks will appear.  The other block will show up as blank.  If you come back and look at this tomorrow, then you should see the opposite result.
   [/toggle]
   [/button]
 
@@ -341,52 +341,57 @@ rawScript = rawScript + `
 
   If you're familiar with JavaScript, then you can unlock a lot more functionality.
 
-  Edge Case has three types of JavaScript blocks:  [b]~[js]~[/js][/b], [b]~[jsreturn]~[/jsreturn][/b], and [b]~[jseval][/b].  Each of these blocks perform different purposes.
+  Edge Case has three types of JavaScript blocks:  [span class:'eccodetag']~[js] insert code[/js][/span], [span class:'eccodetag']~[jsreturn] insert code[/jsreturn][/span], and [span class:'eccodetag']~[[span class:'eccodeproperty']jseval:'insertcode'[/span]][/span].  Each of these blocks perform different purposes.
 
   [button]
-  [label]The ~[js]~[/js] tag is for running code in the background[/label]
-  [toggle]
-  This is for when you have JavaScript code that performs behavior, but does not display any text.  This is usually for the sake of manipulating variables in the background.
+    [label]The ~[js]~[/js] tag is for running code in the background[/label]
+    [toggle]
+      This is for when you have JavaScript code that performs behavior, but does not display any text.  This is usually for the sake of manipulating variables in the background.
 
-  By default, this block will activate as the text is being generated, but before anything is presented to the user.  For instance, you wouldn't be able to use this tag to write JavaScript that manipulates HTML elements directly, because those elements wouldn't have shown up yet.
+      By default, this block will activate as the text is being generated, but before anything is presented to the user.  For instance, you wouldn't be able to use this tag to write JavaScript that manipulates HTML elements directly, because those elements wouldn't have shown up yet.
 
-  However, you can manually set a custom trigger point by adding a "trigger" property.
+      However, you can manually set a custom trigger point by adding a "trigger" property.  For instance:
 
-  [ul]
-  [*] [b]~[js trigger:'start'][/b] code [b]~[/js]:[/b] Activates every time the card is loaded, before the contents are retrieved.[br][br]
-  [*] [b]~[js trigger:'initial'][/b] code [b]~[/js]:[/b] Activates the first time the card is loaded, before the contents are retrieved.  Does not activate when the card is loaded afterwards.[br][br]
-  [*] [b]~[js trigger:'end'][/b] code [b]~[/js]:[/b] Activates every time the card is loaded, after the contents have been retrieved and are already on the screen.[br][br]
-  [*] [b]~[js trigger:'exit'][/b] code [b]~[/js]:[/b] Activates when you exit the card to load a different one.[br][br]
-  [/ul]
-  [/toggle]
+      [bq][eccode]~[js trigger:'start'] insert code[/js][/eccode][/bq]
+
+      [ul]
+        [*][span class:'eccodeproperty']js trigger:'start'[/span]:  Activates every time the card is loaded, before the contents are retrieved.[br][br]
+        [*][span class:'eccodeproperty']js trigger:'init'[/span]: Activates the first time the card is loaded, before the contents are retrieved.  Does not activate when the card is loaded afterwards.[br][br]
+        [*][span class:'eccodeproperty']js trigger:'end'[/span]: Activates every time the card is loaded, after the contents have been retrieved and are already on the screen.[br][br]
+        [*][span class:'eccodeproperty']js trigger:'exit'[/span]: Activates when you exit the card to load a different one.
+      [/ul]
+    [/toggle]
   [/button]
 
   [button]
   [label]The ~[jseval] tag evaluates and displays JavaScript code[/label]
   [toggle]
-  [b]~[jseval][/b] is a self-closing tag, where the name of the tag is also the name of the property.  The value of the property is the JavaScript code you would like to run.
+  [span class:'eccodetag']~[[span class:'eccodeproperty']jseval[/span]][/span] is a self-closing tag, where the name of the tag is also the name of the property.  The value of the property is a string containing the JavaScript code you would like to run.
 
   [bq]
-  Script:[br]
-  [b]~[jseval:'2+2;'][/b]
+    Script:[br]
+    [eccode]~[jseval:'2+2;'][/eccode]
 
-  Output:[br]
-  [jseval:'2+2;']
+    Output:[br]
+    [div class:'grayback'][jseval:'2+2;'][/div]
 
-  Script:[br]
-  [b]~[js][/b]tempVar.x = 3;[b]~[/js][/b][br]
-  [b]~[jseval:'tempVar.x + 100;'][/b]
+    Script:
+    [eccode]
+      ~[js]tempVar.x = 3;~[/js][br]
+      ~[jseval:'tempVar.x + 100;']
+    [/eccode]
 
-  Output:[br]
-  [js]tempVar.x = 3;[/js]
-  [jseval:'tempVar.x + 100;']
+    Output:[br]
+    [div class:'grayback']
+      [js]tempVar.x = 3;[/js]
+      [jseval:'tempVar.x + 100;']
+    [/div]
 
-  Script:[br]
-  [b]~[jseval:'"You roll a D12 and get a " + Math.floor((Math.random() * 12) + 1);'][/b]
+    Script:
+    [eccode]~[jseval:'"You roll a D12 and get a " + Math.floor((Math.random() * 12) + 1);'][/eccode]
 
-  Output:[br]
-  [js]tempVar.x = 3;[/js]
-  [jseval:'"You roll a D12 and get a " + Math.floor((Math.random() * 12) + 1);']
+    Output:[br]
+    [div class:'grayback'][jseval:'"You roll a D12 and get a " + Math.floor((Math.random() * 12) + 1);'][/div]
   [/bq]
 
   This is useful for quick code snippets.
@@ -394,25 +399,36 @@ rawScript = rawScript + `
   [/button]
 
   [button]
-  [label]The ~[jsreturn] tag treats the contents as an anonymous function and displays the return[/label]
-  [toggle]
-  [b]~[jsreturn][/b] is similar to jseval, but it's for situations where you don't want to put all your code in a single line, and/or where you might have more than one possible return.  For instance, if you're dealing with an if/else condition, then this tag would probably work better.
+    [label]The ~[jsreturn] tag treats the contents as an anonymous function and displays the return[/label]
+    [toggle]
+      This tag is similar to jseval, but it's for situations where you don't want to put all your code in a single line, and/or where you might have more than one possible return.  For instance, if you're dealing with an if/else condition.
 
-  [bq]
-  Script:[br]
-  You rolled a [b]~[jsreturn][/b]var dice = Math.floor((Math.random() * 12) + 1);[br]
-  if (dice < 4) return dice + ", which is really low.";[br]
-  else if (dice > 9) return dice + ", which is really high.";[br]
-  else  return dice + ", which is really fairly average.";[br]
-  [b]~[/jsreturn][/b]
+      [bq]
+        Script:
+        [eccode]
+          You rolled a ~[jsreturn]
+            [*]let dice = Math.floor((Math.random() * 12) + 1);[br]
+            let message = ', which is ';[br]
+            if (dice < 4) message += 'really low';[br]
+            else if (dice > 9) message += 'really high';[br]
+            else message += 'fairly average';[br]
+            return dice + message[/*]
+          ~[/jsreturn].  Would you like to try again?
+        [/eccode]
 
-  Output:[br]
-  You rolled a [jsreturn]var dice = Math.floor((Math.random() * 12) + 1);
-  if (dice < 4) return dice + ", which is really low.";
-  else if (dice > 9) return dice + ", which is really high.";
-  else  return dice + ", which is really fairly average.";
-  [/jsreturn]
-  [/toggle]
+        Output:[br]
+        [div class:'grayback']
+          You rolled a [jsreturn]
+            let dice = Math.floor((Math.random() * 12) + 1);
+            let message = ', which is ';
+            if (dice < 4) message += 'really low';
+            else if (dice > 9) message += 'really high';
+            else message += 'fairly average';
+            return dice + message
+          [/jsreturn].  Would you like to try again?
+        [/div]
+      [bq]
+    [/toggle]
   [/button]
 
 [/card]
