@@ -31,22 +31,7 @@ rawScript += `
     ~[card:'door2']You open door #2 and win nothing.~[/card]\`;[/*]
   [/eccode][/bq][/div]
 
-  [button cardlink:'Demo-main']
-  [label]Click here to see this sample project in action[/label]
-  [togglelabel]To return to any previous card, simply hit the "Go Back" button at the bottom[/togglelabel]
-  [js]hideLocalElement('RestOfPage');[/js]
-  [reveal]
-    Below is a live demonstration of the code you're seeing above.  Note how the text of the cards being loaded below corresponds with the text in the script.
-
-    To return to a previous card, simply click the "Go Back" button at the bottom of the page.
-  [/reveal]
-  [/button][/div]
-
-  [div id:'RestOfPage']
-    [tab]Once you understand the basics, you can customize the content however you'd like.  But there's also a lot of room to grow if you'd like to add more advanced functionality.
-
-    To get started, there are two guides available.  The first is for people who can already follow along and/or who have previous programming experience.  The other guide is for beginners who would like a more detailed explanation.
-  [/div]
+  [tab]Once you understand the basics, you can customize the content however you'd like.  But there's also a lot of room to grow if you'd like to add more advanced functionality.
 
   [button cardlink:'Demo-Sample']
     [label]Getting Started with Edge Case: Sample Project[/label]
