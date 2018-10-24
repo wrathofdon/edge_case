@@ -29,9 +29,14 @@ class Button {
       this.displayLabel = innerBlocks[0];
       return;
     }
+    this.displayLabel = new Block('2label', null, '', bbCodeProcessCard, true, this.card);
+    this.displayLabel.innerBlocks = [];
     for (let i in innerBlocks) {
       let block = innerBlocks[i];
-      if (typeof(block) === 'string') continue;
+      if (typeof(block) === 'string') {
+        if (block.trim()) this.displayLabel.innerBlocks.push(block);
+        continue;
+      }
       block.properties.source = this.block.htmlId;
       switch(block.tag) {
         case '2js': this.actionBlock = block; break;
@@ -39,7 +44,7 @@ class Button {
         case '2toggle': this.toggleBlock = block; break;
         case '2togglelabel': this.toggleDisplayBlock = block; break;
         case '2reveal': this.toggleBlock = block; this.hideOnToggle = true; break;
-        default: break;
+        default: this.displayLabel.innerBlocks.push(block); break;
       }
       if (block.tag === '2toggle' || block.tag === '2reveal') {
         block.addClassProperty('toggleOff');
@@ -74,6 +79,7 @@ class Button {
     this.toggleButton();
     this.card.updateBlocks();
     if (this.cardlink) {
+      if (this.cardlink === cardHistoryStack[-1]) removeLastCardAttachment(true);
       let cardlink = globalCardDict[this.cardlink];
       while (cardHistoryStack.length > projectState.currentButtonCardNum + 1) {
         removeLastCardAttachment();

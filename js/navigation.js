@@ -11,21 +11,30 @@ function gotoPreviousCard() {
   if (cardHistoryStack.length === 1) {
     return;
   }
+  // console.log(cardHistoryStack);
   removeLastCardAttachment();
+  // console.log(cardHistoryStack);
+  // console.log(globalCardDict[cardHistoryStack[-1]]);
+  projectState.backwardsNavigation = true;
   globalCardDict[cardHistoryStack[-1]].loadCard();
+  // console.log(globalCardDict[cardHistoryStack[-1]])
+  projectState.backwardsNavigation = false;
 }
 
-function removeLastCardAttachment() {
+function removeLastCardAttachment(instant = false) {
   if (cardHistoryStack.length < 2) return;
   let lastTitle = cardHistoryStack.pop();
   let lastCard = globalCardDict[lastTitle];
   let lastNode = document.getElementById(lastCard.getDivTitle(0, cardHistoryStack.length));
 
-  $(`#${lastCard.getDivTitle()}`).slideUp(500)
-  setTimeout(function(){
-    if (lastNode && lastNode.parentNode) lastNode.parentNode.removeChild(lastNode);
-  }, 500)
-  return;
+  if (instant) {
+    lastNode.parentNode.removeChild(lastNode);
+  } else {
+    $(`#${lastCard.getDivTitle()}`).slideUp(500)
+    setTimeout(function(){
+      if (lastNode && lastNode.parentNode) lastNode.parentNode.removeChild(lastNode);
+    }, 500);
+  }
 }
 
 function convertHtmlIdToInt(id) {
@@ -83,4 +92,8 @@ function hideLocalElement(element, time=500) {
 
 function showLocalElement(element, time=500) {
   $(`#${getCardHistoryPrefix()}-${element}`).slideDown(time);
+}
+
+function getTimesLoaded(title) {
+  return globalCardDict[title].cardVar.timesLoaded;
 }

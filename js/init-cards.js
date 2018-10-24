@@ -132,8 +132,10 @@ function parseECCode(text, openSym, closeSym, replaceSym, assignSym) {
       let colon = array[i].substring(0, closeBracket).indexOf(assignSym);
       let space = array[i].substring(0, closeBracket).indexOf(' ');
       if (colon === -1) tag = array[i].substring(0, closeBracket);
-      else if (space < 0 || colon < space) properties = array[i].substring(0, closeBracket);
-      else {
+      else if (space < 0 || colon < space) {
+        tag = array[i].substring(0, colon);
+        properties = array[i].substring(colon, closeBracket);
+      } else {
         tag = array[i].substring(0, space + 1);
         properties = array[i].substring(space + 1, closeBracket);
       }

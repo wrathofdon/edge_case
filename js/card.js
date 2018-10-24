@@ -26,6 +26,8 @@ class Card {
       while (cardHistoryStack[-1] !== this.title) {
         removeLastCardAttachment();
       }
+      this.loadCardNode();
+    } else if (projectState.backwardsNavigation && cardHistoryStack[-1] === this.title) {
       projectState.loadingCardNum = cardHistoryStack.length - 1;
       this.loadCardNode();
     } else {
@@ -65,7 +67,7 @@ class Card {
     }
     for (let i in this.startJS) this.startJS[i].parseContents();
     let contents = joinBlockArray(this.innerBlocks);
-    let divTitle = this.getDivTitle(0, cardHistoryStack.indexOf(this.title));
+    let divTitle = this.getDivTitle(0, cardHistoryStack.lastIndexOf(this.title));
     contents = `<a name="${divTitle}"></a>` + contents;
     let cardNode = $(`#${divTitle}`);
     cardNode.html(contents);

@@ -23,7 +23,7 @@ function splitTextIntoBlocks (text, dict, recursive=false, card=null) {
     let tagObj = validateFullBlock(nextOpenTagIndex, originalTag, text, lower);
     if (!tagObj) {
       nextOpenTagObj = findNextOpenTag(tagList, dict, lower, nextOpenTagIndex +
-        originalTag.length)
+        originalTag.length);
       continue;
     }
     // pushes unformatted text appearing between block
@@ -54,7 +54,7 @@ function findNextOpenTag(tagList, dict, lower, start) {
     return {originalTag: tagList[0], index:
       lower.indexOf(`[${tagList[0].substring(1)}`, start)}
   }
-  let trie = getTagTrieFromDict(dict);
+  var trie;
   let limit = lower.length;
   let pointer = start;
   do {
@@ -62,6 +62,7 @@ function findNextOpenTag(tagList, dict, lower, start) {
     start = pointer;
     if (pointer === -1) return {originalTag: null, index: -1};
     pointer += 1;
+    trie = getTagTrieFromDict(dict);
     while (pointer < limit && trie[lower[pointer]]) {
       trie = trie[lower[pointer]];
       pointer += 1;

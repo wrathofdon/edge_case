@@ -8,5 +8,5 @@ var globalSettings = {
   // If loadAttachDefault is set to true, what happens if the same card is
   // loaded more than once?  Set true if you want to rewind to and reload the
   // previous version.  Set false if you want to attach another copy
-  rewindAttachment: true
+  rewindAttachment: false
 }

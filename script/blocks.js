@@ -176,19 +176,30 @@ rawScript = rawScript + `
   [button]
     [label]Div tag and Span tag: ~[div]~[/div] and ~[span]~[/span][/label]
     [toggle]
-      The div and span tags both create containers.  If you're familiar with HTML/CSS, you should already know how they work.  If not, then you probably aren't at the point where you need to learn them.  They don't do much on their own, but they can give you the ability play around with the properties to give you a greater level of control.
+      The div and span tags both create containers.  If you're familiar with HTML/CSS, you should already know how they work.  If not, then you probably aren't at the point where you need to learn them.
 
-      Div and Span attributes that can be customized in HTML can also be set in specified in Edge Case. Use the same property name and values that you would use in regular HTML, but use the JavaScript style formatting.
+      In general, "div" creates a box that takes up the entire width of the screen, whereas "span" can be used to select specific excerpts of text within a paragraph. 
 
-      They're also useful to use as excerpts for copying to other cards.
+      They don't do much on their own, but they can give you the ability play around with the properties to give you a greater level of control.  Div and Span attributes that can be customized in HTML can also be set in specified in Edge Case. Use the same property name and values that you would use in regular HTML, but use the JavaScript style formatting.
 
-      Examples of this will be provided later.
+      [bq]
+        Script:
+        [eccode]~[span style:'color:red', id:'shining']REDRUM~[/span][/eccode]
+        HTML Equivalent:
+        [eccode]~<span style='color:red' id='shining'>REDRUM~</span>[/eccode]
+        Output:
+        [div class:'grayback'][span style:'color:red', id:'shining']REDRUM[/span][/div]
+      [/bq]
+
+      They're also the easiest way to make use of the special properties.
+
+      [bq][button cardlink:'Blocks-SpecialProperties']Learn about the Special Properties.[/button][/bq]
     [/toggle]
   [/button]
 [/card]
 
 [card:'Blocks-CopyTag']
-  [u][b]Re-Using Block Excerpts[/b][/u]
+  [center][u][b]Re-Using Block Excerpts[/b][/u][/center]
 
   Sometimes, you'll want to re-use a block in multiple locations.  In that case, you can use the [b]~[copy][/b] tag in the location where you want the copy to appear.  The copy tag is self-closing.  Blocks can generally be copied if they support the "id" property, such as [span class:'eccodetag']~[div][/span] and [span class:'eccodetag']~[span][/span].
 
@@ -232,9 +243,9 @@ rawScript = rawScript + `
   [/eccode][/bq]
 
   The excerpted text is only included in the first card, but it appears in the final output for both of them.
-
-  [button cardlink:'CopyTagExample1']see card #1[/button]
-  [button cardlink:'CopyTagExample2']see card #2[/button]
+  [button cardlink:'Blocks-SpecialProperties']Learn about the ID property[/button]
+  [button cardlink:'CopyTagExample1']see card "CopyTagExample1"[/button]
+  [button cardlink:'CopyTagExample2']see card "CopyTagExample2"[/button]
 [/card]
 
 
@@ -337,11 +348,11 @@ rawScript = rawScript + `
 [/card]
 
 [card:'Blocks-JavaScript']
-  [u][b]Integrating JavaScript into Blocks[/b][/u]
+  [center][u][b]Integrating JavaScript into Blocks[/b][/u][/center]
 
   If you're familiar with JavaScript, then you can unlock a lot more functionality.
 
-  Edge Case has three types of JavaScript blocks:  [span class:'eccodetag']~[js] insert code[/js][/span], [span class:'eccodetag']~[jsreturn] insert code[/jsreturn][/span], and [span class:'eccodetag']~[[span class:'eccodeproperty']jseval:'insertcode'[/span]][/span].  Each of these blocks perform different purposes.
+  Edge Case has three types of JavaScript blocks, which serve three different purposes.
 
   [button]
     [label]The ~[js]~[/js] tag is for running code in the background[/label]
@@ -352,13 +363,13 @@ rawScript = rawScript + `
 
       However, you can manually set a custom trigger point by adding a "trigger" property.  For instance:
 
-      [bq][eccode]~[js trigger:'start'] insert code[/js][/eccode][/bq]
+      [bq][eccode]~[js trigger:'start'] insert code~[/js][/eccode][/bq]
 
       [ul]
-        [*][span class:'eccodeproperty']js trigger:'start'[/span]:  Activates every time the card is loaded, before the contents are retrieved.[br][br]
-        [*][span class:'eccodeproperty']js trigger:'init'[/span]: Activates the first time the card is loaded, before the contents are retrieved.  Does not activate when the card is loaded afterwards.[br][br]
-        [*][span class:'eccodeproperty']js trigger:'end'[/span]: Activates every time the card is loaded, after the contents have been retrieved and are already on the screen.[br][br]
-        [*][span class:'eccodeproperty']js trigger:'exit'[/span]: Activates when you exit the card to load a different one.
+        [*][span class:'eccodeproperty']trigger:'start'[/span]:  Activates every time the card is loaded, before the contents are retrieved.[br][br]
+        [*][span class:'eccodeproperty']trigger:'init'[/span]: Activates the first time the card is loaded, before the contents are retrieved.  Does not activate when the card is loaded afterwards.[br][br]
+        [*][span class:'eccodeproperty']trigger:'end'[/span]: Activates every time the card is loaded, after the contents have been retrieved and are already on the screen.[br][br]
+        [*][span class:'eccodeproperty']trigger:'exit'[/span]: Activates when you exit the card to load a different one.
       [/ul]
     [/toggle]
   [/button]
@@ -366,7 +377,7 @@ rawScript = rawScript + `
   [button]
   [label]The ~[jseval] tag evaluates and displays JavaScript code[/label]
   [toggle]
-  [span class:'eccodetag']~[[span class:'eccodeproperty']jseval[/span]][/span] is a self-closing tag, where the name of the tag is also the name of the property.  The value of the property is a string containing the JavaScript code you would like to run.
+  [span class:'eccodetag']~[jseval][/span] is a self-closing tag, where the name of the tag is also the name of the property.  The value of the property is a string containing the JavaScript code you would like to run.
 
   [bq]
     Script:[br]
@@ -377,14 +388,12 @@ rawScript = rawScript + `
 
     Script:
     [eccode]
-      ~[js]tempVar.x = 3;~[/js][br]
-      ~[jseval:'tempVar.x + 100;']
+      ~[js]tempVar.x = 3;~[/js] Your total is ~[jseval:'tempVar.x + 100;']
     [/eccode]
 
     Output:[br]
     [div class:'grayback']
-      [js]tempVar.x = 3;[/js]
-      [jseval:'tempVar.x + 100;']
+      [js]tempVar.x = 3;[/js] Your total is [jseval:'tempVar.x + 100;']
     [/div]
 
     Script:
@@ -401,18 +410,16 @@ rawScript = rawScript + `
   [button]
     [label]The ~[jsreturn] tag treats the contents as an anonymous function and displays the return[/label]
     [toggle]
-      This tag is similar to jseval, but it's for situations where you don't want to put all your code in a single line, and/or where you might have more than one possible return.  For instance, if you're dealing with an if/else condition.
+      This [span class:'eccodetag']~[jsreturn][/span] is similar to   [span class:'eccodetag']~[jseval][/span], but it's for situations where you don't want to put all your code in a single line, and/or where you might have more than one possible return.  For instance, if you're dealing with an if/else condition.
 
       [bq]
         Script:
         [eccode]
           You rolled a ~[jsreturn]
             [*]let dice = Math.floor((Math.random() * 12) + 1);[br]
-            let message = ', which is ';[br]
-            if (dice < 4) message += 'really low';[br]
-            else if (dice > 9) message += 'really high';[br]
-            else message += 'fairly average';[br]
-            return dice + message[/*]
+            if (dice < 4) return dice + ', which is really low';[br]
+            else if (dice > 9) return dice + ', which is really high';[br]
+            else return dice + ', which is fairly average';[/*]
           ~[/jsreturn].  Would you like to try again?
         [/eccode]
 
@@ -421,10 +428,9 @@ rawScript = rawScript + `
           You rolled a [jsreturn]
             let dice = Math.floor((Math.random() * 12) + 1);
             let message = ', which is ';
-            if (dice < 4) message += 'really low';
-            else if (dice > 9) message += 'really high';
-            else message += 'fairly average';
-            return dice + message
+            if (dice < 4) return dice + ', which is really low';
+            else if (dice > 9) return dice + ', which is really high';
+            else return dice + ', which is fairly average';
           [/jsreturn].  Would you like to try again?
         [/div]
       [bq]

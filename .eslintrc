@@ -23,6 +23,7 @@
     "globalTagList": true,
     "globalTagTrie": true,
     "globalSettings": true,
+    "globalCustomFunctions": true,
     # permanent dictionaries
     "globalCardDict": true,
     "globalButtons": true,

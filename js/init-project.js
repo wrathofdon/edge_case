@@ -5,6 +5,7 @@
 var rawScript = ''; // the main input string that the program takes in
 var globalCardDict = {}; // maps card titles to card objects
 var globalTagTrie = {}; // maps dictionaries to trie data structures
+var globalCustomFunctions = {}; // maps user defined functions
 var mainHTMLnode = document.getElementById('mainWindow');
 
 var globalVar = {} // shared object for storing variables among all cards
@@ -14,7 +15,8 @@ var tempVar = {}; // object for storing data that will disappear when card is ex
 // presents information if the program is in the process of doing something
 var projectState = {
   loadingCardNum: null,
-  currentButtonCardNum: null
+  currentButtonCardNum: null,
+  backwardsNavigation: false
 }
 
 var currentCard = null; // placeholder for current active card

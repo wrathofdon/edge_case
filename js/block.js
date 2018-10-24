@@ -135,6 +135,7 @@ class Block
   // outputs a string of properties for html
   getPropertiesOutput() {
     let output = [];
+    let ignore = ['jseval'];
     if (this.htmlId) {
       output.push(`id="${this.getHtmlId()}"`);
     }
@@ -142,7 +143,8 @@ class Block
       output.push(`class="${this.classes.join(' ')}"`);
     }
     for (let property in this.properties) {
-      output.push(`${property}="${this.properties[property]}"`);
+      if (!ignore.includes(property))
+        output.push(`${property}="${this.properties[property]}"`);
     }
     return output.join(' ');
   }

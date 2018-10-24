@@ -33,13 +33,10 @@ rawScript += `
 
   [tab]Once you understand the basics, you can customize the content however you'd like.  But there's also a lot of room to grow if you'd like to add more advanced functionality.
 
-  [button cardlink:'Demo-Sample']
-    [label]Getting Started with Edge Case: Sample Project[/label]
-    [js]hideLocalElement('sampleWithIntro');[/js]
-  [/button]
-
-  [button cardlink:'Blocks-Intro']Block Library[/button]
-
+  [button cardlink:'Demo-main']Click here to see the Demo Project in action.[/button]
+  [button cardlink:'Demo-Sample']Learn how the Demo Project works[/button]
+  [button cardlink:'Blocks-Intro']Learn About the Different Types of Blocks[/button]
+  [button cardlink:'Buttons-Intro']Understanding Buttons[/button]
 [/card]
 
 [card:'Demo-Sample']
@@ -54,7 +51,7 @@ rawScript += `
   Now, let's try to explain what this means.
 
   [button persist:true]
-    [label]Introduction to Blocks[/label]
+    Introduction to Blocks
     [toggle][bq]
       Edge Case is an object-oriented markup languages, where the objects are referred to as "blocks," and the blocks are constructed via markup.  It's very similar to HTML, only with square brackets.  Content and functionality is added one block at a time, every block has a tag, and different tags do different things.
 
@@ -62,7 +59,7 @@ rawScript += `
 
       [bq][eccode]~[tagname] content ~[/tagname][/eccode][/bq]
 
-      When reading sample code, the brackets and the tag name will appear as [span class:'eccodetag']red[/span], [i]except[/i] in cases where the tag name is also a property (see next section below).
+      When reading sample code, the brackets and the tag name will appear as [span class:'eccodetag']red[/span].
 
       The tag name is not case sensitive.  They are automatically converted to lowercase when read by the interpreter.
 
@@ -75,22 +72,34 @@ rawScript += `
     [toggle][bq]
       In addition to the internal content between the opening and closing tag, you can also specify additional properties as key-value pairs in the opening tag.  When reading sample code, the properties will be be colored [span class:'eccodeproperty']green[/span].  This is similar to how attributes are used in HTML, though the formatting itself is based on JavaScript.  Property values are assigned with colons, and multiple properties must be separated by colons.
 
-      The [span class:'eccodetag']~[card][/span] block and the [span class:'eccodetag']~[button][/span]  block both make use of properties.  However, it's important to notice some differences.
+      In this example, the [span class:'eccodetag']~[card][/span] block and the [span class:'eccodetag']~[button][/span]  block both make use of properties.
+
+      [bq][eccode][*]~[card:'main']
+          [*]~[button cardlink:'door1'] Pick door #1 ~[/button][/*]
+        ~[/card][/*]
+      [/eccode][/bq]
+
+      However, it's important to notice some differences.
 
       [ul]
-        [*][span class:'eccodeproperty']card[/span] is both the name of a tag, as well as the key to a property.[br][br]
+        [*][span class:'eccodetag']card[/span] is both the name of a tag, as well as the key to a property.  That's why the word [span class:'eccodetag']~card[/span] is in red, but the value [span class:'eccodeproperty']"main"[/span] is in green.[br][br]
         [*][span class:'eccodetag']button[/span] is the name of a tag, but not the name of a property[br][br]
         [*][span class:'eccodeproperty']cardlink[/span] is the name of a property, but not the name of a tag[br][br]
       [/ul]
 
-      In many cases, properties will be strictly optional, and the parser will assume a default value if no value is specified.
+      In many cases, properties will be optional, and the parser will assume a default value if no value is specified.
     [/bq][/toggle]
   [/button]
 
   [button persist:true]
     [label]Creating Cards[/label]
     [toggle][bq]
-      Cards are a special type of block, since they're the main containers for every other type of block.  A card  cannot be nested within any type of block, including another card.  They are equivalent to nodes in a flowchart or a graph, and the user navigates the project by moving from one card  to the next.
+      Cards are a special type of block, since they're the main containers for every other type of block.  A card cannot be nested within any type of block, including another card.  They are equivalent to nodes in a flowchart or a graph, and the user navigates the project by moving from one card  to the next.
+
+      [bq][eccode][*]~[card:'main']
+          [*]~Insert content here[/*]
+        ~[/card][/*]
+      [/eccode][/bq]
 
       The word "card" is both the name of the tag, as well as the name of a block property.  In this case, the block property "card" specifies a title.  Every card must contain a unique title, so that the software can properly navigate to it.  In this case, we have three different cards:
 
@@ -100,7 +109,7 @@ rawScript += `
         [*][span class:'eccodeproperty']'door2'[/span]
       [/ul]
 
-      Cards titles are case sensitive.  Just like in many programming languages, the first card in any project should have the title "main".
+      Cards titles are case sensitive.  Just like in many programming languages, the first card in any project should have the title "main".  When the script is first loaded into memory, the parser will search for the card with that title and load it first.
     [/bq][/toggle]
   [/button]
 
@@ -109,19 +118,15 @@ rawScript += `
     [toggle][bq]
       Additional cards are useless if we have no way to navigate to them.  Buttons are another special type of block, which feature event handlers that activate upon being clicked.
 
-      By default, the contents of the block will serve as the label.  Button blocks accept an optional [span class:'eccodeproperty']cardlink[/span] property, which specifies the title of the card being linked to.
+      [bq][eccode]
+      ~[button cardlink:'door1'] Pick door #1 ~[/button]
 
-      [ul]
-        [*]In the sample project, the card [span class:'eccodeproperty']"main"[/span] includes two button blocks.
-        [*]The first button includes a cardlink, which corresponds to the title [span class:'eccodeproperty']"door1"[/span]
-        [*]The second button includes a cardlink, which corresponds to the title [span class:'eccodeproperty']"door2"[/span]
-      [/ul]
+      ~[button cardlink:'door2'][/b] Pick door #2 ~[/button]
+      [/eccode][/bq]
 
-      Of course, buttons can also be programmed to do a lot more than this.  For instance, on this page, you're already familiar with toggle.  In addition, buttons can be programmed to run JavaScript code upon being clicked.  Below is an example of a button that will show an alert.
+      By default, the contents of the block will serve as the label.  Button blocks accept an optional [span class:'eccodeproperty']cardlink[/span] property, which specifies the title of the card being linked to.  In the sample, it links to [span class:'eccodeproperty']"door1"[/span] and [span class:'eccodeproperty']"door2"[/span].
 
-      [bq][button][label]Click on me to show an alert.[/label][js]alert('You just clicked a button');[/js][/button][/bq]
-
-      We will delve into these more advanced features in a later section.
+      Of course, buttons can also be programmed to do a lot more than thi, and we will delve into these more advanced features in a later section.
     [/bq][/toggle]
   [/button]
 
@@ -159,7 +164,9 @@ rawScript += `
         ~[/card]
       [/eccode]
     [/bq]
-    Which example is correct?  Technically, they both are.  As far as the parser is concerned, both examples are treated as identical.  However, to human eyes, the second example is a lot more readable.  Matching tags are lined up vertically, and the contents are indented, so you can clearly keep track of what goes where.  This is very important collaborative environments where other people will read your code.
+    Which example is correct?
+
+    Technically, they both are.  As far as the parser is concerned, both examples are treated as identical.  However, to human eyes, the second example is a lot more readable.  Matching tags are lined up vertically, and the contents are indented, so you can clearly keep track of what goes where.  This is very important collaborative environments where other people will read your code.
 
     The easiest way to add indentation is to use a text editor specifically designed for writing code.  I personally use Atom.  Go to settings -> editor and check the box for "soft wrap."  To indent text, simply select the excerpt and hit "tab".  To move text back, select it again and hit "shift + tab".
 
@@ -205,7 +212,7 @@ rawScript += `
         [/button][/bq]
       [/toggle]
     [/button]
-    [button][label]Overriding the Parsing to Display Blocks as Text[/label]
+    [button][label]Overriding the Parser[/label]
       [toggle]
         By default, if the parser sees a valid tag name inside of brackets, it will attempt to parse it as a block.  But there's a problem.  Suppose I'm writing documentation of how tags work, and I want to present an example:
 
