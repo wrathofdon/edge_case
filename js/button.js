@@ -4,12 +4,13 @@ class Button {
     this.block = block;
     this.style = 'buttonDefaultStyle';
     this.inactiveStyle = 'buttonGrayedOut';
-    this.displayLabel = null;
+    this.displayBlock = null;
     this.toggleDisplayBlock = null;
     this.actionBlock = null;
     this.toggleBlock = null;
     this.toggleOn = false;
     this.cardlink = null;
+    this.cardlinkeval = null;
     this.cardattach = null;
     this.enabled = true;
     this.persist = false;
@@ -25,26 +26,34 @@ class Button {
       delete this.block.properties['cardlink'];
       this.block.removeClassProperty('cardlink');
     }
+    if (this.block.properties.cardlinkeval) {
+      this.cardlinkeval = this.block.properties.cardlinkeval;
+      delete this.block.properties['cardlinkeval'];
+    }
     if (innerBlocks.length === 1 && typeof(innerBlocks[0]) === 'string') {
-      this.displayLabel = innerBlocks[0];
+      if (this.block.properties.buttonstyle) {
+        this.style = this.block.properties.buttonstyle;
+        delete this.block.properties.buttonstyle;
+      }
+      this.displayBlock = innerBlocks[0];
       return;
     }
-    this.displayLabel = new Block('2label', null, '', bbCodeProcessCard, true, this.card);
-    this.displayLabel.innerBlocks = [];
+    this.displayBlock = new Block('2label', null, '', bbCodeProcessCard, true, this.card);
+    this.displayBlock.innerBlocks = [];
     for (let i in innerBlocks) {
       let block = innerBlocks[i];
       if (typeof(block) === 'string') {
-        if (block.trim()) this.displayLabel.innerBlocks.push(block);
+        if (block.trim()) this.displayBlock.innerBlocks.push(block);
         continue;
       }
       block.properties.source = this.block.htmlId;
       switch(block.tag) {
         case '2js': this.actionBlock = block; break;
-        case '2label': this.displayLabel = block; break;
+        case '2label': this.displayBlock = block; break;
         case '2toggle': this.toggleBlock = block; break;
         case '2togglelabel': this.toggleDisplayBlock = block; break;
         case '2reveal': this.toggleBlock = block; this.hideOnToggle = true; break;
-        default: this.displayLabel.innerBlocks.push(block); break;
+        default: this.displayBlock.innerBlocks.push(block); break;
       }
       if (block.tag === '2toggle' || block.tag === '2reveal') {
         block.addClassProperty('toggleOff');
@@ -59,8 +68,8 @@ class Button {
     }
     this.block.classes.push(this.style);
     delete this.block.properties.buttonstyle;
-    if (!this.displayLabel) {
-      this.displayLabel = new Block('2label', null, this.block.content, this.block.dict, true, this.card)
+    if (!this.displayBlock) {
+      this.displayBlock = new Block('2label', null, this.block.content, this.block.dict, true, this.card)
     }
   }
 
@@ -73,21 +82,21 @@ class Button {
     projectState.currentButtonCardNum = cardNo;
     currentButton = this;
     if (this.actionBlock) {
-      // console.log(this.actionBlock.getContents());
       eval(this.actionBlock.getContents())
     }
     this.toggleButton();
     this.card.updateBlocks();
-    if (this.cardlink) {
-      if (this.cardlink === cardHistoryStack[-1]) removeLastCardAttachment(true);
-      let cardlink = globalCardDict[this.cardlink];
+    if (this.cardlink || this.cardlinkeval) {
+      let title = (this.cardlink) ? this.cardlink : eval(this.cardlinkeval);
+      if (title === cardHistoryStack[-1]) removeLastCardAttachment(true);
+      let cardlink = globalCardDict[title];
       while (cardHistoryStack.length > projectState.currentButtonCardNum + 1) {
         removeLastCardAttachment();
       }
       if (cardlink) {
         cardlink.loadCard();
       } else {
-        console.log(`error finding card: ${this.cardlink}`);
+        console.log(`error finding card: ${title}`);
       }
     }
     currentButton = null;
@@ -156,17 +165,17 @@ class Button {
     toggleNode.slideDown('fast');
   }
 
-  getDisplayContent() {
-    if (typeof(this.displayLabel) === 'string') return this.displayLabel;
+  getDisplayContent(update=false) {
+    if (typeof(this.displayBlock) === 'string') return this.displayBlock;
     if (this.toggleOn && this.toggleDisplayBlock) {
-      return this.toggleDisplayBlock.getContents();
+      return this.toggleDisplayBlock.getContents(update);
     }
-    return this.displayLabel.getContents();
+    return this.displayBlock.getContents(update);
   }
 
-  getToggleContent() {
+  getToggleContent(update=false) {
     if (this.toggleOn && this.toggleBlock)
-      return this.toggleBlock.getContents();
+      return this.toggleBlock.getContents(update);
     return '';
   }
 }

@@ -26,7 +26,7 @@ class Block
       this.condition = this.properties.condition;
     if (this.properties.id)
       this.htmlId = this.properties.id;
-    else if (this.properties.update === 'always' || (['2button', '2toggle', '2reveal'].includes(this.tag))) {
+    else if (this.condition || this.properties.update === 'always' || (['2button', '2toggle', '2reveal'].includes(this.tag))) {
       this.htmlId = `uid${getUniqueId()}`;
     }
     if (this.properties.class)
@@ -74,9 +74,9 @@ class Block
   }
 
   // parses the internal contents of the block prior to being processed by tag
-  getContents() {
+  getContents(updateCondition = true) {
     if (this.tag === null || this.innerBlocks === null) return this.rawText;
-    this.checkCondition();
+    if (this.htmlId && updateCondition) this.checkCondition();
     if (!this.enabled) {
       return '';
     }
@@ -103,7 +103,13 @@ class Block
     this.checkCondition();
     if (this.enabled) {
       if (node) {
-        node.innerHTML = this.getContents();
+        if (this.tag === '2jsreturn' || this.tag === '1jseval') {
+          node.innerHTML = this.dict[this.tag](this, true);
+        } else if (this.tag === '2button') {
+          node.innerHTML = this.button.getDisplayContent(false);
+        } else {
+          node.innerHTML = this.getContents(false);
+        }
       }
     }
   }
@@ -116,8 +122,11 @@ class Block
         return;
       }
     }
+    // console.log(update)
     if (!this.condition || !this.card) return;
     if (typeof(this.lockedContent) === 'string') return;
+    if (currentButton) {
+    }
     this.enabled = eval(this.condition);
     if (this.enabled) {
       this.removeClassProperty('hidden');

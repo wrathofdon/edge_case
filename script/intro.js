@@ -36,7 +36,7 @@ rawScript += `
   [button cardlink:'Demo-main']Click here to see the Demo Project in action.[/button]
   [button cardlink:'Demo-Sample']Learn how the Demo Project works[/button]
   [button cardlink:'Blocks-Intro']Learn About the Different Types of Blocks[/button]
-  [button cardlink:'Buttons-Intro']Understanding Buttons[/button]
+  [button cardlink:'placeholder']Understanding Buttons[/button]
 [/card]
 
 [card:'Demo-Sample']
